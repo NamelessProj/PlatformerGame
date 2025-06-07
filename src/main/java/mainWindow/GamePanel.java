@@ -1,6 +1,5 @@
 package mainWindow;
 
-import static utils.Constants.GameConstants.*;
 import static utils.Constants.*;
 
 import inputs.KeyboardInputs;
@@ -57,7 +56,7 @@ public class GamePanel extends JPanel {
     }
 
     private void setPanelSize() {
-        Dimension size = new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT);
+        Dimension size = new Dimension(GameConstants.WINDOW_WIDTH, GameConstants.WINDOW_HEIGHT);
         this.setMinimumSize(size);
         this.setPreferredSize(size);
         this.setMaximumSize(size);
@@ -81,7 +80,7 @@ public class GamePanel extends JPanel {
         if (animationTick >= animationSpeed) {
             animationTick = 0;
             animationIndex++;
-            if (animationIndex >= PlayerConstants.MAX_NUM_SPRITES)
+            if (animationIndex >= PlayerConstants.GetSpriteAmount(playerAction))
                 animationIndex = 0;
         }
     }
@@ -91,6 +90,6 @@ public class GamePanel extends JPanel {
 
         updateAnimationTick();
 
-        g.drawImage(animations[1][animationIndex], (int) xDelta, (int) yDelta, IMAGE_WIDTH, IMAGE_HEIGHT, null);
+        g.drawImage(animations[playerAction][animationIndex], (int) xDelta, (int) yDelta, GameConstants.IMAGE_WIDTH, GameConstants.IMAGE_HEIGHT, null);
     }
 }
