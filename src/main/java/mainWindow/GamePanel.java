@@ -57,7 +57,7 @@ public class GamePanel extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        subImg = img.getSubimage(1 * GameConstants.PLAYER_IMAGE_WIDTH, 8 * GameConstants.PLAYER_IMAGE_HEIGHT, GameConstants.PLAYER_IMAGE_WIDTH, GameConstants.PLAYER_IMAGE_HEIGHT);
+        subImg = img.getSubimage(GameConstants.PLAYER_IMAGE_WIDTH, 8 * GameConstants.PLAYER_IMAGE_HEIGHT, GameConstants.PLAYER_IMAGE_WIDTH, GameConstants.PLAYER_IMAGE_HEIGHT);
         g.drawImage(subImg, (int) xDelta, (int) yDelta, GameConstants.IMAGE_WIDTH, GameConstants.IMAGE_HEIGHT, null);
     }
 }
