@@ -2,8 +2,8 @@ package utils;
 
 public class Constants {
     public static class PlayerConstants {
-        public static final int RUNNING = 0;
-        public static final int IDLE = 1;
+        public static final int IDLE = 0;
+        public static final int RUNNING = 1;
         public static final int JUMP = 2;
         public static final int FALLING = 3;
         public static final int GROUND = 4;
@@ -35,7 +35,7 @@ public class Constants {
         public static final int FPS_SET = 120;
         public static final int WINDOW_WIDTH = 1280;
         public static final int WINDOW_HEIGHT = 800;
-        public static final int IMAGE_WIDTH = 128;
-        public static final int IMAGE_HEIGHT = 80;
+        public static final int IMAGE_WIDTH = 256;
+        public static final int IMAGE_HEIGHT = 160;
     }
 }
