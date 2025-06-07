@@ -31,6 +31,12 @@ public class GamePanel extends JPanel {
             img = ImageIO.read(is);
         } catch (IOException e) {
             throw new RuntimeException(e);
+        } finally {
+            try {
+                is.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
