@@ -1,27 +1,44 @@
 package mainWindow;
 
+import constants.GameConstants;
 import inputs.KeyboardInputs;
 import inputs.MouseInputs;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import java.awt.*;
-import java.util.Random;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class GamePanel extends JPanel {
     private MouseInputs mouseInputs;
     private float xDelta = 100, yDelta = 100;
-    private float xDir = 1f, yDir = 1f;
-    private int frames = 0;
-    private long lastCheck = 0;
-    private Color color = new Color(190, 20, 50);
-    private Random random;
+    private BufferedImage img, subImg;
 
     public GamePanel() {
         mouseInputs = new MouseInputs(this);
+        importImages();
+        setPanelSize();
         this.addKeyListener(new KeyboardInputs(this));
         this.addMouseListener(mouseInputs);
         this.addMouseMotionListener(mouseInputs);
-        this.random = new Random();
+    }
+
+    private void importImages() {
+        InputStream is = getClass().getResourceAsStream("/images/player_sprites.png");
+        try {
+            img = ImageIO.read(is);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void setPanelSize() {
+        Dimension size = new Dimension(GameConstants.WINDOW_WIDTH, GameConstants.WINDOW_HEIGHT);
+        this.setMinimumSize(size);
+        this.setPreferredSize(size);
+        this.setMaximumSize(size);
     }
 
     public void changeXDelta(int val) {
@@ -37,33 +54,10 @@ public class GamePanel extends JPanel {
         this.yDelta = y;
     }
 
-    private void getRandomColor() {
-        int r = random.nextInt(256);
-        int g = random.nextInt(256);
-        int b = random.nextInt(256);
-        color = new Color(r, g, b);
-    }
-
-    private void updateRect() {
-        xDelta += xDir;
-        if (xDelta > 400 || xDelta < 0) {
-            xDir *= -1;
-            getRandomColor(); // Change color when bouncing off the edges
-        }
-
-        yDelta += yDir;
-        if (yDelta > 400 || yDelta < 0) {
-            yDir *= -1;
-            getRandomColor(); // Change color when bouncing off the edges
-        }
-    }
-
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        updateRect();
-
-        g.setColor(color);
-        g.fillRect((int) xDelta, (int) yDelta, 200, 50); // Example drawing a rectangle
+        subImg = img.getSubimage(1 * GameConstants.PLAYER_IMAGE_WIDTH, 8 * GameConstants.PLAYER_IMAGE_HEIGHT, GameConstants.PLAYER_IMAGE_WIDTH, GameConstants.PLAYER_IMAGE_HEIGHT);
+        g.drawImage(subImg, (int) xDelta, (int) yDelta, GameConstants.IMAGE_WIDTH, GameConstants.IMAGE_HEIGHT, null);
     }
 }
