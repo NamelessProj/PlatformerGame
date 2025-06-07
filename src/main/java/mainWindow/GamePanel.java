@@ -1,6 +1,8 @@
 package mainWindow;
 
-import constants.GameConstants;
+import static utils.Constants.GameConstants.*;
+import static utils.Constants.*;
+
 import inputs.KeyboardInputs;
 import inputs.MouseInputs;
 
@@ -14,12 +16,18 @@ import java.io.InputStream;
 public class GamePanel extends JPanel {
     private MouseInputs mouseInputs;
     private float xDelta = 100, yDelta = 100;
-    private BufferedImage img, subImg;
+    private BufferedImage playerSprites;
+    private BufferedImage[][] animations;
+    private int animationTick, animationIndex, animationSpeed = 15;
+    private int playerAction = PlayerConstants.IDLE;
 
     public GamePanel() {
         mouseInputs = new MouseInputs(this);
+
         importImages();
+        loadAnimations();
         setPanelSize();
+
         this.addKeyListener(new KeyboardInputs(this));
         this.addMouseListener(mouseInputs);
         this.addMouseMotionListener(mouseInputs);
@@ -28,7 +36,7 @@ public class GamePanel extends JPanel {
     private void importImages() {
         InputStream is = getClass().getResourceAsStream("/images/player_sprites.png");
         try {
-            img = ImageIO.read(is);
+            playerSprites = ImageIO.read(is);
         } catch (IOException e) {
             throw new RuntimeException(e);
         } finally {
@@ -40,8 +48,16 @@ public class GamePanel extends JPanel {
         }
     }
 
+    private void loadAnimations() {
+        animations = new BufferedImage[PlayerConstants.NUM_ANIMATIONS][PlayerConstants.MAX_NUM_SPRITES];
+
+        for (int j = 0; j < PlayerConstants.NUM_ANIMATIONS; j++)
+            for (int i = 0; i < PlayerConstants.MAX_NUM_SPRITES; i++)
+                animations[j][i] = playerSprites.getSubimage(i * PlayerConstants.IMAGE_WIDTH, j * PlayerConstants.IMAGE_HEIGHT, PlayerConstants.IMAGE_WIDTH, PlayerConstants.IMAGE_HEIGHT);
+    }
+
     private void setPanelSize() {
-        Dimension size = new Dimension(GameConstants.WINDOW_WIDTH, GameConstants.WINDOW_HEIGHT);
+        Dimension size = new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT);
         this.setMinimumSize(size);
         this.setPreferredSize(size);
         this.setMaximumSize(size);
@@ -60,10 +76,21 @@ public class GamePanel extends JPanel {
         this.yDelta = y;
     }
 
+    private void updateAnimationTick() {
+        animationTick++;
+        if (animationTick >= animationSpeed) {
+            animationTick = 0;
+            animationIndex++;
+            if (animationIndex >= PlayerConstants.MAX_NUM_SPRITES)
+                animationIndex = 0;
+        }
+    }
+
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        subImg = img.getSubimage(GameConstants.PLAYER_IMAGE_WIDTH, 8 * GameConstants.PLAYER_IMAGE_HEIGHT, GameConstants.PLAYER_IMAGE_WIDTH, GameConstants.PLAYER_IMAGE_HEIGHT);
-        g.drawImage(subImg, (int) xDelta, (int) yDelta, GameConstants.IMAGE_WIDTH, GameConstants.IMAGE_HEIGHT, null);
+        updateAnimationTick();
+
+        g.drawImage(animations[1][animationIndex], (int) xDelta, (int) yDelta, IMAGE_WIDTH, IMAGE_HEIGHT, null);
     }
 }
