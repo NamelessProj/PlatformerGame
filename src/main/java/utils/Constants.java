@@ -31,6 +31,13 @@ public class Constants {
         public static final int MAX_NUM_SPRITES = 6;
     }
 
+    public static class Directions {
+        public static final int LEFT = 0;
+        public static final int UP = 1;
+        public static final int RIGHT = 2;
+        public static final int DOWN = 3;
+    }
+
     public static class GameConstants {
         public static final int FPS_SET = 120;
         public static final int WINDOW_WIDTH = 1280;
