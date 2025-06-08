@@ -13,9 +13,9 @@ import java.io.InputStream;
 
 public class Player extends Entity {
     private BufferedImage[][] animations;
-    private int animationTick, animationIndex, animationSpeed = 15;
+    private int animationTick, animationIndex, animationSpeed = 25;
     private int playerAction = IDLE;
-    private boolean moving = false;
+    private boolean moving = false, attacking = false;
     private boolean left, up, right, down;
     private float playerSpeed = 2.0f;
 
@@ -39,16 +39,31 @@ public class Player extends Entity {
         if (animationTick >= animationSpeed) {
             animationTick = 0;
             animationIndex++;
-            if (animationIndex >= GetSpriteAmount(playerAction))
+            if (animationIndex >= GetSpriteAmount(playerAction)) {
                 animationIndex = 0;
+                attacking = false;
+            }
         }
     }
 
     private void setAnimation() {
+        int startAnimation = playerAction;
+
         if (moving)
             playerAction = RUNNING;
         else
             playerAction = IDLE;
+
+        if (attacking)
+            playerAction = ATTACK_1;
+
+        if (startAnimation != playerAction)
+            resetAnimationTick();
+    }
+
+    private void resetAnimationTick() {
+        animationTick = 0;
+        animationIndex = 0;
     }
 
     private void updatePosition() {
@@ -96,6 +111,14 @@ public class Player extends Entity {
         up = false;
         right = false;
         down = false;
+    }
+
+    public boolean isAttacking() {
+        return attacking;
+    }
+
+    public void setAttacking(boolean attacking) {
+        this.attacking = attacking;
     }
 
     public boolean isDown() {
