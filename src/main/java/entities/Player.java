@@ -91,6 +91,13 @@ public class Player extends Entity {
         }
     }
 
+    public void resetDirBooleans() {
+        left = false;
+        up = false;
+        right = false;
+        down = false;
+    }
+
     public boolean isDown() {
         return down;
     }
