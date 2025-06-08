@@ -40,6 +40,7 @@ public class Constants {
 
     public static class GameConstants {
         public static final int FPS_SET = 120;
+        public static final int UPS_SET = 200;
         public static final int WINDOW_WIDTH = 1280;
         public static final int WINDOW_HEIGHT = 800;
         public static final int IMAGE_WIDTH = 256;
