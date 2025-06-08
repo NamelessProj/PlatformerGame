@@ -16,18 +16,10 @@ public class KeyboardInputs implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()) {
-            case KeyEvent.VK_W -> {
-                gamePanel.setDirection(UP);
-            }
-            case KeyEvent.VK_A -> {
-                gamePanel.setDirection(LEFT);
-            }
-            case KeyEvent.VK_S -> {
-                gamePanel.setDirection(DOWN);
-            }
-            case KeyEvent.VK_D -> {
-                gamePanel.setDirection(RIGHT);
-            }
+            case KeyEvent.VK_W -> gamePanel.setDirection(UP);
+            case KeyEvent.VK_A -> gamePanel.setDirection(LEFT);
+            case KeyEvent.VK_S -> gamePanel.setDirection(DOWN);
+            case KeyEvent.VK_D -> gamePanel.setDirection(RIGHT);
         }
     }
 
