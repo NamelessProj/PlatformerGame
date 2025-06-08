@@ -24,8 +24,6 @@ public class Constants {
             };
         }
 
-        public static final int SPEED = 1;
-
         public static final int IMAGE_WIDTH = 64;
         public static final int IMAGE_HEIGHT = 40;
 
