@@ -1,6 +1,7 @@
 package mainWindow;
 
 import static utils.Constants.GameConstants.FPS_SET;
+import static utils.Constants.GameConstants.UPS_SET;
 
 public class Game implements Runnable {
     private GameWindow gameWindow;
@@ -19,25 +20,48 @@ public class Game implements Runnable {
         gameThread.start();
     }
 
+    public void update() {
+        gamePanel.updateGame();
+    }
+
     @Override
     public void run() {
-        double timePerFrame = 1_000_000_000.0 / FPS_SET;
-        long lastFrame = System.nanoTime();
-        long now;
+        final double nanoSeconds = 1_000_000_000.0;
+        double timePerFrame = nanoSeconds / FPS_SET;
+        double timePerUpdate = nanoSeconds / UPS_SET;
+
+        long previousTime = System.nanoTime();
+
         int frames = 0;
+        int updates = 0;
         long lastCheck = System.currentTimeMillis();
 
+        double deltaU = 0;
+        double deltaF = 0;
+
         while (true) {
-            now = System.nanoTime();
-            if (now - lastFrame >= timePerFrame) {
-                gamePanel.repaint();
-                lastFrame = now;
-                frames++;
+            long currentTime = System.nanoTime();
+
+            deltaU += (currentTime - previousTime) / timePerUpdate;
+            deltaF += (currentTime - previousTime) / timePerFrame;
+            previousTime = currentTime;
+            if (deltaU >= 1) {
+                update();
+                updates++;
+                deltaU--;
             }
+
+            if (deltaF >= 1) {
+                gamePanel.repaint();
+                frames++;
+                deltaF--;
+            }
+
             if (System.currentTimeMillis() - lastCheck >= 1000) {
                 lastCheck = System.currentTimeMillis();
-                System.out.println("FPS: " + frames);
+                System.out.println("FPS: " + frames + " | UPS: " + updates);
                 frames = 0;
+                updates = 0;
             }
         }
     }
