@@ -2,6 +2,7 @@ package entities;
 
 import utils.LoadSave;
 
+import static utils.Constants.GameConstants.SCALE;
 import static utils.Constants.PlayerConstants.*;
 import static utils.HelpMethods.CanMoveHere;
 
@@ -16,21 +17,23 @@ public class Player extends Entity {
     private boolean left, up, right, down;
     private float playerSpeed = 2.0f;
     private int[][] lvlData;
+    private float xDrawOffset = 21 * SCALE;
+    private float yDrawOffset = 4 * SCALE;
 
     public Player(float x, float y, int width, int height) {
         super(x, y, width, height);
         loadAnimations();
+        initHitbox(x, y, 20 * SCALE, 28 * SCALE);
     }
 
     public void update() {
         updatePosition();
-        updateHitbox();
         updateAnimationTick();
         setAnimation();
     }
 
     public void render(Graphics g) {
-        g.drawImage(animations[playerAction][animationIndex], (int) x, (int) y, width, height, null);
+        g.drawImage(animations[playerAction][animationIndex], (int) (hitbox.x - xDrawOffset), (int) (hitbox.y - yDrawOffset), width, height, null);
         drawHitbox(g);
     }
 
@@ -84,9 +87,9 @@ public class Player extends Entity {
         else if (down && !up)
             ySpeed = playerSpeed;
 
-        if (CanMoveHere(x + xSpeed, y + ySpeed, width, height, lvlData)) {
-            this.x += xSpeed;
-            this.y += ySpeed;
+        if (CanMoveHere(hitbox.x + xSpeed, hitbox.y + ySpeed, hitbox.width, hitbox.height, lvlData)) {
+            hitbox.x += xSpeed;
+            hitbox.y += ySpeed;
             moving = true;
         }
     }
