@@ -3,7 +3,7 @@ package levels;
 import mainWindow.Game;
 import utils.LoadSave;
 
-import java.awt.*;
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import static utils.Constants.GameConstants.*;
