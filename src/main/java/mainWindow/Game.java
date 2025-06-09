@@ -3,10 +3,9 @@ package mainWindow;
 import entities.Player;
 import levels.LevelManager;
 
-import java.awt.*;
+import java.awt.Graphics;
 
-import static utils.Constants.GameConstants.FPS_SET;
-import static utils.Constants.GameConstants.UPS_SET;
+import static utils.Constants.GameConstants.*;
 
 public class Game implements Runnable {
     private GameWindow gameWindow;
@@ -27,7 +26,7 @@ public class Game implements Runnable {
     }
 
     private void initClasses() {
-        player = new Player(200, 200);
+        player = new Player(200, 200, (int) (64 * SCALE), (int) (40 * SCALE));
         levelManager = new LevelManager(this);
     }
 
@@ -37,8 +36,8 @@ public class Game implements Runnable {
     }
 
     public void update() {
-        player.update();
         levelManager.update();
+        player.update();
     }
 
     public void render(Graphics g) {
@@ -67,6 +66,7 @@ public class Game implements Runnable {
             deltaU += (currentTime - previousTime) / timePerUpdate;
             deltaF += (currentTime - previousTime) / timePerFrame;
             previousTime = currentTime;
+
             if (deltaU >= 1) {
                 update();
                 updates++;
