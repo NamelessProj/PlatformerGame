@@ -1,16 +1,12 @@
 package entities;
 
-import utils.Constants;
 import utils.LoadSave;
 
-import javax.imageio.ImageIO;
-
 import static utils.Constants.PlayerConstants.*;
+import static utils.HelpMethods.CanMoveHere;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
 
 public class Player extends Entity {
     private BufferedImage[][] animations;
@@ -19,6 +15,7 @@ public class Player extends Entity {
     private boolean moving = false, attacking = false;
     private boolean left, up, right, down;
     private float playerSpeed = 2.0f;
+    private int[][] lvlData;
 
     public Player(float x, float y, int width, int height) {
         super(x, y, width, height);
@@ -27,12 +24,14 @@ public class Player extends Entity {
 
     public void update() {
         updatePosition();
+        updateHitbox();
         updateAnimationTick();
         setAnimation();
     }
 
     public void render(Graphics g) {
         g.drawImage(animations[playerAction][animationIndex], (int) x, (int) y, width, height, null);
+        drawHitbox(g);
     }
 
     private void updateAnimationTick() {
@@ -70,19 +69,24 @@ public class Player extends Entity {
     private void updatePosition() {
         moving = false;
 
-        if (left && !right) {
-            x -= playerSpeed;
-            moving = true;
-        } else if (right && !left) {
-            x += playerSpeed;
-            moving = true;
-        }
+        if (!left && !right && !up && !down)
+            return;
 
-        if (up && !down) {
-            y -= playerSpeed;
-            moving = true;
-        } else if (down && !up) {
-            y += playerSpeed;
+        float xSpeed = 0, ySpeed = 0;
+
+        if (left && !right)
+            xSpeed = -playerSpeed;
+        else if (right && !left)
+            xSpeed = playerSpeed;
+
+        if (up && !down)
+            ySpeed = -playerSpeed;
+        else if (down && !up)
+            ySpeed = playerSpeed;
+
+        if (CanMoveHere(x + xSpeed, y + ySpeed, width, height, lvlData)) {
+            this.x += xSpeed;
+            this.y += ySpeed;
             moving = true;
         }
     }
@@ -94,6 +98,10 @@ public class Player extends Entity {
         for (int j = 0; j < NUM_ANIMATIONS; j++)
             for (int i = 0; i < MAX_NUM_SPRITES; i++)
                 animations[j][i] = playerSprites.getSubimage(i * IMAGE_WIDTH, j * IMAGE_HEIGHT, IMAGE_WIDTH, IMAGE_HEIGHT);
+    }
+
+    public void loadLvlData(int[][] lvlData) {
+        this.lvlData = lvlData;
     }
 
     public void resetDirBooleans() {
