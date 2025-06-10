@@ -9,6 +9,14 @@ public abstract class Entity {
     protected int width, height;
     protected Rectangle2D.Float hitbox;
 
+    /**
+     * Constructor for the Entity class.
+     *
+     * @param x      The x-coordinate of the entity.
+     * @param y      The y-coordinate of the entity.
+     * @param width  The width of the entity.
+     * @param height The height of the entity.
+     */
     public Entity(float x, float y, int width, int height) {
         this.x = x;
         this.y = y;
@@ -16,6 +24,14 @@ public abstract class Entity {
         this.height = height;
     }
 
+    /**
+     * Initializes the hitbox of the entity.
+     *
+     * @param x      The x-coordinate of the hitbox.
+     * @param y      The y-coordinate of the hitbox.
+     * @param width  The width of the hitbox.
+     * @param height The height of the hitbox.
+     */
     protected void initHitbox(float x, float y, float width, float height) {
         hitbox = new Rectangle2D.Float(x, y, width, height);
     }
@@ -33,6 +49,11 @@ public abstract class Entity {
         hitbox.y = (int) y;
     }*/
 
+    /**
+     * Get the hitbox of the entity.
+     *
+     * @return The hitbox of the entity as a Rectangle2D.Float object.
+     */
     public Rectangle2D.Float getHitbox() {
         return hitbox;
     }
