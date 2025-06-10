@@ -188,6 +188,8 @@ public class Player extends Entity {
      */
     public void loadLvlData(int[][] lvlData) {
         this.lvlData = lvlData;
+        if (!IsEntityOnFloor(hitbox, lvlData))
+            inAir = true;
     }
 
     /**
