@@ -20,23 +20,42 @@ public class Player extends Entity {
     private float xDrawOffset = 21 * SCALE;
     private float yDrawOffset = 4 * SCALE;
 
+    /**
+     * Constructor for the Player class.
+     *
+     * @param x      The x-coordinate of the player.
+     * @param y      The y-coordinate of the player.
+     * @param width  The width of the player.
+     * @param height The height of the player.
+     */
     public Player(float x, float y, int width, int height) {
         super(x, y, width, height);
         loadAnimations();
         initHitbox(x, y, PLAYER_WIDTH * SCALE, PLAYER_HEIGHT * SCALE);
     }
 
+    /**
+     * Updates the player's position and animation state.
+     */
     public void update() {
         updatePosition();
         updateAnimationTick();
         setAnimation();
     }
 
+    /**
+     * Draws the player on the screen.
+     *
+     * @param g The Graphics object used for drawing.
+     */
     public void render(Graphics g) {
         g.drawImage(animations[playerAction][animationIndex], (int) (hitbox.x - xDrawOffset), (int) (hitbox.y - yDrawOffset), width, height, null);
         drawHitbox(g);
     }
 
+    /**
+     * Updates the animation tick and handles the animation index.
+     */
     private void updateAnimationTick() {
         animationTick++;
         if (animationTick >= animationSpeed) {
@@ -49,6 +68,9 @@ public class Player extends Entity {
         }
     }
 
+    /**
+     * Sets the current animation based on the player's action.
+     */
     private void setAnimation() {
         int startAnimation = playerAction;
 
@@ -64,11 +86,17 @@ public class Player extends Entity {
             resetAnimationTick();
     }
 
+    /**
+     * Resets the animation tick and index to start the animation from the beginning.
+     */
     private void resetAnimationTick() {
         animationTick = 0;
         animationIndex = 0;
     }
 
+    /**
+     * Updates the player's position based on the movement keys pressed.
+     */
     private void updatePosition() {
         moving = false;
 
@@ -94,6 +122,9 @@ public class Player extends Entity {
         }
     }
 
+    /**
+     * Loads the player animations from the sprite atlas.
+     */
     private void loadAnimations() {
         BufferedImage playerSprites = LoadSave.GetSpriteAtlas(LoadSave.PLAYER_ATLAS);
 
@@ -103,10 +134,18 @@ public class Player extends Entity {
                 animations[j][i] = playerSprites.getSubimage(i * IMAGE_WIDTH, j * IMAGE_HEIGHT, IMAGE_WIDTH, IMAGE_HEIGHT);
     }
 
+    /**
+     * Loads the level data for collision detection.
+     *
+     * @param lvlData The 2D array representing the level data.
+     */
     public void loadLvlData(int[][] lvlData) {
         this.lvlData = lvlData;
     }
 
+    /**
+     * Resets the player's direction booleans to false.
+     */
     public void resetDirBooleans() {
         left = false;
         up = false;
