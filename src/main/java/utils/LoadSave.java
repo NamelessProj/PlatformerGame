@@ -10,13 +10,13 @@ import static utils.Constants.GameConstants.TILES_IN_HEIGHT;
 import static utils.Constants.GameConstants.TILES_IN_WIDTH;
 
 public class LoadSave {
-    public static final String PLAYER_ATLAS = "images/player_sprites.png";
-    public static final String LEVEL_ATLAS = "images/outside_sprites.png";
-    public static final String LEVEL_ONE_DATA = "images/level_one_data.png";
+    public static final String PLAYER_ATLAS = "player_sprites.png";
+    public static final String LEVEL_ATLAS = "outside_sprites.png";
+    public static final String LEVEL_ONE_DATA = "level_one_data.png";
 
     public static BufferedImage GetSpriteAtlas(String fileName) {
         BufferedImage img = null;
-        InputStream is = LoadSave.class.getResourceAsStream("/" + fileName);
+        InputStream is = LoadSave.class.getResourceAsStream("/images/" + fileName);
         try {
             img = ImageIO.read(is);
         } catch (IOException e) {
