@@ -14,7 +14,7 @@ public class Player extends Entity {
     private int animationTick, animationIndex, animationSpeed = 25;
     private int playerAction = IDLE;
     private boolean moving = false, attacking = false;
-    private boolean left, up, right, down, jump;
+    private boolean left, right, jump;
     private float playerSpeed = 2.0f;
     private int[][] lvlData;
     private float xDrawOffset = 21 * SCALE;
@@ -197,9 +197,7 @@ public class Player extends Entity {
      */
     public void resetDirBooleans() {
         left = false;
-        up = false;
         right = false;
-        down = false;
     }
 
     public boolean isAttacking() {
@@ -210,28 +208,12 @@ public class Player extends Entity {
         this.attacking = attacking;
     }
 
-    public boolean isDown() {
-        return down;
-    }
-
-    public void setDown(boolean down) {
-        this.down = down;
-    }
-
     public boolean isRight() {
         return right;
     }
 
     public void setRight(boolean right) {
         this.right = right;
-    }
-
-    public boolean isUp() {
-        return up;
-    }
-
-    public void setUp(boolean up) {
-        this.up = up;
     }
 
     public boolean isLeft() {
