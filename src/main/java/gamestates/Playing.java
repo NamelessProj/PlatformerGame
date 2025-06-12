@@ -4,8 +4,9 @@ import entities.Player;
 import levels.LevelManager;
 import mainWindow.Game;
 import ui.PauseOverlay;
+import utils.LoadSave;
 
-import java.awt.Graphics;
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
@@ -16,6 +17,13 @@ public class Playing extends State implements Statemethods {
     private LevelManager levelManager;
     private PauseOverlay pauseOverlay;
     private boolean paused = false;
+
+    private int xLevelOffset;
+    private int leftBorder = (int) (0.2 * GameConstants.GAME_WIDTH);
+    private int rightBorder = (int) (0.8 * GameConstants.GAME_WIDTH);
+    private int levelTilesWide = LoadSave.GetLevelData()[0].length;
+    private int maxTilesOffset = levelTilesWide - GameConstants.TILES_IN_WIDTH;
+    private int maxLevelOffsetX = maxTilesOffset * GameConstants.TILES_SIZE;
 
     public Playing(Game game) {
         super(game);
@@ -33,22 +41,41 @@ public class Playing extends State implements Statemethods {
         paused = false;
     }
 
+    private void checkCloseToBorder() {
+        int playerX = (int) player.getHitbox().x;
+        int diff = playerX - xLevelOffset;
+
+        if (diff > rightBorder)
+            xLevelOffset += diff - rightBorder;
+        else if (diff < leftBorder)
+            xLevelOffset += diff - leftBorder;
+
+        if (xLevelOffset > maxLevelOffsetX)
+            xLevelOffset = maxLevelOffsetX;
+        else if (xLevelOffset < 0)
+            xLevelOffset = 0;
+    }
+
     @Override
     public void update() {
         if (!paused) {
             levelManager.update();
             player.update();
+            checkCloseToBorder();
         } else
             pauseOverlay.update();
     }
 
     @Override
     public void draw(Graphics g) {
-        levelManager.draw(g);
-        player.render(g);
+        levelManager.draw(g, xLevelOffset);
+        player.render(g, xLevelOffset);
 
-        if (paused)
+        if (paused) {
+            g.setColor(new Color(0, 0, 0, 150));
+            g.fillRect(0, 0, GameConstants.GAME_WIDTH, GameConstants.GAME_HEIGHT);
             pauseOverlay.draw(g);
+        }
     }
 
     public void mouseDragged(MouseEvent e) {
