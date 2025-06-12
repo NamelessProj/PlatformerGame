@@ -6,7 +6,9 @@ import static utils.Constants.*;
 
 public class HelpMethods {
     private static boolean IsSolid(float x, float y, int[][] lvlData) {
-        if (x < 0 || x >= GameConstants.GAME_WIDTH)
+        int maxWidth = lvlData[0].length * GameConstants.TILES_SIZE;
+
+        if (x < 0 || x >= maxWidth)
             return true;
         if (y < 0 || y >= GameConstants.GAME_HEIGHT)
             return true;
