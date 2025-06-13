@@ -1,6 +1,35 @@
 package utils;
 
 public class Constants {
+    public static class EnemyConstants {
+        public static final int CRABBY = 0;
+
+        public static final int IDLE = 0;
+        public static final int RUNNING = 1;
+        public static final int ATTACK = 2;
+        public static final int HIT = 3;
+        public static final int DEAD = 4;
+
+        public static final int CRABBY_WIDTH_DEFAULT = 72;
+        public static final int CRABBY_HEIGHT_DEFAULT = 32;
+        public static final int CRABBY_WIDTH = (int) (CRABBY_WIDTH_DEFAULT * GameConstants.SCALE);
+        public static final int CRABBY_HEIGHT = (int) (CRABBY_HEIGHT_DEFAULT * GameConstants.SCALE);
+
+        public static int GetSpriteAmount(int enemyType, int enemyState) {
+            return switch (enemyType) {
+                case CRABBY -> switch (enemyState) {
+                    case IDLE -> 9;
+                    case RUNNING -> 6;
+                    case ATTACK -> 7;
+                    case HIT -> 4;
+                    case DEAD -> 5;
+                    default -> 0;
+                };
+                default -> 0; // Default for any unknown enemy type
+            };
+        }
+    }
+
     public static class Environment {
         public static final int BIG_CLOUD_WIDTH_DEFAULT = 448;
         public static final int BIG_CLOUD_HEIGHT_DEFAULT = 101;
