@@ -147,4 +147,14 @@ public abstract class Enemy extends Entity {
     protected boolean isActive() {
         return active;
     }
+
+    protected void resetEnemy() {
+        hitbox.x = x;
+        hitbox.y = y;
+        firstUpdate = true;
+        currentHealth = maxHealth;
+        newState(IDLE);
+        active = true;
+        fallSpeed = 0;
+    }
 }
