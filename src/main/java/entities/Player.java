@@ -128,8 +128,8 @@ public class Player extends Entity {
                 width * flipW,
                 height,
                 null);
-        drawHitbox(g, xLvlOffset);
-        drawAttackBox(g, xLvlOffset);
+        // drawHitbox(g, xLvlOffset);
+        // drawAttackBox(g, xLvlOffset);
         drawUI(g);
     }
 
