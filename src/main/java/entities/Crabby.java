@@ -1,5 +1,6 @@
 package entities;
 
+import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
 import static utils.Constants.Directions.*;
@@ -23,7 +24,7 @@ public class Crabby extends Enemy {
     }
 
     protected void update(int[][] lvlData, Player player) {
-        updateMove(lvlData, player);
+        updateBehavior(lvlData, player);
         updateAnimationTick();
         updateAttackBox();
     }
@@ -33,7 +34,7 @@ public class Crabby extends Enemy {
         attackBox.y = hitbox.y;
     }
 
-    private void updateMove(int[][] lvlData, Player player) {
+    private void updateBehavior(int[][] lvlData, Player player) {
         if (firstUpdate)
             firstUpdateCheck(lvlData);
 
@@ -50,8 +51,21 @@ public class Crabby extends Enemy {
 
                     move(lvlData);
                 }
+                case ATTACK -> {
+                    if (animationIndex == 0)
+                        attackChecked = false;
+
+                    if (animationIndex == 3 && !attackChecked)
+                        checkEnemyHit(attackBox, player);
+                }
+                case HIT -> {}
             }
         }
+    }
+
+    public void drawHAttackBox(Graphics g, int xLvlOffset) {
+        g.setColor(Color.RED);
+        g.drawRect((int) attackBox.x - xLvlOffset, (int) attackBox.y, (int) attackBox.width, (int) attackBox.height);
     }
 
     public int flipX() {
