@@ -9,9 +9,9 @@ public class GameWindow extends JFrame {
         this.setTitle("Game Window");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.add(gamePanel);
-        this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.pack();
+        this.setLocationRelativeTo(null);
         this.setVisible(true);
         this.addWindowFocusListener(new WindowFocusListener() {
             @Override
