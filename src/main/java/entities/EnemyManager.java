@@ -64,4 +64,9 @@ public class EnemyManager {
             for (int i = 0; i < crabbyArr[j].length; i++)
                 crabbyArr[j][i] = temp.getSubimage(i * CRABBY_WIDTH_DEFAULT, j * CRABBY_HEIGHT_DEFAULT, CRABBY_WIDTH_DEFAULT, CRABBY_HEIGHT_DEFAULT);
     }
+
+    public void resetAllEnemies() {
+        for (Crabby c : crabbies)
+            c.resetEnemy();
+    }
 }
