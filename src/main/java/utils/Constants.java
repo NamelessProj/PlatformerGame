@@ -100,8 +100,8 @@ public class Constants {
         public static final int PLAYER_WIDTH = 20;
         public static final int PLAYER_HEIGHT = 27;
 
-        public static final int NUM_ANIMATIONS = 9;
-        public static final int MAX_NUM_SPRITES = 6;
+        public static final int NUM_ANIMATIONS = 7;
+        public static final int MAX_NUM_SPRITES = 8;
     }
 
     public static class Directions {
