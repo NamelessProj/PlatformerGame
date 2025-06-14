@@ -45,7 +45,7 @@ public class EnemyManager {
                         CRABBY_WIDTH * c.flipW(),
                         CRABBY_HEIGHT,
                         null);
-                c.drawHAttackBox(g, xLvlOffset);
+                // c.drawHAttackBox(g, xLvlOffset);
             }
     }
 
