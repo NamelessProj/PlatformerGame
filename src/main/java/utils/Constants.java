@@ -78,7 +78,7 @@ public class Constants {
         public static final int RUNNING = 1;
         public static final int JUMP = 2;
         public static final int FALLING = 3;
-        public static final int ATTACK_1 = 4;
+        public static final int ATTACK = 4;
         public static final int HIT = 5;
         public static final int DEAD = 6;
 
@@ -88,7 +88,7 @@ public class Constants {
                 case RUNNING -> 6;
                 case IDLE -> 5;
                 case HIT -> 4;
-                case JUMP, ATTACK_1 -> 3;
+                case JUMP, ATTACK -> 3;
                 case FALLING -> 1;
                 default -> 1;
             };
