@@ -69,10 +69,13 @@ public class HelpMethods {
         return IsSolid(hitbox.x + xSpeed, hitbox.y + hitbox.height + 1, lvlData);
     }
 
-    public static boolean IsAllTileWalkable(int xStart, int xEnd, int y, int[][] lvlData) {
-        for (int i = 0; i < xEnd - xStart; i++)
+    public static boolean IsAllTilesWalkable(int xStart, int xEnd, int y, int[][] lvlData) {
+        for (int i = 0; i < xEnd - xStart; i++) {
             if (IsTileSolid(xStart + i, y, lvlData))
                 return false;
+            if (!IsTileSolid(xStart + i, y + 1, lvlData))
+                return false;
+        }
         return true;
     }
 
@@ -81,8 +84,8 @@ public class HelpMethods {
         int secondXTile = (int) (secondHitbox.x / GameConstants.TILES_SIZE);
 
         if (firstXTile > secondXTile)
-            return IsAllTileWalkable(secondXTile, firstXTile, yTile, lvlData);
+            return IsAllTilesWalkable(secondXTile, firstXTile, yTile, lvlData);
         else
-            return IsAllTileWalkable(firstXTile, secondXTile, yTile, lvlData);
+            return IsAllTilesWalkable(firstXTile, secondXTile, yTile, lvlData);
     }
 }
