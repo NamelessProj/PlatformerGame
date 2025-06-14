@@ -1,9 +1,7 @@
 package entities;
 
-import static utils.Constants.Directions.LEFT;
 import static utils.Constants.EnemyConstants.*;
 import static utils.Constants.GameConstants.SCALE;
-import static utils.HelpMethods.*;
 
 public class Crabby extends Enemy {
     public Crabby(float x, float y) {
