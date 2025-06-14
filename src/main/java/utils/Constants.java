@@ -31,6 +31,20 @@ public class Constants {
                 default -> 0; // Default for any unknown enemy type
             };
         }
+
+        public static int GetMaxHealth(int enemyType) {
+            return switch (enemyType) {
+                case CRABBY -> 10;
+                default -> 1; // Default for any unknown enemy type
+            };
+        }
+
+        public static int GetEnemyDamage(int enemyType) {
+            return switch (enemyType) {
+                case CRABBY -> 15;
+                default -> 0; // Default for any unknown enemy type
+            };
+        }
     }
 
     public static class Environment {
