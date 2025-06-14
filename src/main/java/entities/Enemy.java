@@ -1,5 +1,7 @@
 package entities;
 
+import java.awt.geom.Rectangle2D;
+
 import static utils.Constants.Directions.*;
 import static utils.Constants.EnemyConstants.*;
 import static utils.Constants.GameConstants.SCALE;
@@ -17,11 +19,17 @@ public abstract class Enemy extends Entity {
     protected int walkDir = LEFT;
     protected int tileY;
     protected float attackDistance = TILES_SIZE;
+    protected int maxHealth;
+    protected int currentHealth;
+    protected boolean active = true;
+    protected boolean attackChecked;
 
     public Enemy(float x, float y, int width, int height, int enemyType) {
         super(x, y, width, height);
         this.enemyType = enemyType;
         initHitbox(x, y, width, height);
+        maxHealth = GetMaxHealth(enemyType);
+        currentHealth = maxHealth;
     }
 
     protected void firstUpdateCheck(int[][] lvlData) {
@@ -91,6 +99,20 @@ public abstract class Enemy extends Entity {
         animationTick = 0;
     }
 
+    protected void hurt(int dmg) {
+        currentHealth -= dmg;
+        if (currentHealth <= 0)
+            newState(DEAD);
+        else
+            newState(HIT);
+    }
+
+    protected void checkEnemyHit(Rectangle2D.Float attackBox, Player player) {
+        if (attackBox.intersects(player.getHitbox()))
+            player.changeHealth(-GetEnemyDamage(enemyType));
+        attackChecked = true;
+    }
+
     protected void updateAnimationTick() {
         animationTick++;
         if (animationTick >= animationSpeed) {
@@ -98,8 +120,11 @@ public abstract class Enemy extends Entity {
             animationIndex++;
             if (animationIndex >= GetSpriteAmount(enemyType, enemyState)) {
                 animationIndex = 0;
-                if (enemyState == ATTACK)
-                    enemyState = IDLE;
+
+                switch (enemyState) {
+                    case ATTACK, HIT -> enemyState = IDLE;
+                    case DEAD -> active = false;
+                }
             }
         }
     }
@@ -117,5 +142,9 @@ public abstract class Enemy extends Entity {
 
     protected int getEnemyState() {
         return enemyState;
+    }
+
+    protected boolean isActive() {
+        return active;
     }
 }
