@@ -1,5 +1,6 @@
 package entities;
 
+import gamestates.Playing;
 import utils.LoadSave;
 
 import static utils.Constants.GameConstants.SCALE;
@@ -51,6 +52,9 @@ public class Player extends Entity {
     private int flipX = 0;
     private int flipW = 1;
 
+    private boolean attackChecked;
+    private Playing playing;
+
     /**
      * Constructor for the Player class.
      *
@@ -59,8 +63,9 @@ public class Player extends Entity {
      * @param width  The width of the player.
      * @param height The height of the player.
      */
-    public Player(float x, float y, int width, int height) {
+    public Player(float x, float y, int width, int height, Playing playing) {
         super(x, y, width, height);
+        this.playing = playing;
         loadAnimations();
         initHitbox(x, y, (int) (PLAYER_WIDTH * SCALE), (int) (PLAYER_HEIGHT * SCALE));
         initAttackBox();
@@ -75,10 +80,27 @@ public class Player extends Entity {
      */
     public void update() {
         updateHealthBar();
+
+        if (currentHealth <= 0) {
+            playing.setGameOver(true);
+            return;
+        }
+
         updateAttackBox();
+
         updatePosition();
+        if (attacking)
+            checkAttack();
+
         updateAnimationTick();
         setAnimation();
+    }
+
+    private void checkAttack() {
+        if (attackChecked || animationIndex != 1)
+            return;
+        attackChecked = true;
+        playing.checkEnemyHit(attackBox);
     }
 
     private void updateAttackBox() {
@@ -133,6 +155,7 @@ public class Player extends Entity {
             if (animationIndex >= GetSpriteAmount(playerAction)) {
                 animationIndex = 0;
                 attacking = false;
+                attackChecked = false;
             }
         }
     }
@@ -155,8 +178,14 @@ public class Player extends Entity {
                 playerAction = FALLING;
         }
 
-        if (attacking)
+        if (attacking) {
             playerAction = ATTACK;
+            if (startAnimation != ATTACK) {
+                animationIndex = 1;
+                animationTick = 0;
+                return;
+            }
+        }
 
         if (startAnimation != playerAction)
             resetAnimationTick();
