@@ -1,8 +1,16 @@
 package utils;
 
+import entities.Crabby;
+
+import java.awt.*;
 import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import static utils.Constants.*;
+import static utils.Constants.EnemyConstants.CRABBY;
+import static utils.Constants.GameConstants.TILES_SIZE;
+import static utils.Constants.PlayerConstants.PLAYER_SPAWN_ID;
 
 public class HelpMethods {
     private static boolean IsSolid(float x, float y, int[][] lvlData) {
@@ -90,5 +98,43 @@ public class HelpMethods {
             return IsAllTilesWalkable(secondXTile, firstXTile, yTile, lvlData);
         else
             return IsAllTilesWalkable(firstXTile, secondXTile, yTile, lvlData);
+    }
+
+    public static int[][] GetLevelData(BufferedImage img) {
+        int[][] lvlData = new int[img.getHeight()][img.getWidth()];
+
+        for (int j = 0; j < img.getHeight(); j++)
+            for (int i = 0; i < img.getWidth(); i++) {
+                Color color = new Color(img.getRGB(i, j));
+                int val = color.getRed();
+                if (val >= 48)
+                    val = 0;
+                lvlData[j][i] = val;
+            }
+        return lvlData;
+    }
+
+    public static ArrayList<Crabby> GetCrabs(BufferedImage img) {
+        ArrayList<Crabby> list = new ArrayList<>();
+
+        for (int j = 0; j < img.getHeight(); j++)
+            for (int i = 0; i < img.getWidth(); i++) {
+                Color color = new Color(img.getRGB(i, j));
+                int val = color.getGreen();
+                if (val == CRABBY)
+                    list.add(new Crabby(i * TILES_SIZE, j * TILES_SIZE));
+            }
+        return list;
+    }
+
+    public static Point GetPlayerSpawn(BufferedImage img) {
+        for (int j = 0; j < img.getHeight(); j++)
+            for (int i = 0; i < img.getWidth(); i++) {
+                Color color = new Color(img.getRGB(i, j));
+                int val = color.getGreen();
+                if (val == PLAYER_SPAWN_ID)
+                    return new Point(i * TILES_SIZE, j * TILES_SIZE);
+            }
+        return new Point(TILES_SIZE, TILES_SIZE); // Default spawn if not found
     }
 }
