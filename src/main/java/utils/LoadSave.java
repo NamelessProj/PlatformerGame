@@ -1,22 +1,16 @@
 package utils;
 
-import entities.Crabby;
-
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-
-import static utils.Constants.GameConstants.*;
-import static utils.Constants.EnemyConstants.CRABBY;
+import java.net.URISyntaxException;
+import java.net.URL;
 
 public class LoadSave {
     public static final String PLAYER_ATLAS = "player_sprites.png";
     public static final String LEVEL_ATLAS = "outside_sprites.png";
-    //public static final String LEVEL_ONE_DATA = "level_one_data.png";
-    public static final String LEVEL_ONE_DATA = "level_one_data_long.png";
     public static final String MENU_BUTTONS = "button_atlas.png";
     public static final String MENU_BACKGROUND = "menu_background.png";
     public static final String PAUSE_BACKGROUND = "pause_menu.png";
@@ -48,32 +42,35 @@ public class LoadSave {
         return img;
     }
 
-    public static ArrayList<Crabby> GetCrabs() {
-        BufferedImage img = GetSpriteAtlas(LEVEL_ONE_DATA);
-        ArrayList<Crabby> list = new ArrayList<>();
+    public static BufferedImage[] GetAllLevels() {
+        URL url = LoadSave.class.getResource("/images/lvls");
+        File file = null;
 
-        for (int j = 0; j < img.getHeight(); j++)
-            for (int i = 0; i < img.getWidth(); i++) {
-                Color color = new Color(img.getRGB(i, j));
-                int val = color.getGreen();
-                if (val == CRABBY)
-                    list.add(new Crabby(i * TILES_SIZE, j * TILES_SIZE));
+        try {
+            file = new File(url.toURI());
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+
+        File[] files = file.listFiles();
+        File[] sortedFiles = new File[files.length];
+
+        for (int i = 0; i < sortedFiles.length; i++)
+            for (int j = 0; j < files.length; j++) {
+                if (files[j].getName().equals((i + 1) + ".png"))
+                    sortedFiles[i] = files[j];
             }
-        return list;
-    }
 
-    public static int[][] GetLevelData() {
-        BufferedImage img = GetSpriteAtlas(LEVEL_ONE_DATA);
-        int[][] lvlData = new int[img.getHeight()][img.getWidth()];
+        BufferedImage[] imgs = new BufferedImage[sortedFiles.length];
 
-        for (int j = 0; j < img.getHeight(); j++)
-            for (int i = 0; i < img.getWidth(); i++) {
-                Color color = new Color(img.getRGB(i, j));
-                int val = color.getRed();
-                if (val >= 48)
-                    val = 0;
-                lvlData[j][i] = val;
+        for (int i = 0; i < imgs.length; i++) {
+            try {
+                imgs[i] = ImageIO.read(sortedFiles[i]);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
-        return lvlData;
+        }
+
+        return imgs;
     }
 }
