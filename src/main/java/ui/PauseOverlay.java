@@ -125,9 +125,10 @@ public class PauseOverlay {
         else if (isIn(e, menuBtn) && menuBtn.isMousePressed()) {
             Gamestate.state = Gamestate.MENU;
             playing.unPauseGame();
-        } else if (isIn(e, replayBtn) && replayBtn.isMousePressed())
-            System.out.println("Replay button clicked!");
-        else if (isIn(e, unpauseBtn) && unpauseBtn.isMousePressed())
+        } else if (isIn(e, replayBtn) && replayBtn.isMousePressed()) {
+            playing.resetAll();
+            playing.unPauseGame();
+        } else if (isIn(e, unpauseBtn) && unpauseBtn.isMousePressed())
             playing.unPauseGame();
 
         musicButton.resetBools();
