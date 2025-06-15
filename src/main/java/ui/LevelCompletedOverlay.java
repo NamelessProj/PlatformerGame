@@ -1,5 +1,6 @@
 package ui;
 
+import gamestates.Gamestate;
 import gamestates.Playing;
 import utils.LoadSave;
 
@@ -64,10 +65,11 @@ public class LevelCompletedOverlay {
     }
 
     public void mouseReleased(MouseEvent e) {
-        if (isIn(menu, e) && menu.isMousePressed())
-            System.out.println("Menu button clicked");
-        else if (isIn(next, e) && next.isMousePressed())
-            System.out.println("Next level...");
+        if (isIn(menu, e) && menu.isMousePressed()) {
+            playing.resetAll();
+            Gamestate.state = Gamestate.MENU;
+        } else if (isIn(next, e) && next.isMousePressed())
+            playing.loadNextLevel();
 
         next.resetBools();
         menu.resetBools();
