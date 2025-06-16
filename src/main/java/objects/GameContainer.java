@@ -21,6 +21,7 @@ public class GameContainer  extends GameObject{
         }
 
         hitbox.y += yDrawOffset + (int) (2 * SCALE);
+        hitbox.x += (float) xDrawOffset / 2;
     }
 
     public void update() {
