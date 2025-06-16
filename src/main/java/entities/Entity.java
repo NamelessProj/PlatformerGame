@@ -12,6 +12,8 @@ public abstract class Entity {
     protected int state;
     protected float airSpeed;
     protected boolean inAir = false;
+    protected int maxHealth;
+    protected int currentHealth;
 
     /**
      * Constructor for the Entity class.
