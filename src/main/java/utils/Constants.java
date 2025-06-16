@@ -1,6 +1,39 @@
 package utils;
 
 public class Constants {
+    public static class ObjectConstants {
+        public static final int RED_POTION = 0;
+        public static final int BLUE_POTION = 1;
+        public static final int BARREL = 2;
+        public static final int BOX = 3;
+
+        public static final int BLUE_POTION_ROW_INDEX = 0;
+        public static final int RED_POTION_ROW_INDEX = 1;
+        public static final int BOX_ROW_INDEX = 0;
+        public static final int BARREL_ROW_INDEX = 1;
+
+        public static final int RED_POTION_VALUE = 15;
+        public static final int BLUE_POTION_VALUE = 10;
+
+        public static final int CONTAINER_WIDTH_DEFAULT = 40;
+        public static final int CONTAINER_HEIGHT_DEFAULT = 30;
+        public static final int CONTAINER_WIDTH = (int) (CONTAINER_WIDTH_DEFAULT * GameConstants.SCALE);
+        public static final int CONTAINER_HEIGHT = (int) (CONTAINER_HEIGHT_DEFAULT * GameConstants.SCALE);
+
+        public static final int POTION_WIDTH_DEFAULT = 12;
+        public static final int POTION_HEIGHT_DEFAULT = 16;
+        public static final int POTION_WIDTH = (int) (POTION_WIDTH_DEFAULT * GameConstants.SCALE);
+        public static final int POTION_HEIGHT = (int) (POTION_HEIGHT_DEFAULT * GameConstants.SCALE);
+
+        public static int GetSpriteAmount(int objectType) {
+            return switch (objectType) {
+                case RED_POTION, BLUE_POTION -> 7;
+                case BARREL, BOX -> 8;
+                default -> 1;
+            };
+        }
+    }
+
     public static class EnemyConstants {
         public static final int CRABBY = 0;
 
