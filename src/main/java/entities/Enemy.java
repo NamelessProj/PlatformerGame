@@ -9,7 +9,7 @@ import static utils.HelpMethods.*;
 
 public abstract class Enemy extends Entity {
     protected int animationIndex, enemyState, enemyType;
-    protected int animationTick, animationSpeed = 25;
+    protected int animationTick;
     protected boolean firstUpdate = true;
     protected boolean inAir;
     protected float fallSpeed;
@@ -113,7 +113,7 @@ public abstract class Enemy extends Entity {
 
     protected void updateAnimationTick() {
         animationTick++;
-        if (animationTick >= animationSpeed) {
+        if (animationTick >= ANIMATION_SPEED) {
             animationTick = 0;
             animationIndex++;
             if (animationIndex >= GetSpriteAmount(enemyType, enemyState)) {
