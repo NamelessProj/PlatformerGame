@@ -3,6 +3,7 @@ package entities;
 import gamestates.Playing;
 import utils.LoadSave;
 
+import static utils.Constants.GameConstants.GRAVITY;
 import static utils.Constants.GameConstants.SCALE;
 import static utils.Constants.PlayerConstants.*;
 import static utils.HelpMethods.*;
@@ -24,7 +25,6 @@ public class Player extends Entity {
 
     // Jumping / Gravity
     private float airSpeed = 0f;
-    private float gravity = 0.04f * SCALE;
     private float jumpSpeed = -2.25f * SCALE;
     private float fallSpeedAfterCollision = 0.5f * SCALE;
     private boolean inAir = false;
@@ -239,7 +239,7 @@ public class Player extends Entity {
         if (inAir) {
             if (CanMoveHere(hitbox.x, hitbox.y + airSpeed, hitbox.width, hitbox.height, lvlData)) {
                 hitbox.y += airSpeed;
-                airSpeed += gravity;
+                airSpeed += GRAVITY;
             } else {
                 hitbox.y = GetEntityYPositionUnderRoofOrAboveFloor(hitbox, airSpeed);
                 if (airSpeed > 0)
