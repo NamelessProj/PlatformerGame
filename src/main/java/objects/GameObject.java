@@ -28,7 +28,7 @@ public class GameObject {
             if (animationIndex >= GetSpriteAmount(objectType)) {
                 animationIndex = 0;
                 if (objectType == BARREL || objectType == BOX) {
-                    doAnimation =false;
+                    doAnimation = false;
                     active = false;
                 }
             }
@@ -81,5 +81,9 @@ public class GameObject {
 
     public int getAnimationIndex() {
         return animationIndex;
+    }
+
+    public void setDoAnimation(boolean doAnimation) {
+        this.doAnimation = doAnimation;
     }
 }
