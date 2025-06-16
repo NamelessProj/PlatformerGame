@@ -11,6 +11,7 @@ public abstract class Entity {
     protected int animationTick, animationIndex;
     protected int state;
     protected float airSpeed;
+    protected boolean inAir = false;
 
     /**
      * Constructor for the Entity class.
