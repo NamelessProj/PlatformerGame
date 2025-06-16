@@ -13,7 +13,6 @@ import java.awt.image.BufferedImage;
 
 public class Player extends Entity {
     private BufferedImage[][] animations;
-    private int animationTick, animationIndex;
     private int playerAction = IDLE;
     private boolean moving = false, attacking = false;
     private boolean left, right, jump;
