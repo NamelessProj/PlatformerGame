@@ -69,4 +69,8 @@ public abstract class Entity {
     protected int getState() {
         return state;
     }
+
+    protected int getAnimationIndex() {
+        return animationIndex;
+    }
 }
