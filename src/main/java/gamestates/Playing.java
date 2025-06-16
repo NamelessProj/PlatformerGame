@@ -122,6 +122,7 @@ public class Playing extends State implements Statemethods {
         levelCompleted = false;
         player.resetAll();
         enemyManager.resetAllEnemies();
+        objectManager.resetAllObjects();
     }
 
     public void setGameOver(boolean gameOver) {
@@ -130,6 +131,14 @@ public class Playing extends State implements Statemethods {
 
     public void checkEnemyHit(Rectangle2D.Float attackBox) {
         enemyManager.checkEnemyHit(attackBox);
+    }
+
+    public void checkObjectHit(Rectangle2D.Float attackBox) {
+        objectManager.checkObjectHit(attackBox);
+    }
+
+    public void checkPotionTouchedPlayer(Rectangle2D.Float hitbox) {
+        objectManager.checkObjectTouchedPlayer(hitbox);
     }
 
     @Override
