@@ -5,6 +5,7 @@ import levels.Level;
 import utils.LoadSave;
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -20,6 +21,33 @@ public class ObjectManager {
     public ObjectManager(Playing playing) {
         this.playing = playing;
         loadImages();
+    }
+
+    public void checkObjectTouchedPlayer(Rectangle2D.Float hitbox) {
+        for (Potion p : potions)
+            if (p.isActive() && hitbox.intersects(p.getHitbox())) {
+                p.setActive(false);
+                applyEffectToPlayer(p);
+            }
+    }
+
+    public void applyEffectToPlayer(Potion potion) {
+        if (potion.getObjectType() == RED_POTION)
+            playing.getPlayer().changeHealth(RED_POTION_VALUE);
+        else
+            playing.getPlayer().changePower(BLUE_POTION_VALUE);
+    }
+
+    public void checkObjectHit(Rectangle2D.Float attackBox) {
+        for (GameContainer gc : containers)
+            if (gc.isActive() && gc.getHitbox().intersects(attackBox)) {
+                gc.setDoAnimation(true);
+                int type = BLUE_POTION;
+                if (gc.getObjectType() == BARREL)
+                    type = RED_POTION;
+                potions.add(new Potion((int) (gc.getHitbox().x + gc.getHitbox().width / 2), (int) (gc.getHitbox().y + gc.getHitbox().height / 4), type));
+                return;
+            }
     }
 
     public void loadObjects(Level newLevel) {
@@ -92,5 +120,13 @@ public class ObjectManager {
                         POTION_HEIGHT,
                         null);
             }
+    }
+
+    public void resetAllObjects() {
+        for (Potion p : potions)
+            p.reset();
+
+        for (GameContainer gc : containers)
+            gc.reset();
     }
 }
