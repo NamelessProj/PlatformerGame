@@ -133,11 +133,6 @@ public class Player extends Entity {
         drawUI(g);
     }
 
-    private void drawAttackBox(Graphics g, int xLvlOffset) {
-        g.setColor(Color.RED);
-        g.drawRect((int) attackBox.x - xLvlOffset, (int) attackBox.y, (int) attackBox.width, (int) attackBox.height);
-    }
-
     private void drawUI(Graphics g) {
         g.drawImage(statusBarImg, statusBarX, statusBarY, statusBarWidth, statusBarHeight, null);
         g.setColor(Color.RED);
