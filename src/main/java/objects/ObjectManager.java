@@ -42,10 +42,10 @@ public class ObjectManager {
         for (GameContainer gc : containers)
             if (gc.isActive() && gc.getHitbox().intersects(attackBox)) {
                 gc.setDoAnimation(true);
-                int type = BLUE_POTION;
+                int type = RED_POTION;
                 if (gc.getObjectType() == BARREL)
-                    type = RED_POTION;
-                potions.add(new Potion((int) (gc.getHitbox().x + gc.getHitbox().width / 2), (int) (gc.getHitbox().y + gc.getHitbox().height / 4), type));
+                    type = BLUE_POTION;
+                potions.add(new Potion((int) (gc.getHitbox().x + gc.getHitbox().width / 2), (int) (gc.getHitbox().y - gc.getHitbox().height / 4), type));
                 return;
             }
     }
