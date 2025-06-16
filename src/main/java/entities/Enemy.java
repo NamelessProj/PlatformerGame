@@ -10,7 +10,6 @@ import static utils.HelpMethods.*;
 public abstract class Enemy extends Entity {
     protected int enemyType;
     protected boolean firstUpdate = true;
-    protected boolean inAir;
     protected float walkSpeed = 0.35f * SCALE;
     protected int walkDir = LEFT;
     protected int tileY;
