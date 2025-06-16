@@ -128,10 +128,6 @@ public abstract class Enemy extends Entity {
             walkDir = LEFT;
     }
 
-    protected int getAnimationIndex() {
-        return animationIndex;
-    }
-
     protected boolean isActive() {
         return active;
     }
