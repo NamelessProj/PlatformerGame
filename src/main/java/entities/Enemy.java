@@ -10,7 +10,6 @@ import static utils.HelpMethods.*;
 public abstract class Enemy extends Entity {
     protected int enemyType;
     protected boolean firstUpdate = true;
-    protected float walkSpeed = 0.35f * SCALE;
     protected int walkDir = LEFT;
     protected int tileY;
     protected float attackDistance = TILES_SIZE;
@@ -23,6 +22,7 @@ public abstract class Enemy extends Entity {
         initHitbox(x, y, width, height);
         maxHealth = GetMaxHealth(enemyType);
         currentHealth = maxHealth;
+        walkSpeed = SCALE * 0.35f;
     }
 
     protected void firstUpdateCheck(int[][] lvlData) {
