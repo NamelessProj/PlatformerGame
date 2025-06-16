@@ -4,8 +4,7 @@ import java.awt.geom.Rectangle2D;
 
 import static utils.Constants.Directions.*;
 import static utils.Constants.EnemyConstants.*;
-import static utils.Constants.GameConstants.SCALE;
-import static utils.Constants.GameConstants.TILES_SIZE;
+import static utils.Constants.GameConstants.*;
 import static utils.HelpMethods.*;
 
 public abstract class Enemy extends Entity {
@@ -14,7 +13,6 @@ public abstract class Enemy extends Entity {
     protected boolean firstUpdate = true;
     protected boolean inAir;
     protected float fallSpeed;
-    protected float gravity = 0.04f * SCALE;
     protected float walkSpeed = 0.35f * SCALE;
     protected int walkDir = LEFT;
     protected int tileY;
@@ -41,7 +39,7 @@ public abstract class Enemy extends Entity {
     protected void updateInAir(int[][] lvlData) {
         if (CanMoveHere(hitbox.x, hitbox.y + fallSpeed, hitbox.width, hitbox.height, lvlData)) {
             hitbox.y += fallSpeed;
-            fallSpeed += gravity;
+            fallSpeed += GRAVITY;
         } else {
             inAir = false;
             hitbox.y = GetEntityYPositionUnderRoofOrAboveFloor(hitbox, fallSpeed);
