@@ -9,6 +9,7 @@ public abstract class Entity {
     protected int width, height;
     protected Rectangle2D.Float hitbox;
     protected int animationTick, animationIndex;
+    protected int state;
 
     /**
      * Constructor for the Entity class.
@@ -45,11 +46,6 @@ public abstract class Entity {
         g.drawRect((int) hitbox.x - xLvlOffset, (int) hitbox.y, (int) hitbox.width, (int) hitbox.height);
     }
 
-    /*protected void updateHitbox() {
-        hitbox.x = (int) x;
-        hitbox.y = (int) y;
-    }*/
-
     /**
      * Get the hitbox of the entity.
      *
@@ -57,5 +53,9 @@ public abstract class Entity {
      */
     public Rectangle2D.Float getHitbox() {
         return hitbox;
+    }
+
+    protected int getState() {
+        return state;
     }
 }
