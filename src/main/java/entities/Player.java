@@ -39,9 +39,6 @@ public class Player extends Entity {
 
     private int healthWidth = healthBarWidth;
 
-    // AttackBox
-    private Rectangle2D.Float attackBox;
-
     private int flipX = 0;
     private int flipW = 1;
 
