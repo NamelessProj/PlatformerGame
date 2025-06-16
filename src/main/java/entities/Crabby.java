@@ -62,11 +62,6 @@ public class Crabby extends Enemy {
         }
     }
 
-    public void drawHAttackBox(Graphics g, int xLvlOffset) {
-        g.setColor(Color.RED);
-        g.drawRect((int) attackBox.x - xLvlOffset, (int) attackBox.y, (int) attackBox.width, (int) attackBox.height);
-    }
-
     public int flipX() {
         if (walkDir == RIGHT)
             return width;
