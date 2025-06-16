@@ -4,6 +4,8 @@ import java.awt.Graphics;
 import java.awt.Color;
 import java.awt.geom.Rectangle2D;
 
+import static utils.Constants.GameConstants.SCALE;
+
 public abstract class Entity {
     protected float x, y;
     protected int width, height;
@@ -35,13 +37,11 @@ public abstract class Entity {
     /**
      * Initializes the hitbox of the entity.
      *
-     * @param x      The x-coordinate of the hitbox.
-     * @param y      The y-coordinate of the hitbox.
      * @param width  The width of the hitbox.
      * @param height The height of the hitbox.
      */
-    protected void initHitbox(float x, float y, int width, int height) {
-        hitbox = new Rectangle2D.Float(x, y, width, height);
+    protected void initHitbox(int width, int height) {
+        hitbox = new Rectangle2D.Float(x, y, (int) (width * SCALE), (int) (height * SCALE));
     }
 
     /**
