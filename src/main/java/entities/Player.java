@@ -15,7 +15,6 @@ public class Player extends Entity {
     private BufferedImage[][] animations;
     private boolean moving = false, attacking = false;
     private boolean left, right, jump;
-    private float playerSpeed = 1.0f * SCALE;
     private int[][] lvlData;
     private float xDrawOffset = 21 * SCALE;
     private float yDrawOffset = 4 * SCALE;
@@ -59,6 +58,7 @@ public class Player extends Entity {
         this.state = IDLE;
         this.maxHealth = 100;
         this.currentHealth = maxHealth;
+        this.walkSpeed = 1.0f * SCALE;
         loadAnimations();
         initHitbox(x, y, (int) (PLAYER_WIDTH * SCALE), (int) (PLAYER_HEIGHT * SCALE));
         initAttackBox();
@@ -215,13 +215,13 @@ public class Player extends Entity {
         float xSpeed = 0;
 
         if (left) {
-            xSpeed -= playerSpeed;
+            xSpeed -= walkSpeed;
             flipX = width;
             flipW = -1;
         }
 
         if (right) {
-            xSpeed += playerSpeed;
+            xSpeed += walkSpeed;
             flipX = 0;
             flipW = 1;
         }
