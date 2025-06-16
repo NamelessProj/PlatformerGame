@@ -8,6 +8,7 @@ public abstract class Entity {
     protected float x, y;
     protected int width, height;
     protected Rectangle2D.Float hitbox;
+    protected int animationTick, animationIndex;
 
     /**
      * Constructor for the Entity class.
