@@ -3,8 +3,7 @@ package entities;
 import gamestates.Playing;
 import utils.LoadSave;
 
-import static utils.Constants.GameConstants.GRAVITY;
-import static utils.Constants.GameConstants.SCALE;
+import static utils.Constants.GameConstants.*;
 import static utils.Constants.PlayerConstants.*;
 import static utils.HelpMethods.*;
 
@@ -14,7 +13,7 @@ import java.awt.image.BufferedImage;
 
 public class Player extends Entity {
     private BufferedImage[][] animations;
-    private int animationTick, animationIndex, animationSpeed = 25;
+    private int animationTick, animationIndex;
     private int playerAction = IDLE;
     private boolean moving = false, attacking = false;
     private boolean left, right, jump;
@@ -156,7 +155,7 @@ public class Player extends Entity {
      */
     private void updateAnimationTick() {
         animationTick++;
-        if (animationTick >= animationSpeed) {
+        if (animationTick >= ANIMATION_SPEED) {
             animationTick = 0;
             animationIndex++;
             if (animationIndex >= GetSpriteAmount(playerAction)) {
