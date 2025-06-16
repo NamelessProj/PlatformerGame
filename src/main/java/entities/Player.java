@@ -37,8 +37,6 @@ public class Player extends Entity {
     private int healthBarXStart = (int) (34 * SCALE);
     private int healthBarYStart = (int) (14 * SCALE);
 
-    private int maxHealth = 100;
-    private int currentHealth = maxHealth;
     private int healthWidth = healthBarWidth;
 
     // AttackBox
@@ -62,6 +60,8 @@ public class Player extends Entity {
         super(x, y, width, height);
         this.playing = playing;
         this.state = IDLE;
+        this.maxHealth = 100;
+        this.currentHealth = maxHealth;
         loadAnimations();
         initHitbox(x, y, (int) (PLAYER_WIDTH * SCALE), (int) (PLAYER_HEIGHT * SCALE));
         initAttackBox();
