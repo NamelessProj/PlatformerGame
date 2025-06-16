@@ -23,7 +23,6 @@ public class Player extends Entity {
     // Jumping / Gravity
     private float jumpSpeed = -2.25f * SCALE;
     private float fallSpeedAfterCollision = 0.5f * SCALE;
-    private boolean inAir = false;
 
     // Status bar UI
     private BufferedImage statusBarImg;
