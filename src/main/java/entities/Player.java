@@ -21,7 +21,6 @@ public class Player extends Entity {
     private float yDrawOffset = 4 * SCALE;
 
     // Jumping / Gravity
-    private float airSpeed = 0f;
     private float jumpSpeed = -2.25f * SCALE;
     private float fallSpeedAfterCollision = 0.5f * SCALE;
     private boolean inAir = false;
