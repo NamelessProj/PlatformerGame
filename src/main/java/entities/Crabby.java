@@ -8,8 +8,6 @@ import static utils.Constants.EnemyConstants.*;
 import static utils.Constants.GameConstants.SCALE;
 
 public class Crabby extends Enemy {
-    // AttackBox
-    private Rectangle2D.Float attackBox;
     private int attackBoxOffsetX;
 
     public Crabby(float x, float y) {
