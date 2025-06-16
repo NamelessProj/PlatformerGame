@@ -15,6 +15,7 @@ public abstract class Entity {
     protected int maxHealth;
     protected int currentHealth;
     protected Rectangle2D.Float attackBox;
+    protected float walkSpeed;
 
     /**
      * Constructor for the Entity class.
