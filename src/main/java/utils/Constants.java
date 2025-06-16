@@ -138,5 +138,6 @@ public class Constants {
         public static final int GAME_WIDTH = TILES_SIZE * TILES_IN_WIDTH;
         public static final int GAME_HEIGHT = TILES_SIZE * TILES_IN_HEIGHT;
         public static final float GRAVITY = 0.04f * SCALE;
+        public static final int ANIMATION_SPEED = 25;
     }
 }
