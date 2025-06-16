@@ -14,6 +14,7 @@ public abstract class Entity {
     protected boolean inAir = false;
     protected int maxHealth;
     protected int currentHealth;
+    protected Rectangle2D.Float attackBox;
 
     /**
      * Constructor for the Entity class.
