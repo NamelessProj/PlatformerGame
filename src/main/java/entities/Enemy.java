@@ -8,7 +8,7 @@ import static utils.Constants.GameConstants.*;
 import static utils.HelpMethods.*;
 
 public abstract class Enemy extends Entity {
-    protected int enemyState, enemyType;
+    protected int enemyType;
     protected boolean firstUpdate = true;
     protected boolean inAir;
     protected float fallSpeed;
@@ -91,7 +91,7 @@ public abstract class Enemy extends Entity {
     }
 
     protected void newState(int enemyState) {
-        this.enemyState = enemyState;
+        this.state = enemyState;
         animationIndex = 0;
         animationTick = 0;
     }
@@ -115,11 +115,11 @@ public abstract class Enemy extends Entity {
         if (animationTick >= ANIMATION_SPEED) {
             animationTick = 0;
             animationIndex++;
-            if (animationIndex >= GetSpriteAmount(enemyType, enemyState)) {
+            if (animationIndex >= GetSpriteAmount(enemyType, state)) {
                 animationIndex = 0;
 
-                switch (enemyState) {
-                    case ATTACK, HIT -> enemyState = IDLE;
+                switch (state) {
+                    case ATTACK, HIT -> state = IDLE;
                     case DEAD -> active = false;
                 }
             }
@@ -135,10 +135,6 @@ public abstract class Enemy extends Entity {
 
     protected int getAnimationIndex() {
         return animationIndex;
-    }
-
-    protected int getEnemyState() {
-        return enemyState;
     }
 
     protected boolean isActive() {
