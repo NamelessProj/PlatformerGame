@@ -4,8 +4,8 @@ import static utils.Constants.GameConstants.SCALE;
 
 public class Potion extends GameObject {
     private static class Direction {
-        public static int DOWN = 1;
-        public static int UP = -1;
+        public static final int DOWN = 1;
+        public static final int UP = -1;
     }
 
     private float hoverOffset, hoverSpeed = 0.075f * SCALE;
