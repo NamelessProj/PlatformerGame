@@ -8,8 +8,7 @@ import static utils.Constants.GameConstants.*;
 import static utils.HelpMethods.*;
 
 public abstract class Enemy extends Entity {
-    protected int animationIndex, enemyState, enemyType;
-    protected int animationTick;
+    protected int enemyState, enemyType;
     protected boolean firstUpdate = true;
     protected boolean inAir;
     protected float fallSpeed;
