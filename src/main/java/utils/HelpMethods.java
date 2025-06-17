@@ -3,6 +3,7 @@ package utils;
 import entities.Crabby;
 import objects.GameContainer;
 import objects.Potion;
+import objects.Spike;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
@@ -163,6 +164,19 @@ public class HelpMethods {
                 int val = color.getBlue();
                 if (val == BOX || val == BARREL)
                     list.add(new GameContainer(i * TILES_SIZE, j * TILES_SIZE, val));
+            }
+        return list;
+    }
+
+    public static ArrayList<Spike> GetSpikes(BufferedImage img) {
+        ArrayList<Spike> list = new ArrayList<>();
+
+        for (int j = 0; j < img.getHeight(); j++)
+            for (int i = 0; i < img.getWidth(); i++) {
+                Color color = new Color(img.getRGB(i, j));
+                int val = color.getBlue();
+                if (val == SPIKE)
+                    list.add(new Spike(i * TILES_SIZE, j * TILES_SIZE, SPIKE));
             }
         return list;
     }
