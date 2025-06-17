@@ -4,13 +4,8 @@ import static utils.Constants.GameConstants.SCALE;
 import static utils.Constants.ObjectConstants.POTION_HOVER_DELTA;
 
 public class Potion extends GameObject {
-    private static class Direction {
-        public static final int DOWN = 1;
-        public static final int UP = -1;
-    }
-
     private float hoverOffset, hoverSpeed = 0.075f * SCALE;
-    private int maxHoverOffset, hoverDirection = Direction.DOWN;
+    private int maxHoverOffset, hoverDirection = 1;
     float hoverTime = 0f, hoverDuration = 1.5f;
     private float pauseTimer = 0f;
     private float pauseDuration = 0.3f;
@@ -48,7 +43,7 @@ public class Potion extends GameObject {
 
         // Ease-in
         float t = (float) Math.sin(hoverTime * Math.PI / 2);
-        if (hoverDirection == Direction.DOWN)
+        if (hoverDirection == 1)
             hoverOffset = t * maxHoverOffset;
         else
             hoverOffset = (1 - t) * maxHoverOffset;
