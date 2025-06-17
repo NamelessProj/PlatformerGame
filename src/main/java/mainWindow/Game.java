@@ -56,8 +56,8 @@ public class Game implements Runnable {
     @Override
     public void run() {
         final double nanoSeconds = 1_000_000_000.0;
-        double timePerFrame = nanoSeconds / FPS_SET;
-        double timePerUpdate = nanoSeconds / UPS_SET;
+        final double timePerFrame = nanoSeconds / FPS_SET;
+        final double timePerUpdate = nanoSeconds / UPS_SET;
 
         long previousTime = System.nanoTime();
 
