@@ -40,10 +40,7 @@ public class GameObject {
         animationTick = 0;
         animationIndex = 0;
 
-        if (objectType == BARREL || objectType == BOX)
-            doAnimation = false;
-        else
-            doAnimation = true;
+        doAnimation = objectType != BARREL && objectType != BOX;
     }
 
     protected void initHitbox(int width, int height) {
