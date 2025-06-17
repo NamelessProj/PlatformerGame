@@ -1,6 +1,7 @@
 package objects;
 
 import static utils.Constants.GameConstants.SCALE;
+import static utils.Constants.ObjectConstants.POTION_HOVER_DELTA;
 
 public class Potion extends GameObject {
     private static class Direction {
@@ -10,6 +11,9 @@ public class Potion extends GameObject {
 
     private float hoverOffset, hoverSpeed = 0.075f * SCALE;
     private int maxHoverOffset, hoverDirection = Direction.DOWN;
+    float hoverTime = 0f, hoverDuration = 1.5f;
+    private float pauseTimer = 0f;
+    private float pauseDuration = 0.3f;
 
     public Potion(int x, int y, int objectType) {
         super(x, y, objectType);
@@ -27,12 +31,27 @@ public class Potion extends GameObject {
     }
 
     private void updateHover() {
-        hoverOffset += hoverSpeed * hoverDirection;
+        if (pauseTimer > 0) {
+            pauseTimer -= POTION_HOVER_DELTA;
+            if (pauseTimer <= 0) {
+                hoverDirection *= -1;
+                hoverTime = 0f;
+            }
+            return;
+        }
 
-        if (hoverOffset >= maxHoverOffset)
-            hoverDirection = Direction.UP;
-        else if (hoverOffset < 0)
-            hoverDirection = Direction.DOWN;
+        hoverTime += POTION_HOVER_DELTA / hoverDuration;
+        if (hoverTime > 1f) {
+            hoverTime = 1;
+            pauseTimer = pauseDuration;
+        }
+
+        // Ease-in
+        float t = (float) Math.sin(hoverTime * Math.PI / 2);
+        if (hoverDirection == Direction.DOWN)
+            hoverOffset = t * maxHoverOffset;
+        else
+            hoverOffset = (1 - t) * maxHoverOffset;
 
         hitbox.y = y + hoverOffset;
     }
