@@ -51,8 +51,8 @@ public class ObjectManager {
     }
 
     public void loadObjects(Level newLevel) {
-        potions = newLevel.getPotions();
-        containers = newLevel.getContainers();
+        potions = new ArrayList<>(newLevel.getPotions());
+        containers = new ArrayList<>(newLevel.getContainers());
     }
 
     private void loadImages() {
@@ -123,6 +123,8 @@ public class ObjectManager {
     }
 
     public void resetAllObjects() {
+        loadObjects(playing.getLevelManager().getCurrentLevel());
+
         for (Potion p : potions)
             p.reset();
 
