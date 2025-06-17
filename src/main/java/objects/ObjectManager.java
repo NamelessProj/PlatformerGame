@@ -1,5 +1,6 @@
 package objects;
 
+import entities.Player;
 import gamestates.Playing;
 import levels.Level;
 import utils.LoadSave;
@@ -14,13 +15,23 @@ import static utils.Constants.ObjectConstants.*;
 public class ObjectManager {
     private Playing playing;
     private BufferedImage[][] potionImages;
+    private BufferedImage spikeImage;
     private BufferedImage[][] containerImages;
     private ArrayList<Potion> potions;
     private ArrayList<GameContainer> containers;
+    private ArrayList<Spike> spikes;
 
     public ObjectManager(Playing playing) {
         this.playing = playing;
         loadImages();
+    }
+
+    public void checkSpikesTouchedPlayer(Player player) {
+        for (Spike s : spikes)
+            if (s.getHitbox().intersects(player.getHitbox())) {
+                player.kill();
+                return;
+            }
     }
 
     public void checkObjectTouchedPlayer(Rectangle2D.Float hitbox) {
@@ -53,6 +64,7 @@ public class ObjectManager {
     public void loadObjects(Level newLevel) {
         potions = new ArrayList<>(newLevel.getPotions());
         containers = new ArrayList<>(newLevel.getContainers());
+        spikes = newLevel.getSpikes();
     }
 
     private void loadImages() {
@@ -73,6 +85,8 @@ public class ObjectManager {
         for (int j = 0; j < containerImages.length; j++)
             for (int i = 0; i < containerImages[j].length; i++)
                 containerImages[j][i] = containerSprite.getSubimage(i * containerWidth, j * containerHeight, containerWidth, containerHeight);
+
+        spikeImage = LoadSave.GetSpriteAtlas(LoadSave.TRAP_ATLAS);
     }
 
     public void update() {
@@ -88,6 +102,17 @@ public class ObjectManager {
     public void draw(Graphics g, int xLvlOffset) {
         drawPotions(g, xLvlOffset);
         drawContainers(g, xLvlOffset);
+        drawTraps(g, xLvlOffset);
+    }
+
+    private void drawTraps(Graphics g, int xLvlOffset) {
+        for (Spike s : spikes)
+            g.drawImage(spikeImage,
+                    (int) (s.getHitbox().x - xLvlOffset),
+                    (int) (s.getHitbox().y - s.getYDrawOffset()),
+                    SPIKE_WIDTH,
+                    SPIKE_HEIGHT,
+                    null);
     }
 
     private void drawContainers(Graphics g, int xLvlOffset) {
