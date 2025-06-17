@@ -141,6 +141,10 @@ public class Playing extends State implements Statemethods {
         objectManager.checkObjectTouchedPlayer(hitbox);
     }
 
+    public void checkSpikesTouched(Player player) {
+        objectManager.checkSpikesTouchedPlayer(player);
+    }
+
     @Override
     public void update() {
         if (paused)
