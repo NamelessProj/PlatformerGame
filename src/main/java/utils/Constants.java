@@ -2,6 +2,8 @@ package utils;
 
 public class Constants {
     public static class ObjectConstants {
+        public static final float POTION_HOVER_DELTA = (float) 1 / GameConstants.FPS_SET;
+
         public static final int RED_POTION = 0;
         public static final int BLUE_POTION = 1;
         public static final int BARREL = 2;
