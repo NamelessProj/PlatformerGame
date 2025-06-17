@@ -40,7 +40,7 @@ public class ObjectManager {
 
     public void checkObjectHit(Rectangle2D.Float attackBox) {
         for (GameContainer gc : containers)
-            if (gc.isActive() && gc.getHitbox().intersects(attackBox)) {
+            if (gc.isActive() && !gc.doAnimation && gc.getHitbox().intersects(attackBox)) {
                 gc.setDoAnimation(true);
                 int type = RED_POTION;
                 if (gc.getObjectType() == BARREL)
