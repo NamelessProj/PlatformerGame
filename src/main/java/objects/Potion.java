@@ -41,13 +41,23 @@ public class Potion extends GameObject {
             pauseTimer = pauseDuration;
         }
 
-        // Ease-in
-        float t = (float) Math.sin(hoverTime * Math.PI / 2);
+        // Ease-in function for smooth hovering
+        float t = easeInOutBack(hoverTime);
         if (hoverDirection == 1)
             hoverOffset = t * maxHoverOffset;
         else
             hoverOffset = (1 - t) * maxHoverOffset;
 
         hitbox.y = y + hoverOffset;
+    }
+
+    private float easeInOutBack(float x) {
+        final float c1 = 1.70158f;
+        final float c2 = c1 * 1.525f;
+
+        if (x < 0.5f)
+            return (float) ((Math.pow(2 * x, 2) * ((c2 + 1) * 2 * x - c2)) / 2);
+        else
+            return (float) ((Math.pow(2 * x - 2, 2) * ((c2 + 1) * (2 * x - 2) + c2) + 2) / 2);
     }
 }
