@@ -2,6 +2,7 @@ package objects;
 
 import java.awt.geom.Rectangle2D;
 
+import static utils.Constants.GameConstants.SCALE;
 import static utils.Constants.Projectiles.*;
 
 public class Projectile {
@@ -10,7 +11,13 @@ public class Projectile {
     private boolean active = true;
 
     public Projectile(int x, int y, int direction) {
-        hitbox = new Rectangle2D.Float(x, y, CANNON_BALL_WIDTH, CANNON_BALL_HEIGHT);
+        int xOffset = (int) (-3 * SCALE);
+        int yOffset = (int) (5 * SCALE);
+
+        if (direction == 1)
+            xOffset = (int) (29 * SCALE);
+
+        hitbox = new Rectangle2D.Float(x + xOffset, y + yOffset, CANNON_BALL_WIDTH, CANNON_BALL_HEIGHT);
         this.direction = direction;
     }
 
