@@ -129,15 +129,16 @@ public class ObjectManager {
                 if (isPlayerInRange(c, player))
                     if (isPlayerInFrontOfCannon(c, player))
                         if (CanCannonSeePlayer(lvlData, player.getHitbox(), c.getHitbox(), c.getTileY())) {
-                            shootCannon(c);
+                            c.setDoAnimation(true);
                         }
 
             c.update();
+            if (c.getAnimationIndex() == 4 && c.getAnimationTick() == 0)
+                shootCannon(c);
         }
     }
 
     private void shootCannon(Cannon c) {
-        c.setDoAnimation(true);
         int dir = c.getObjectType() == CANNON_LEFT ? -1 : 1;
         projectiles.add(new Projectile((int) c.getHitbox().x, (int) c.getHitbox().y, dir));
     }
