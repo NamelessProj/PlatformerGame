@@ -14,6 +14,7 @@ import static utils.Constants.GameConstants.TILES_SIZE;
 import static utils.Constants.ObjectConstants.*;
 import static utils.Constants.Projectiles.*;
 import static utils.HelpMethods.CanCannonSeePlayer;
+import static utils.HelpMethods.IsProjectileHittingLevel;
 
 public class ObjectManager {
     private Playing playing;
@@ -119,8 +120,14 @@ public class ObjectManager {
 
     private void updateProjectiles(int[][] lvlData, Player player) {
         for (Projectile p : projectiles)
-            if (p.isActive())
+            if (p.isActive()) {
                 p.updatePosition();
+                if (p.getHitbox().intersects(player.getHitbox())) {
+                    player.changeHealth(-25);
+                    p.setActive(false);
+                } else if (IsProjectileHittingLevel(p, lvlData))
+                    p.setActive(false);
+            }
     }
 
     private void updateCannons(int[][] lvlData, Player player) {
