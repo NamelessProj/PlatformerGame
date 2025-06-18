@@ -129,9 +129,9 @@ public class ObjectManager {
     }
 
     private boolean isPlayerInFrontOfCannon(Cannon c, Player p) {
-        if (c.getObjectType() == CANNON_LEFT && c.getHitbox().x > p.getHitbox().x)
-            return true;
-        else return c.getHitbox().x < p.getHitbox().x;
+        if (c.getObjectType() == CANNON_LEFT) {
+            return c.getHitbox().x > p.getHitbox().x;
+        } else return c.getHitbox().x < p.getHitbox().x;
     }
 
     private boolean isPlayerInRange(Cannon c, Player p) {
