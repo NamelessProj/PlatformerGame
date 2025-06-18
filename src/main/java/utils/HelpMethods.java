@@ -1,6 +1,7 @@
 package utils;
 
 import entities.Crabby;
+import objects.Cannon;
 import objects.GameContainer;
 import objects.Potion;
 import objects.Spike;
@@ -177,6 +178,19 @@ public class HelpMethods {
                 int val = color.getBlue();
                 if (val == SPIKE)
                     list.add(new Spike(i * TILES_SIZE, j * TILES_SIZE, SPIKE));
+            }
+        return list;
+    }
+
+    public static ArrayList<Cannon> GetCannons(BufferedImage img) {
+        ArrayList<Cannon> list = new ArrayList<>();
+
+        for (int j = 0; j < img.getHeight(); j++)
+            for (int i = 0; i < img.getWidth(); i++) {
+                Color color = new Color(img.getRGB(i, j));
+                int val = color.getBlue();
+                if (val == CANNON_LEFT || val == CANNON_RIGHT)
+                    list.add(new Cannon(i * TILES_SIZE, j * TILES_SIZE, val));
             }
         return list;
     }
