@@ -42,7 +42,7 @@ public class Constants {
 
         public static int GetSpriteAmount(int objectType) {
             return switch (objectType) {
-                case RED_POTION, BLUE_POTION -> 7;
+                case RED_POTION, BLUE_POTION, CANNON_LEFT, CANNON_RIGHT -> 7;
                 case BARREL, BOX -> 8;
                 default -> 1;
             };
