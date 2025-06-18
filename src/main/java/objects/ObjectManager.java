@@ -10,7 +10,9 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import static utils.Constants.GameConstants.TILES_SIZE;
 import static utils.Constants.ObjectConstants.*;
+import static utils.HelpMethods.CanCannonSeePlayer;
 
 public class ObjectManager {
     private Playing playing;
@@ -97,7 +99,7 @@ public class ObjectManager {
             cannonImages[i] = temp.getSubimage(i * CANNON_WIDTH_DEFAULT, 0, CANNON_WIDTH_DEFAULT, CANNON_HEIGHT_DEFAULT);
     }
 
-    public void update() {
+    public void update(int[][] lvlData, Player player) {
         for (Potion p : potions)
             if (p.isActive())
                 p.update();
@@ -106,12 +108,35 @@ public class ObjectManager {
             if (gc.isActive())
                 gc.update();
 
-        updateCannons();
+        updateCannons(lvlData, player);
     }
 
-    private void updateCannons() {
-        for (Cannon c : cannons)
+    private void updateCannons(int[][] lvlData, Player player) {
+        for (Cannon c : cannons) {
+            if (!c.doAnimation && c.getTileY() == player.getTileY())
+                if (isPlayerInRange(c, player))
+                    if (isPlayerInFrontOfCannon(c, player))
+                        if (CanCannonSeePlayer(lvlData, player.getHitbox(), c.getHitbox(), c.getTileY())) {
+                            shootCannon(c);
+                        }
+
             c.update();
+        }
+    }
+
+    private void shootCannon(Cannon c) {
+        c.setDoAnimation(true);
+    }
+
+    private boolean isPlayerInFrontOfCannon(Cannon c, Player p) {
+        if (c.getObjectType() == CANNON_LEFT && c.getHitbox().x > p.getHitbox().x)
+            return true;
+        else return c.getHitbox().x < p.getHitbox().x;
+    }
+
+    private boolean isPlayerInRange(Cannon c, Player p) {
+        int absValue = (int) (Math.abs(p.getHitbox().x - c.getHitbox().x));
+        return absValue <= TILES_SIZE * 5;
     }
 
     public void draw(Graphics g, int xLvlOffset) {
