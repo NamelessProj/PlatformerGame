@@ -1,6 +1,14 @@
 package utils;
 
 public class Constants {
+    public static class Projectiles {
+        public static final int CANNON_BALL_DEFAULT_WIDTH = 15;
+        public static final int CANNON_BALL_DEFAULT_HEIGHT = 15;
+        public static final int CANNON_BALL_WIDTH = (int) (CANNON_BALL_DEFAULT_WIDTH * GameConstants.SCALE);
+        public static final int CANNON_BALL_HEIGHT = (int) (CANNON_BALL_DEFAULT_HEIGHT * GameConstants.SCALE);
+        public static final float SPEED = 0.5f * GameConstants.SCALE;
+    }
+
     public static class ObjectConstants {
         public static final float POTION_HOVER_DELTA = (float) 1 / GameConstants.FPS_SET;
 
