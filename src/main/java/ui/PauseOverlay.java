@@ -85,15 +85,20 @@ public class PauseOverlay {
     }
 
     public void mouseReleased(MouseEvent e) {
-        if (isIn(e, menuBtn) && menuBtn.isMousePressed()) {
-            Gamestate.state = Gamestate.MENU;
-            playing.unPauseGame();
-        } else if (isIn(e, replayBtn) && replayBtn.isMousePressed()) {
-            playing.resetAll();
-            playing.unPauseGame();
-        } else if (isIn(e, unpauseBtn) && unpauseBtn.isMousePressed())
-            playing.unPauseGame();
-        else
+        if (isIn(e, menuBtn)) {
+            if (menuBtn.isMousePressed()) {
+                playing.setGamestate(Gamestate.MENU);
+                playing.unPauseGame();
+            }
+        } else if (isIn(e, replayBtn)) {
+            if (replayBtn.isMousePressed()) {
+                playing.resetAll();
+                playing.unPauseGame();
+            }
+        } else if (isIn(e, unpauseBtn)) {
+            if (unpauseBtn.isMousePressed())
+                playing.unPauseGame();
+        } else
             audioOptions.mouseReleased(e);
 
         menuBtn.resetBools();
