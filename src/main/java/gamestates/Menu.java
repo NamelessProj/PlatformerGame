@@ -80,6 +80,9 @@ public class Menu extends State implements Statemethods {
             if (isIn(e, btn)) {
                 if (btn.isMousePressed())
                     btn.applyGamestate();
+
+                if (btn.getState() == Gamestate.PLAYING)
+                    game.getAudioPlayer().setLevelSong(game.getPlaying().getLevelManager().getLevelIndex());
                 break;
             }
         }
@@ -101,11 +104,9 @@ public class Menu extends State implements Statemethods {
     @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_ENTER)
-            Gamestate.state = Gamestate.PLAYING;
+            setGamestate(Gamestate.PLAYING);
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
-
-    }
+    public void keyReleased(KeyEvent e) {}
 }
