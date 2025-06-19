@@ -3,6 +3,7 @@ package mainWindow;
 import gamestates.Gamestate;
 import gamestates.Menu;
 import gamestates.Playing;
+import ui.AudioOptions;
 
 import java.awt.Graphics;
 
@@ -15,6 +16,7 @@ public class Game implements Runnable {
 
     private Playing playing;
     private Menu menu;
+    private AudioOptions audioOptions;
 
     public Game() {
         initClasses();
@@ -28,6 +30,7 @@ public class Game implements Runnable {
     }
 
     private void initClasses() {
+        audioOptions = new AudioOptions();
         menu = new Menu(this);
         playing = new Playing(this);
     }
@@ -107,5 +110,9 @@ public class Game implements Runnable {
 
     public Playing getPlaying() {
         return playing;
+    }
+
+    public AudioOptions getAudioOptions() {
+        return audioOptions;
     }
 }
