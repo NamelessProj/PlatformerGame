@@ -11,6 +11,8 @@ import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
+import audio.AudioPlayer;
+
 public class Player extends Entity {
     private BufferedImage[][] animations;
     private boolean moving = false, attacking = false;
@@ -89,11 +91,13 @@ public class Player extends Entity {
                 animationTick = 0;
                 animationIndex = 0;
                 playing.setPlayerDying(true);
-            } else if (animationIndex == GetSpriteAmount(DEAD) - 1 && animationTick >= ANIMATION_SPEED - 1)
+                playing.getGame().getAudioPlayer().playEffect(AudioPlayer.DIE);
+            } else if (animationIndex == GetSpriteAmount(DEAD) - 1 && animationTick >= ANIMATION_SPEED - 1) {
                 playing.setGameOver(true);
-            else
+                playing.getGame().getAudioPlayer().stopSong();
+                playing.getGame().getAudioPlayer().playEffect(AudioPlayer.GAME_OVER);
+            } else
                 updateAnimationTick();
-
             return;
         }
 
@@ -128,6 +132,7 @@ public class Player extends Entity {
         attackChecked = true;
         playing.checkEnemyHit(attackBox);
         playing.checkObjectHit(attackBox);
+        playing.getGame().getAudioPlayer().playAttackSound();
     }
 
     private void updateAttackBox() {
@@ -272,6 +277,7 @@ public class Player extends Entity {
         if (inAir)
             return;
 
+        playing.getGame().getAudioPlayer().playEffect(AudioPlayer.JUMP);
         inAir = true;
         airSpeed = jumpSpeed;
     }
