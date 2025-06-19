@@ -65,8 +65,7 @@ public class LevelManager {
         levelIndex++;
         if (levelIndex >= getAmountOfLevels()) {
             levelIndex = 0;
-            System.out.println("no more levels, game over");
-            Gamestate.state = Gamestate.MENU;
+            game.getPlaying().setGamestate(Gamestate.MENU);
         }
 
         Level newLevel = levels.get(levelIndex);
@@ -74,5 +73,13 @@ public class LevelManager {
         game.getPlaying().getPlayer().loadLvlData(newLevel.getLevelData());
         game.getPlaying().setMaxLevelOffset(newLevel.getLevelOffsetX());
         game.getPlaying().getObjectManager().loadObjects(newLevel);
+    }
+
+    public int getLevelIndex() {
+        return levelIndex;
+    }
+
+    public boolean hasNextLevel() {
+        return levelIndex < getAmountOfLevels();
     }
 }
