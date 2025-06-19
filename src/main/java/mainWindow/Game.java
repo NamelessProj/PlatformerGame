@@ -1,5 +1,6 @@
 package mainWindow;
 
+import gamestates.GameOptions;
 import gamestates.Gamestate;
 import gamestates.Menu;
 import gamestates.Playing;
@@ -16,6 +17,7 @@ public class Game implements Runnable {
 
     private Playing playing;
     private Menu menu;
+    private GameOptions gameOptions;
     private AudioOptions audioOptions;
 
     public Game() {
@@ -33,6 +35,7 @@ public class Game implements Runnable {
         audioOptions = new AudioOptions();
         menu = new Menu(this);
         playing = new Playing(this);
+        gameOptions = new GameOptions(this);
     }
 
     private void startGameLoop() {
@@ -44,7 +47,8 @@ public class Game implements Runnable {
         switch (Gamestate.state) {
             case MENU -> menu.update();
             case PLAYING -> playing.update();
-            case OPTIONS, QUIT -> System.exit(0);
+            case OPTIONS -> gameOptions.update();
+            case QUIT -> System.exit(0);
             default -> System.exit(1);
         }
     }
@@ -53,6 +57,7 @@ public class Game implements Runnable {
         switch (Gamestate.state) {
             case MENU -> menu.draw(g);
             case PLAYING -> playing.draw(g);
+            case OPTIONS -> gameOptions.draw(g);
         }
     }
 
@@ -110,6 +115,10 @@ public class Game implements Runnable {
 
     public Playing getPlaying() {
         return playing;
+    }
+
+    public GameOptions getGameOptions() {
+        return gameOptions;
     }
 
     public AudioOptions getAudioOptions() {
