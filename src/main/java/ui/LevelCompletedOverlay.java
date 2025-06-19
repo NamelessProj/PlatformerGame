@@ -77,8 +77,6 @@ public class LevelCompletedOverlay {
                 playing.loadNextLevel();
                 if (playing.getLevelManager().hasNextLevel())
                     playing.getGame().getAudioPlayer().setLevelSong(playing.getLevelManager().getLevelIndex());
-                else
-                    playing.getGame().getAudioPlayer().playSong(AudioPlayer.MENU_1);
             }
         }
 
