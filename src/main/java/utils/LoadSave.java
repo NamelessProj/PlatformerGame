@@ -25,6 +25,7 @@ public class LoadSave {
     public static final String STATUS_BAR = "health_power_bar.png";
     public static final String COMPLETED_IMG = "completed_sprite.png";
     public static final String DEATH_SCREEN = "death_screen.png";
+    public static final String OPTIONS_MENU = "options_background.png";
 
     public static final String POTION_ATLAS = "potions_sprites.png";
     public static final String CONTAINER_ATLAS = "objects_sprites.png";
