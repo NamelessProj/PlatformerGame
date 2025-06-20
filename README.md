@@ -57,6 +57,7 @@ PlatformerGame-master/
         │   ├── ui/                 # UI components: buttons, overlays
         │   └── utils/              # Constants, helpers, loading utilities
         └── resources/              # Game resources
-            └── images/             # Images for player, enemies, backgrounds, etc.
-                └── lvls/           # Levels data images
+            ├── images/             # Images for player, enemies, backgrounds, etc.
+            │   └── lvls/           # Levels data images
+            └── audio/              # Audio files: songs and effects
 ```
