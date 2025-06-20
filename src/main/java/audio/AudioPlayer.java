@@ -1,16 +1,11 @@
 package audio;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.Random;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.BooleanControl;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.FloatControl;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
+import kuusisto.tinysound.Music;
+import kuusisto.tinysound.Sound;
+import kuusisto.tinysound.TinySound;
 
 public class AudioPlayer {
     public static final int MENU_1 = 0;
@@ -25,13 +20,15 @@ public class AudioPlayer {
     public static final int ATTACK_2 = 5;
     public static final int ATTACK_3 = 6;
 
-    private Clip[] songs, effects;
+    private Music[] songs;
+    private Sound[] effects;
     private int currentSongId;
     private float volume = 1f;
     private boolean songMute, effectMute;
     private Random random = new Random();
 
     public AudioPlayer() {
+        TinySound.init();
         loadSongs();
         loadEffects();
         playSong(MENU_1);
@@ -43,9 +40,9 @@ public class AudioPlayer {
             "level1",
             "level2"
         };
-        songs = new Clip[names.length];
+        songs = new Music[names.length];
         for (int i = 0; i < songs.length; i++)
-            songs[i] = getClip(names[i]);
+            songs[i] = getMusic(names[i]);
     }
 
     private void loadEffects() {
@@ -58,23 +55,34 @@ public class AudioPlayer {
             "attack2",
             "attack3"
         };
-        effects = new Clip[effectNames.length];
+        effects = new Sound[effectNames.length];
         for (int i = 0; i < effects.length; i++)
-            effects[i] = getClip(effectNames[i]);
+            effects[i] = getSound(effectNames[i]);
 
         updateEffectsVolume();
     }
 
-    private Clip getClip(String name) {
+    private Music getMusic(String name) {
         URL url = getClass().getResource("/audio/" + name + ".wav");
-        AudioInputStream audio;
+        Music music;
 
         try {
-            audio = AudioSystem.getAudioInputStream(url);
-            Clip clip = AudioSystem.getClip();
-            clip.open(audio);
-            return clip;
-        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            music = TinySound.loadMusic(url);
+            return music;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private Sound getSound(String name) {
+        URL url = getClass().getResource("/audio/" + name + ".wav");
+        Sound sound;
+
+        try {
+            sound = TinySound.loadSound(url);
+            return sound;
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
@@ -87,7 +95,7 @@ public class AudioPlayer {
     }
 
     public void stopSong() {
-        if (songs[currentSongId].isActive())
+        if (songs[currentSongId].playing())
             songs[currentSongId].stop();
     }
 
@@ -114,46 +122,76 @@ public class AudioPlayer {
 
         currentSongId = song;
         updateSongVolume();
-        songs[currentSongId].setMicrosecondPosition(0);
-        songs[currentSongId].loop(Clip.LOOP_CONTINUOUSLY);
+        songs[currentSongId].setLoop(true);
+        songs[currentSongId].play(true);
     }
 
     public void playEffect(int effect) {
-        effects[effect].setMicrosecondPosition(0);
-        effects[effect].start();
+        if (effectMute || effects[effect] == null)
+            return; // Do not play if muted or effect is null
+        effects[effect].play();
     }
 
     public void toggleSongMute() {
         this.songMute = !this.songMute;
-        for (Clip c : songs) {
-            BooleanControl booleanControl = (BooleanControl) c.getControl(BooleanControl.Type.MUTE);
-            booleanControl.setValue(songMute);
+        for (Music s : songs) {
+            if (s != null && s.playing()) {
+                if (songMute)
+                    s.stop();
+            }
+            if (!songMute && s == songs[currentSongId]) {
+                s.setLoop(true);
+                s.play(true);
+            }
         }
     }
 
     public void toggleEffectMute() {
         this.effectMute = !this.effectMute;
-        for (Clip c : effects) {
-            BooleanControl booleanControl = (BooleanControl) c.getControl(BooleanControl.Type.MUTE);
-            booleanControl.setValue(effectMute);
+        for (Sound e : effects) {
+            if (e != null) {
+                if (effectMute)
+                    e.stop();
+            }
         }
         if (!effectMute)
             playEffect(JUMP);
     }
 
     private void updateSongVolume() {
-        FloatControl gaiControl = (FloatControl) songs[currentSongId].getControl(FloatControl.Type.MASTER_GAIN);
-        float range = gaiControl.getMaximum() - gaiControl.getMinimum();
-        float gain = (range * volume) + gaiControl.getMinimum();
-        gaiControl.setValue(gain);
+        for (Music s : songs) {
+            if (s != null) {
+                s.setVolume(volume);
+            }
+        }
+        // If the current song is muted, stop it
+        if (songMute && songs[currentSongId].playing()) {
+            songs[currentSongId].stop();
+        } else if (!songMute && !songs[currentSongId].playing()) {
+            songs[currentSongId].setLoop(true);
+            songs[currentSongId].play(true);
+        }
     }
 
     private void updateEffectsVolume() {
-        for (Clip c : effects) {
-            FloatControl gaiControl = (FloatControl) c.getControl(FloatControl.Type.MASTER_GAIN);
-            float range = gaiControl.getMaximum() - gaiControl.getMinimum();
-            float gain = (range * volume) + gaiControl.getMinimum();
-            gaiControl.setValue(gain);
+        for (Sound c : effects) {
+            if (c != null) {
+                System.out.println("Setting effect volume to: " + volume);
+            }
+        }
+    }
+
+    public void shutdown() {
+        TinySound.shutdown();
+        for (Music s : songs) {
+            if (s != null) {
+                s.stop();
+            }
+        }
+        for (Sound e : effects) {
+            if (e != null) {
+                e.stop();
+            }
         }
     }
 }
