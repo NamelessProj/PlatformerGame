@@ -129,7 +129,7 @@ public class AudioPlayer {
     public void playEffect(int effect) {
         if (effectMute || effects[effect] == null)
             return; // Do not play if muted or effect is null
-        effects[effect].play();
+        effects[effect].play(volume);
     }
 
     public void toggleSongMute() {
