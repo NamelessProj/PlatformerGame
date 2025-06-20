@@ -20,6 +20,11 @@ The game features multiple levels, enemies, hazards, pickups, and a functional U
 | `Space` | Jump              |
 | `ESC`   | Pause / open menu |
 
+| __Mouse Button__ | __Action__        |
+|------------------|-------------------|
+| `Left Click`     | Attack            |
+| `Right Click`    | Power Attack      |
+
 
 ## How To Build And Run
 This project is built using pure Java (Swing) — no external libraries are required.
