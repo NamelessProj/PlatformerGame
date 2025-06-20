@@ -1,3 +1,7 @@
+![Java version](https://img.shields.io/badge/Java-^23.0.2-orange?style=for-the-badge)
+![Project licence](https://img.shields.io/github/license/NamelessProj/PlatformerGame?style=for-the-badge)
+![Repo size](https://img.shields.io/github/repo-size/NamelessProj/PlatformerGame?style=for-the-badge)
+
 # A Simple Platformer In Java
 Platform Game is a 2D platformer built in pure Java using the Swing library.
 The game features multiple levels, enemies, hazards, pickups, and a functional UI with pause, game over, and level completion screens.
