@@ -50,6 +50,7 @@ PlatformerGame-master/
 ├── README.md
 ├── pom.xml
 ├── .idea/                          # IntelliJ IDEA project files
+├── lib/                            # Libraries: TinySound
 └── src/
     └── main/
         ├── java/
