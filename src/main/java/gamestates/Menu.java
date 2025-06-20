@@ -2,7 +2,6 @@ package gamestates;
 
 import mainWindow.Game;
 import ui.MenuButton;
-import utils.Constants;
 import utils.LoadSave;
 
 import static utils.Constants.GameConstants.*;
