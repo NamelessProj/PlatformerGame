@@ -73,4 +73,8 @@ public abstract class Entity {
     protected int getAnimationIndex() {
         return animationIndex;
     }
+
+    public int getCurrentHealth() {
+        return currentHealth;
+    }
 }
