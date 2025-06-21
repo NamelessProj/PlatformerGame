@@ -56,10 +56,11 @@ public class EnemyManager {
 
     public void checkEnemyHit(Rectangle2D.Float attackBox) {
         for (Crabby c : crabbies)
-            if (c.isActive() && attackBox.intersects(c.getHitbox())) {
-                c.hurt(10);
-                return;
-            }
+            if (c.isActive() && c.getCurrentHealth() > 0)
+                if (attackBox.intersects(c.getHitbox())) {
+                    c.hurt(10);
+                    return;
+                }
     }
 
     private void loadEnemyImages() {
