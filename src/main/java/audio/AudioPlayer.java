@@ -58,8 +58,6 @@ public class AudioPlayer {
         effects = new Sound[effectNames.length];
         for (int i = 0; i < effects.length; i++)
             effects[i] = getSound(effectNames[i]);
-
-        updateEffectsVolume();
     }
 
     private Music getMusic(String name) {
@@ -91,7 +89,6 @@ public class AudioPlayer {
     public void setVolume(float volume) {
         this.volume = volume;
         updateSongVolume();
-        updateEffectsVolume();
     }
 
     public void stopSong() {
@@ -160,9 +157,8 @@ public class AudioPlayer {
 
     private void updateSongVolume() {
         for (Music s : songs) {
-            if (s != null) {
+            if (s != null)
                 s.setVolume(volume);
-            }
         }
         // If the current song is muted, stop it
         if (songMute && songs[currentSongId].playing()) {
@@ -173,25 +169,16 @@ public class AudioPlayer {
         }
     }
 
-    private void updateEffectsVolume() {
-        for (Sound c : effects) {
-            if (c != null) {
-                System.out.println("Setting effect volume to: " + volume);
-            }
-        }
-    }
-
     public void shutdown() {
         TinySound.shutdown();
         for (Music s : songs) {
-            if (s != null) {
+            if (s != null)
                 s.stop();
-            }
         }
+
         for (Sound e : effects) {
-            if (e != null) {
+            if (e != null)
                 e.stop();
-            }
         }
     }
 }
