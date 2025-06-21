@@ -78,8 +78,4 @@ public class LevelManager {
     public int getLevelIndex() {
         return levelIndex;
     }
-
-    public boolean hasNextLevel() {
-        return levelIndex < getAmountOfLevels();
-    }
 }
