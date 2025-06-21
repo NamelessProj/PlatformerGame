@@ -88,6 +88,7 @@ public class Player extends Entity {
 
     private void initAttackBox() {
         attackBox = new Rectangle2D.Float(x, y, (int) (20 * SCALE), (int) (20 * SCALE));
+        resetAttackBox();
     }
 
     /**
@@ -159,7 +160,9 @@ public class Player extends Entity {
     }
 
     private void updateAttackBox() {
-        if (right || (powerAttackActive && flipW == 1))
+        if (right && left)
+            resetAttackBox();
+        else if (right || (powerAttackActive && flipW == 1))
             attackBox.x = hitbox.x + hitbox.width + (int) (10 * SCALE);
         else if (left || (powerAttackActive && flipW == -1))
             attackBox.x = hitbox.x - hitbox.width - (int) (10 * SCALE);
@@ -289,20 +292,20 @@ public class Player extends Entity {
 
         float xSpeed = 0;
 
-        if (left) {
+        if (left && !right) {
             xSpeed -= walkSpeed;
             flipX = width;
             flipW = -1;
         }
 
-        if (right) {
+        if (right && !left) {
             xSpeed += walkSpeed;
             flipX = 0;
             flipW = 1;
         }
 
         if (powerAttackActive) {
-            if (!left && !right) {
+            if ((!left && !right) || (left && right)) {
                 if (flipW == -1)
                     xSpeed = -walkSpeed;
                 else
@@ -456,16 +459,27 @@ public class Player extends Entity {
         return tileY;
     }
 
+    private void resetAttackBox() {
+        if (flipW == 1)
+            attackBox.x = hitbox.x + hitbox.width + (int) (10 * SCALE);
+        else
+            attackBox.x = hitbox.x - hitbox.width - (int) (10 * SCALE);
+    }
+
     public void resetAll() {
         resetDirBooleans();
         inAir = false;
         attacking = false;
         moving = false;
+        airSpeed = 0f;
+        powerAttackActive = false;
+        powerAttackTick = 0;
         state = IDLE;
         currentHealth = maxHealth;
 
         hitbox.x = x;
         hitbox.y = y;
+        resetAttackBox();
 
         if (!IsEntityOnFloor(hitbox, lvlData))
             inAir = true;
