@@ -171,14 +171,12 @@ public class AudioPlayer {
 
     public void shutdown() {
         TinySound.shutdown();
-        for (Music s : songs) {
+        for (Music s : songs)
             if (s != null)
                 s.stop();
-        }
 
-        for (Sound e : effects) {
+        for (Sound e : effects)
             if (e != null)
                 e.stop();
-        }
     }
 }
