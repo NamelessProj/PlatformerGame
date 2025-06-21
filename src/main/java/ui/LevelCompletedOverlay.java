@@ -8,8 +8,6 @@ import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
-import audio.AudioPlayer;
-
 import static utils.Constants.GameConstants.*;
 import static utils.Constants.UI.URMButtons.*;
 
@@ -75,7 +73,7 @@ public class LevelCompletedOverlay {
         } else if (isIn(next, e)) {
             if (next.isMousePressed()) {
                 playing.loadNextLevel();
-                if (playing.getLevelManager().hasNextLevel())
+                if (playing.getLevelManager().getLevelIndex() > 0)
                     playing.getGame().getAudioPlayer().setLevelSong(playing.getLevelManager().getLevelIndex());
             }
         }
