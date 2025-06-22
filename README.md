@@ -24,6 +24,8 @@ The game features multiple levels, enemies, hazards, pickups, and a functional U
 | `Space` | Jump              |
 | `ESC`   | Pause / Open Menu |
 
+</br>
+
 | __Mouse Button__ | __Action__        |
 |------------------|-------------------|
 | `Left Click`     | Attack            |
