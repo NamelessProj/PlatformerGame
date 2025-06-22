@@ -19,10 +19,10 @@ The game features multiple levels, enemies, hazards, pickups, and a functional U
 ## Controls
 | __Key__ | __Action__        |
 |---------|-------------------|
-| `A`     | Move left         |
-| `D`     | Move right        |
+| `A`     | Move Left         |
+| `D`     | Move Right        |
 | `Space` | Jump              |
-| `ESC`   | Pause / open menu |
+| `ESC`   | Pause / Open Menu |
 
 | __Mouse Button__ | __Action__        |
 |------------------|-------------------|
