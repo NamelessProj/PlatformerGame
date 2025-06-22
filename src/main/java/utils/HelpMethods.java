@@ -110,9 +110,14 @@ public class HelpMethods {
         return true;
     }
 
-    public static boolean IsSightClear(int[][] lvlData, Rectangle2D.Float firstHitbox, Rectangle2D.Float secondHitbox, int yTile) {
-        int firstXTile = (int) (firstHitbox.x / GameConstants.TILES_SIZE);
-        int secondXTile = (int) (secondHitbox.x / GameConstants.TILES_SIZE);
+    public static boolean IsSightClear(int[][] lvlData, Rectangle2D.Float enemyBox, Rectangle2D.Float playerBox, int yTile) {
+        int firstXTile = (int) (enemyBox.x / GameConstants.TILES_SIZE);
+        int secondXTile;
+
+        if (IsSolid(playerBox.x, playerBox.y + playerBox.width + 1, lvlData))
+            secondXTile = (int) (playerBox.x / GameConstants.TILES_SIZE);
+        else
+            secondXTile = (int) ((playerBox.x + playerBox.width) / GameConstants.TILES_SIZE);
 
         if (firstXTile > secondXTile)
             return IsAllTilesWalkable(secondXTile, firstXTile, yTile, lvlData);
