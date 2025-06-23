@@ -113,4 +113,8 @@ public abstract class Entity {
         animationTick = 0;
         animationIndex = 0;
     }
+
+    public void setPushBackDirection(int pushBackDirection) {
+        this.pushBackDirection = pushBackDirection;
+    }
 }
