@@ -21,6 +21,8 @@ public class Game implements Runnable {
     private AudioOptions audioOptions;
     private AudioPlayer audioPlayer;
 
+    private final boolean SHOW_FPS_UPS = true;
+
     public Game() {
         initClasses();
 
@@ -104,11 +106,13 @@ public class Game implements Runnable {
                 deltaF--;
             }
 
-            if (System.currentTimeMillis() - lastCheck >= 1000) {
-                lastCheck = System.currentTimeMillis();
-                frames = 0;
-                updates = 0;
-            }
+            if (SHOW_FPS_UPS)
+                if (System.currentTimeMillis() - lastCheck >= 1000) {
+                    lastCheck = System.currentTimeMillis();
+                    System.out.println("FPS: " + frames + " | UPS: " + updates);
+                    frames = 0;
+                    updates = 0;
+                }
         }
     }
 
