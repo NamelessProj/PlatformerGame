@@ -41,4 +41,8 @@ public class Projectile {
     public boolean isActive() {
         return active;
     }
+
+    public int getDirection() {
+        return direction;
+    }
 }
