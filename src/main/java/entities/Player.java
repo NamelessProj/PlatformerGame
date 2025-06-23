@@ -60,6 +60,8 @@ public class Player extends Entity {
     private int powerGrowSpeed = 15;
     private int powerGrowTick;
 
+    private int timeInHit;
+
     /**
      * Constructor for the Player class.
      *
@@ -131,7 +133,15 @@ public class Player extends Entity {
         updateAttackBox();
 
         if (state == HIT) {
-            if (animationIndex <= GetSpriteAmount(state) - 3)
+            if (!IsEntityOnFloor(hitbox, lvlData)) {
+                inAir = true;
+                airSpeed = 0;
+            }
+            timeInHit++;
+            if (timeInHit >= 20) {
+                timeInHit = 0;
+                newState(IDLE);
+            } else if (animationIndex <= GetSpriteAmount(state) - 3)
                 pushBack(pushBackDirection, 1.25f, lvlData);
             updatePushBackDrawOffset();
         } else
