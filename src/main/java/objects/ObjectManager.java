@@ -20,8 +20,7 @@ public class ObjectManager {
     private Playing playing;
     private BufferedImage spikeImage, cannonBallImage;
     private BufferedImage[] cannonImages;
-    private BufferedImage[][] potionImages;
-    private BufferedImage[][] containerImages;
+    private BufferedImage[][] potionImages, containerImages;
     private ArrayList<Potion> potions;
     private ArrayList<GameContainer> containers;
     private ArrayList<Spike> spikes;
