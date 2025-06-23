@@ -4,7 +4,9 @@ import java.awt.Graphics;
 import java.awt.Color;
 import java.awt.geom.Rectangle2D;
 
+import static utils.Constants.Directions.*;
 import static utils.Constants.GameConstants.SCALE;
+import static utils.HelpMethods.CanMoveHere;
 
 public abstract class Entity {
     protected float x, y;
@@ -18,6 +20,10 @@ public abstract class Entity {
     protected int currentHealth;
     protected Rectangle2D.Float attackBox;
     protected float walkSpeed;
+
+    protected int pushBackDirection;
+    protected float pushDrawOffset;
+    protected int pushBackOffsetDirection = UP;
 
     /**
      * Constructor for the Entity class.
@@ -42,6 +48,30 @@ public abstract class Entity {
      */
     protected void initHitbox(int width, int height) {
         hitbox = new Rectangle2D.Float(x, y, (int) (width * SCALE), (int) (height * SCALE));
+    }
+
+    protected void updatePushBackDrawOffset() {
+        float speed = 0.95f;
+        float limit = -30f;
+
+        if (pushBackOffsetDirection == UP) {
+            pushDrawOffset -= speed;
+            if (pushDrawOffset <= limit)
+                pushBackOffsetDirection = DOWN;
+        } else {
+            pushDrawOffset += speed;
+            if (pushDrawOffset >= 0)
+                pushDrawOffset = 0;
+        }
+    }
+
+    protected void pushBack(int pushBackDirection, float speedMulti, int[][] lvlData) {
+        float xSpeed = walkSpeed;
+        if (pushBackDirection == LEFT)
+            xSpeed = -walkSpeed;
+
+        if (CanMoveHere(hitbox.x + xSpeed * speedMulti, hitbox.y, hitbox.width, hitbox.height, lvlData))
+            hitbox.x += xSpeed * speedMulti;
     }
 
     /**
@@ -76,5 +106,11 @@ public abstract class Entity {
 
     public int getCurrentHealth() {
         return currentHealth;
+    }
+
+    protected void newState(int state) {
+        this.state = state;
+        animationTick = 0;
+        animationIndex = 0;
     }
 }
