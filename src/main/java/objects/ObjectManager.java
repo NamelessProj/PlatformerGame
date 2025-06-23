@@ -10,7 +10,7 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-import static utils.Constants.GameConstants.TILES_SIZE;
+import static utils.Constants.GameConstants.*;
 import static utils.Constants.ObjectConstants.*;
 import static utils.Constants.Projectiles.*;
 import static utils.HelpMethods.CanCannonSeePlayer;
@@ -19,21 +19,22 @@ import static utils.HelpMethods.IsProjectileHittingLevel;
 public class ObjectManager {
     private Playing playing;
     private BufferedImage spikeImage, cannonBallImage;
-    private BufferedImage[] cannonImages;
+    private BufferedImage[] cannonImages, grassImages;
     private BufferedImage[][] potionImages, containerImages;
     private ArrayList<Potion> potions;
     private ArrayList<GameContainer> containers;
-    private ArrayList<Spike> spikes;
-    private ArrayList<Cannon> cannons;
     private ArrayList<Projectile> projectiles = new ArrayList<>();
+
+    private Level currentLevel;
 
     public ObjectManager(Playing playing) {
         this.playing = playing;
+        this.currentLevel = playing.getLevelManager().getCurrentLevel();
         loadImages();
     }
 
     public void checkSpikesTouchedPlayer(Player player) {
-        for (Spike s : spikes)
+        for (Spike s : currentLevel.getSpikes())
             if (s.getHitbox().intersects(player.getHitbox())) {
                 player.kill();
                 return;
@@ -68,10 +69,9 @@ public class ObjectManager {
     }
 
     public void loadObjects(Level newLevel) {
+        this.currentLevel = newLevel;
         potions = new ArrayList<>(newLevel.getPotions());
         containers = new ArrayList<>(newLevel.getContainers());
-        spikes = newLevel.getSpikes();
-        cannons = newLevel.getCannons();
         projectiles.clear();
     }
 
@@ -102,6 +102,11 @@ public class ObjectManager {
             cannonImages[i] = temp.getSubimage(i * CANNON_WIDTH_DEFAULT, 0, CANNON_WIDTH_DEFAULT, CANNON_HEIGHT_DEFAULT);
 
         cannonBallImage = LoadSave.GetSpriteAtlas(LoadSave.CANNON_BALL);
+
+        BufferedImage grassTemp = LoadSave.GetSpriteAtlas(LoadSave.GRASS_ATLAS);
+        grassImages = new BufferedImage[2];
+        for (int i = 0; i < grassImages.length; i++)
+            grassImages[i] = grassTemp.getSubimage(i * 32, 0, 32, 32);
     }
 
     public void update(int[][] lvlData, Player player) {
@@ -130,7 +135,7 @@ public class ObjectManager {
     }
 
     private void updateCannons(int[][] lvlData, Player player) {
-        for (Cannon c : cannons) {
+        for (Cannon c : currentLevel.getCannons()) {
             if (!c.doAnimation && c.getTileY() == player.getTileY())
                 if (isPlayerInRange(c, player))
                     if (isPlayerInFrontOfCannon(c, player))
@@ -166,6 +171,17 @@ public class ObjectManager {
         drawTraps(g, xLvlOffset);
         drawCannons(g, xLvlOffset);
         drawProjectiles(g, xLvlOffset);
+        drawGrass(g, xLvlOffset);
+    }
+
+    private void drawGrass(Graphics g, int xLvlOffset) {
+        for (Grass grass : currentLevel.getGrass())
+            g.drawImage(grassImages[grass.getType()],
+                    grass.getX() - xLvlOffset,
+                    grass.getY(),
+                    (int) (32 * SCALE),
+                    (int) (32 * SCALE),
+                    null);
     }
 
     private void drawProjectiles(Graphics g, int xLvlOffset) {
@@ -180,7 +196,7 @@ public class ObjectManager {
     }
 
     private void drawCannons(Graphics g, int xLvlOffset) {
-        for (Cannon c : cannons) {
+        for (Cannon c : currentLevel.getCannons()) {
             int x = (int) (c.getHitbox().x - xLvlOffset);
             int width = CANNON_WIDTH;
 
@@ -199,7 +215,7 @@ public class ObjectManager {
     }
 
     private void drawTraps(Graphics g, int xLvlOffset) {
-        for (Spike s : spikes)
+        for (Spike s : currentLevel.getSpikes())
             g.drawImage(spikeImage,
                     (int) (s.getHitbox().x - xLvlOffset),
                     (int) (s.getHitbox().y - s.getYDrawOffset()),
@@ -249,7 +265,7 @@ public class ObjectManager {
         for (GameContainer gc : containers)
             gc.reset();
 
-        for (Cannon c : cannons)
+        for (Cannon c : currentLevel.getCannons())
             c.reset();
     }
 }
