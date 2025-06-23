@@ -28,6 +28,7 @@ public class Playing extends State implements Statemethods {
     private PauseOverlay pauseOverlay;
     private GameOverOverlay gameOverOverlay;
     private LevelCompletedOverlay levelCompletedOverlay;
+
     private boolean paused = false;
 
     private int xLevelOffset;
@@ -36,6 +37,7 @@ public class Playing extends State implements Statemethods {
     private int maxLevelOffsetX;
 
     private BufferedImage backgroundImg, bigCloud, smallCloud;
+
     private int[] smallCloudsPos;
     private Random random = new Random();
 
@@ -60,6 +62,7 @@ public class Playing extends State implements Statemethods {
     }
 
     public void loadNextLevel() {
+        levelManager.setLevelIndex(levelManager.getLevelIndex() + 1);
         levelManager.loadNextLevel();
         player.setSpawn(levelManager.getCurrentLevel().getPlayerSpawn());
         resetAll();
@@ -78,9 +81,11 @@ public class Playing extends State implements Statemethods {
         levelManager = new LevelManager(game);
         enemyManager = new EnemyManager(this);
         objectManager = new ObjectManager(this);
+
         player = new Player(200, 200, (int) (64 * GameConstants.SCALE), (int) (40 * GameConstants.SCALE), this);
         player.loadLvlData(levelManager.getCurrentLevel().getLevelData());
         player.setSpawn(levelManager.getCurrentLevel().getPlayerSpawn());
+        
         pauseOverlay = new PauseOverlay(this);
         gameOverOverlay = new GameOverOverlay(this);
         levelCompletedOverlay = new LevelCompletedOverlay(this);
