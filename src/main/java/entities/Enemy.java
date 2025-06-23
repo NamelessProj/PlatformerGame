@@ -24,6 +24,11 @@ public abstract class Enemy extends Entity {
         walkSpeed = SCALE * 0.35f;
     }
 
+    protected void updateAttackBox() {
+		attackBox.x = hitbox.x - attackBoxOffsetX;
+		attackBox.y = hitbox.y;
+	}
+
     protected void firstUpdateCheck(int[][] lvlData) {
         firstUpdate = false;
         if (!IsEntityOnFloor(hitbox, lvlData))
@@ -99,8 +104,15 @@ public abstract class Enemy extends Entity {
         currentHealth -= dmg;
         if (currentHealth <= 0)
             newState(DEAD);
-        else
+        else {
             newState(HIT);
+            if (walkDir == LEFT)
+                pushBackDirection = RIGHT;
+            else
+                pushBackDirection = LEFT;
+            pushBackOffsetDirection = UP;
+            pushDrawOffset = 0;
+        }
     }
 
     protected void checkEnemyHit(Rectangle2D.Float attackBox, Player player) {
@@ -144,5 +156,25 @@ public abstract class Enemy extends Entity {
         newState(IDLE);
         active = true;
         airSpeed = 0;
+
+        pushDrawOffset = 0;
     }
+
+    public int flipX() {
+		if (walkDir == RIGHT)
+			return width;
+		else
+			return 0;
+	}
+
+	public int flipW() {
+		if (walkDir == RIGHT)
+			return -1;
+		else
+			return 1;
+	}
+
+    public float getPushDrawOffset() {
+		return pushDrawOffset;
+	}
 }
