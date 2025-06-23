@@ -2,7 +2,6 @@ package gamestates;
 
 import mainWindow.Game;
 import ui.AudioOptions;
-import ui.PauseButton;
 import ui.UrmButton;
 import utils.LoadSave;
 
