@@ -12,7 +12,6 @@ import java.awt.Graphics;
 import static utils.Constants.GameConstants.*;
 
 public class Game implements Runnable {
-    private GameWindow gameWindow;
     private GamePanel gamePanel;
     private Thread gameThread;
 
@@ -26,7 +25,8 @@ public class Game implements Runnable {
         initClasses();
 
         gamePanel = new GamePanel(this);
-        gameWindow = new GameWindow(gamePanel);
+        new GameWindow(gamePanel);
+        gamePanel.requestFocusInWindow();
         gamePanel.setFocusable(true);
         gamePanel.requestFocus();
 
