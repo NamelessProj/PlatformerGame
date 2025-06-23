@@ -62,7 +62,6 @@ public class LevelManager {
     }
 
     public void loadNextLevel() {
-        levelIndex++;
         if (levelIndex >= getAmountOfLevels()) {
             levelIndex = 0;
             game.getPlaying().setGamestate(Gamestate.MENU);
@@ -77,5 +76,9 @@ public class LevelManager {
 
     public int getLevelIndex() {
         return levelIndex;
+    }
+
+    public void setLevelIndex(int index) {
+        this.levelIndex = index;
     }
 }
