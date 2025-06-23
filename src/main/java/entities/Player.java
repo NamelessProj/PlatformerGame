@@ -3,6 +3,7 @@ package entities;
 import gamestates.Playing;
 import utils.LoadSave;
 
+import static utils.Constants.Directions.*;
 import static utils.Constants.GameConstants.*;
 import static utils.Constants.PlayerConstants.*;
 import static utils.HelpMethods.*;
@@ -105,18 +106,36 @@ public class Player extends Entity {
                 animationIndex = 0;
                 playing.setPlayerDying(true);
                 playing.getGame().getAudioPlayer().playEffect(AudioPlayer.DIE);
+
+                if (!IsEntityOnFloor(hitbox, lvlData)) {
+                    inAir = true;
+                    airSpeed = 0;
+                }
             } else if (animationIndex == GetSpriteAmount(DEAD) - 1 && animationTick >= ANIMATION_SPEED - 1) {
                 playing.setGameOver(true);
                 playing.getGame().getAudioPlayer().stopSong();
                 playing.getGame().getAudioPlayer().playEffect(AudioPlayer.GAME_OVER);
-            } else
+            } else {
                 updateAnimationTick();
+
+                if (inAir)
+                    if (CanMoveHere(hitbox.x, hitbox.y + airSpeed, hitbox.width, hitbox.height, lvlData)) {
+                        hitbox.y += airSpeed;
+                        airSpeed += GRAVITY;
+                    } else
+                        inAir = false;
+            }
             return;
         }
 
         updateAttackBox();
 
-        updatePosition();
+        if (state == HIT) {
+            if (animationIndex <= GetSpriteAmount(state) - 3)
+                pushBack(pushBackDirection, 1.25f, lvlData);
+            updatePushBackDrawOffset();
+        } else
+            updatePosition();
 
         if (moving) {
             checkPotionTouched();
@@ -159,14 +178,25 @@ public class Player extends Entity {
         playing.getGame().getAudioPlayer().playAttackSound();
     }
 
+    private void setAttackBoxOnRightSide() {
+		attackBox.x = hitbox.x + hitbox.width - (int) (SCALE * 5);
+	}
+
+	private void setAttackBoxOnLeftSide() {
+		attackBox.x = hitbox.x - hitbox.width - (int) (SCALE * 10);
+	}
+
     private void updateAttackBox() {
-        if (right && left)
-            resetAttackBox();
-        else if (right || (powerAttackActive && flipW == 1))
-            attackBox.x = hitbox.x + hitbox.width + (int) (10 * SCALE);
+        if (right && left) {
+            if (flipW == 1)
+                setAttackBoxOnRightSide();
+            else
+                setAttackBoxOnLeftSide();
+        } else if (right || (powerAttackActive && flipW == 1))
+            setAttackBoxOnRightSide();
         else if (left || (powerAttackActive && flipW == -1))
-            attackBox.x = hitbox.x - hitbox.width - (int) (10 * SCALE);
-            
+            setAttackBoxOnLeftSide();
+
         attackBox.y = hitbox.y + (10 * SCALE);
     }
 
@@ -235,6 +265,9 @@ public class Player extends Entity {
      */
     private void setAnimation() {
         int startAnimation = state;
+
+        if (state == HIT)
+            return;
 
         if (moving)
             state = RUNNING;
@@ -366,12 +399,29 @@ public class Player extends Entity {
     }
 
     public void changeHealth(int val) {
+        if (val < 0) {
+            if (state == HIT)
+                return;
+            else
+                newState(HIT);
+        }
+
         currentHealth += val;
-        if (currentHealth <= 0) {
-            currentHealth = 0;
-            // gameOver();
-        } else if (currentHealth >= maxHealth)
-            currentHealth = maxHealth;
+        currentHealth = Math.max(Math.min(currentHealth, maxHealth), 0);
+    }
+
+    public void changeHealth(int val, Enemy e) {
+        if (state == HIT)
+            return;
+
+        changeHealth(val);
+        pushBackOffsetDirection = UP;
+        pushDrawOffset = 0;
+
+        if (e.getHitbox().x < hitbox.x)
+            pushBackDirection = RIGHT;
+        else
+            pushBackDirection = LEFT;
     }
 
     public void changePower(int val) {
@@ -461,9 +511,9 @@ public class Player extends Entity {
 
     private void resetAttackBox() {
         if (flipW == 1)
-            attackBox.x = hitbox.x + hitbox.width + (int) (10 * SCALE);
+            setAttackBoxOnRightSide();
         else
-            attackBox.x = hitbox.x - hitbox.width - (int) (10 * SCALE);
+            setAttackBoxOnLeftSide();
     }
 
     public void resetAll() {
