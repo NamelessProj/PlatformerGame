@@ -1,6 +1,5 @@
 package entities;
 
-import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
 import static utils.Constants.Directions.*;
@@ -8,8 +7,6 @@ import static utils.Constants.EnemyConstants.*;
 import static utils.Constants.GameConstants.SCALE;
 
 public class Crabby extends Enemy {
-    private int attackBoxOffsetX;
-
     public Crabby(float x, float y) {
         super(x, y, CRABBY_WIDTH, CRABBY_HEIGHT, CRABBY);
         initHitbox(22, 19);
@@ -25,11 +22,6 @@ public class Crabby extends Enemy {
         updateBehavior(lvlData, player);
         updateAnimationTick();
         updateAttackBox();
-    }
-
-    private void updateAttackBox() {
-        attackBox.x = hitbox.x - attackBoxOffsetX;
-        attackBox.y = hitbox.y;
     }
 
     private void updateBehavior(int[][] lvlData, Player player) {
