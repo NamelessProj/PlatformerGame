@@ -10,6 +10,7 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import static utils.Constants.Directions.*;
 import static utils.Constants.GameConstants.*;
 import static utils.Constants.ObjectConstants.*;
 import static utils.Constants.Projectiles.*;
@@ -128,6 +129,7 @@ public class ObjectManager {
                 p.updatePosition();
                 if (p.getHitbox().intersects(player.getHitbox())) {
                     player.changeHealth(-25);
+                    player.setPushBackDirection(p.getDirection() == 1 ? RIGHT : LEFT);
                     p.setActive(false);
                 } else if (IsProjectileHittingLevel(p, lvlData))
                     p.setActive(false);
