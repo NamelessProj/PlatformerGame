@@ -10,17 +10,20 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import static utils.Constants.EnemyConstants.*;
+import static utils.Constants.ObjectConstants.*;
 import static utils.Constants.GameConstants.*;
-import static utils.HelpMethods.*;
 
 public class Level {
-    private BufferedImage image;
     private int[][] lvlData;
-    private ArrayList<Crabby> crabs;
-    private ArrayList<Potion> potions;
-    private ArrayList<GameContainer> containers;
-    private ArrayList<Spike> spikes;
-    private ArrayList<Cannon> cannons;
+    private BufferedImage image;
+
+    private ArrayList<Crabby> crabs = new ArrayList<>();
+    private ArrayList<Potion> potions = new ArrayList<>();
+    private ArrayList<GameContainer> containers = new ArrayList<>();
+    private ArrayList<Spike> spikes = new ArrayList<>();
+    private ArrayList<Cannon> cannons = new ArrayList<>();
+
     private int levelTilesWide;
     private int maxTilesOffset;
     private int maxLevelOffsetX;
@@ -28,48 +31,52 @@ public class Level {
 
     public Level(BufferedImage image) {
         this.image = image;
-        createLevelData();
-        createEnemies();
-        createPotions();
-        createContainers();
-        createSpikes();
-        createCannons();
-        calculateLevelOffsets();
-        calculatePlayerSpawn();
+        lvlData = new int[image.getHeight()][image.getWidth()];
+        loadLevel();
+        calculateOffsets();
     }
 
-    private void createCannons() {
-        cannons = GetCannons(image);
+    private void loadLevel() {
+        for (int y = 0; y < image.getHeight(); y++)
+            for (int x = 0; x < image.getWidth(); x++) {
+                Color c = new Color(image.getRGB(x, y));
+                int red = c.getRed();
+                int green = c.getGreen();
+                int blue = c.getBlue();
+
+                loadLevelData(red, x, y);
+                loadEntities(green, x, y);
+                loadObjects(blue, x, y);
+            }
     }
 
-    private void createSpikes() {
-        spikes = GetSpikes(image);
+    private void loadLevelData(int red, int x, int y) {
+        if (red >= 50)
+            lvlData[y][x] = 0;
+        else
+            lvlData[y][x] = red;
     }
 
-    private void createContainers() {
-        containers = GetContainers(image);
+    private void loadEntities(int green, int x, int y) {
+        switch (green) {
+            case CRABBY -> crabs.add(new Crabby(x * TILES_SIZE, y * TILES_SIZE));
+            case 100 -> playerSpawn = new Point(x * TILES_SIZE, y * TILES_SIZE);
+        }
     }
 
-    private void createPotions() {
-        potions = GetPotions(image);
+    private void loadObjects(int blue, int x, int y) {
+        switch (blue) {
+            case RED_POTION, BLUE_POTION -> potions.add(new Potion(x * TILES_SIZE, y * TILES_SIZE, blue));
+            case BARREL, BOX -> containers.add(new GameContainer(x * TILES_SIZE, y * TILES_SIZE, blue));
+            case SPIKE -> spikes.add(new Spike(x * TILES_SIZE, y * TILES_SIZE, SPIKE));
+            case CANNON_LEFT, CANNON_RIGHT -> cannons.add(new Cannon(x * TILES_SIZE, y * TILES_SIZE, blue));
+        }
     }
 
-    private void calculatePlayerSpawn() {
-        playerSpawn = GetPlayerSpawn(image);
-    }
-
-    private void calculateLevelOffsets() {
+    private void calculateOffsets() {
         levelTilesWide = image.getWidth();
         maxTilesOffset = levelTilesWide - TILES_IN_WIDTH;
         maxLevelOffsetX = TILES_SIZE * maxTilesOffset;
-    }
-
-    private void createEnemies() {
-        crabs = GetCrabs(image);
-    }
-
-    private void createLevelData() {
-        lvlData = GetLevelData(image);
     }
 
     public int getSpriteIndex(int x, int y) {
