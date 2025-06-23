@@ -3,6 +3,7 @@ package levels;
 import entities.Crabby;
 import objects.Cannon;
 import objects.GameContainer;
+import objects.Grass;
 import objects.Potion;
 import objects.Spike;
 
@@ -23,6 +24,7 @@ public class Level {
     private ArrayList<GameContainer> containers = new ArrayList<>();
     private ArrayList<Spike> spikes = new ArrayList<>();
     private ArrayList<Cannon> cannons = new ArrayList<>();
+    private ArrayList<Grass> grass = new ArrayList<>();
 
     private int levelTilesWide;
     private int maxTilesOffset;
@@ -55,6 +57,14 @@ public class Level {
             lvlData[y][x] = 0;
         else
             lvlData[y][x] = red;
+
+        switch (red) {
+            case 0, 1, 2, 3, 30, 31, 33, 34, 35, 36, 37, 38, 39 -> grass.add(new Grass((int) (x * TILES_SIZE), (int) (y * TILES_SIZE), getRandomGrassType(x)));
+        }
+    }
+
+    private int getRandomGrassType(int x) {
+        return x % 2;
     }
 
     private void loadEntities(int green, int x, int y) {
@@ -109,6 +119,10 @@ public class Level {
 
     public ArrayList<Cannon> getCannons() {
         return cannons;
+    }
+
+    public ArrayList<Grass> getGrass() {
+        return grass;
     }
 
     public Point getPlayerSpawn() {
