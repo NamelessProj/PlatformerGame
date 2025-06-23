@@ -14,7 +14,7 @@ import static utils.Constants.EnemyConstants.*;
 public class EnemyManager {
     private Playing playing;
     private BufferedImage[][] crabbyArr;
-    private ArrayList<Crabby> crabbies = new ArrayList<>();
+    private Level currLevel;
 
     public EnemyManager(Playing playing) {
         this.playing = playing;
@@ -22,12 +22,12 @@ public class EnemyManager {
     }
 
     public void loadEnemies(Level level) {
-        crabbies = level.getCrabs();
+        this.currLevel = level;
     }
 
     public void update(int[][] lvlData) {
         boolean isAnyActive = false;
-        for (Crabby c : crabbies)
+        for (Crabby c : currLevel.getCrabs())
             if (c.isActive()) {
                 c.update(lvlData, playing.getPlayer());
                 isAnyActive = true;
@@ -42,7 +42,7 @@ public class EnemyManager {
     }
 
     private void drawCrabs(Graphics g, int xLvlOffset) {
-        for (Crabby c : crabbies)
+        for (Crabby c : currLevel.getCrabs())
             if (c.isActive()) {
                 g.drawImage(crabbyArr[c.getState()][c.getAnimationIndex()],
                         (int) c.getHitbox().x - CRABBY_DRAWOFFSET_X - xLvlOffset + c.flipX(),
@@ -55,24 +55,29 @@ public class EnemyManager {
     }
 
     public void checkEnemyHit(Rectangle2D.Float attackBox) {
-        for (Crabby c : crabbies)
-            if (c.isActive() && c.getCurrentHealth() > 0)
-                if (attackBox.intersects(c.getHitbox())) {
-                    c.hurt(10);
-                    return;
-                }
+        for (Crabby c : currLevel.getCrabs())
+            if (c.isActive())
+                if (c.getState() != DEAD && c.getState() != HIT)
+                    if (attackBox.intersects(c.getHitbox())) {
+                        c.hurt(20);
+                        return;
+                    }
     }
 
     private void loadEnemyImages() {
-        crabbyArr = new BufferedImage[5][9];
-        BufferedImage temp = LoadSave.GetSpriteAtlas(LoadSave.CRABBY_SPRITE);
-        for (int j = 0; j < crabbyArr.length; j++)
-            for (int i = 0; i < crabbyArr[j].length; i++)
-                crabbyArr[j][i] = temp.getSubimage(i * CRABBY_WIDTH_DEFAULT, j * CRABBY_HEIGHT_DEFAULT, CRABBY_WIDTH_DEFAULT, CRABBY_HEIGHT_DEFAULT);
+        crabbyArr = getImagesArray(LoadSave.GetSpriteAtlas(LoadSave.CRABBY_SPRITE), 9, 5, CRABBY_WIDTH_DEFAULT, CRABBY_HEIGHT_DEFAULT);
+    }
+
+    private BufferedImage[][] getImagesArray(BufferedImage atlas, int xSize, int ySize, int spriteW, int spriteH) {
+        BufferedImage[][] tempArr = new BufferedImage[ySize][xSize];
+        for (int j = 0; j < tempArr.length; j++)
+            for (int i = 0; i < tempArr[j].length; i++)
+                tempArr[j][i] = atlas.getSubimage(i * spriteW, j * spriteH, spriteW, spriteH);
+        return tempArr;
     }
 
     public void resetAllEnemies() {
-        for (Crabby c : crabbies)
+        for (Crabby c : currLevel.getCrabs())
             c.resetEnemy();
     }
 }
