@@ -15,6 +15,7 @@ public abstract class Enemy extends Entity {
     protected float attackDistance = TILES_SIZE;
     protected boolean active = true;
     protected boolean attackChecked;
+    protected int attackBoxOffsetX;
 
     public Enemy(float x, float y, int width, int height, int enemyType) {
         super(x, y, width, height);
@@ -26,6 +27,15 @@ public abstract class Enemy extends Entity {
 
     protected void updateAttackBox() {
 		attackBox.x = hitbox.x - attackBoxOffsetX;
+		attackBox.y = hitbox.y;
+	}
+
+    protected void updateAttackBoxFlip() {
+		if (walkDir == RIGHT)
+			attackBox.x = hitbox.x + hitbox.width;
+		else
+			attackBox.x = hitbox.x - attackBoxOffsetX;
+
 		attackBox.y = hitbox.y;
 	}
 
