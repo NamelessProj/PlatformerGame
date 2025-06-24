@@ -9,7 +9,6 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-import static utils.Constants.*;
 import static utils.Constants.EnemyConstants.CRABBY;
 import static utils.Constants.GameConstants.TILES_SIZE;
 import static utils.Constants.ObjectConstants.*;
@@ -32,9 +31,11 @@ public class HelpMethods {
 
     public static boolean IsTileSolid(int xTile, int yTile, int[][] lvlData) {
         int val = lvlData[yTile][xTile];
-        if (val >= 48 || val < 0 || val != 11)
-            return true;
-        return false;
+
+        return switch (val) {
+            case 11, 48, 49 -> false;
+            default -> true;
+        };
     }
 
     public static boolean CanMoveHere(float x, float y, float width, float height, int[][] lvlData) {
