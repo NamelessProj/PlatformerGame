@@ -60,7 +60,7 @@ public class LevelManager {
                 int x = TILES_SIZE * i - xLvlOffset;
                 int y = TILES_SIZE * j;
                 if (index == 48)
-                    g.drawImage(levelSprite[animationIndex], x, y, TILES_SIZE, TILES_SIZE, null);
+                    g.drawImage(waterSprite[animationIndex], x, y, TILES_SIZE, TILES_SIZE, null);
                 else if (index == 49)
                     g.drawImage(waterSprite[waterBottomIndex], x, y, TILES_SIZE, TILES_SIZE, null);
                 else
@@ -77,7 +77,7 @@ public class LevelManager {
         if (animationTick >= 40) {
             animationTick = 0;
             animationIndex++;
-            
+
             if (animationIndex >= waterBottomIndex)
                 animationIndex = 0;
         }
