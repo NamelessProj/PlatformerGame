@@ -33,11 +33,10 @@ The game features multiple levels, enemies, hazards, pickups, and a functional U
 | `Left Click`     | Attack            |
 | `Right Click`    | Power Attack      |
 
-
 ## How To Build And Run
-This project is built using pure Java (Swing) — We use `TinySound` for better sound management.
+This project is built using pure Java (Swing) — I used `TinySound` for better sound management.
 
-The project has been structured with the Maven directory layout.
+This project has been structured with the Maven directory layout.
 
 - Compile :
     ```bash
