@@ -60,8 +60,6 @@ public class Player extends Entity {
     private int powerGrowSpeed = 15;
     private int powerGrowTick;
 
-    private int timeInHit;
-
     /**
      * Constructor for the Player class.
      *
@@ -137,11 +135,7 @@ public class Player extends Entity {
                 inAir = true;
                 airSpeed = 0;
             }
-            timeInHit++;
-            if (timeInHit >= 20) {
-                timeInHit = 0;
-                newState(IDLE);
-            } else if (animationIndex <= GetSpriteAmount(state) - 3)
+        if (animationIndex <= GetSpriteAmount(state) - 3)
                 pushBack(pushBackDirection, 1.25f, lvlData);
             updatePushBackDrawOffset();
         } else
@@ -238,7 +232,7 @@ public class Player extends Entity {
     public void render(Graphics g, int xLvlOffset) {
         g.drawImage(animations[state][animationIndex],
                 (int) (hitbox.x - xDrawOffset) - xLvlOffset + flipX,
-                (int) (hitbox.y - yDrawOffset),
+                (int) (hitbox.y - yDrawOffset) + (int) pushDrawOffset,
                 width * flipW,
                 height,
                 null);
@@ -272,6 +266,12 @@ public class Player extends Entity {
                 animationIndex = 0;
                 attacking = false;
                 attackChecked = false;
+                if (state == HIT) {
+                    newState(IDLE);
+                    airSpeed = 0;
+                    if (!IsFloor(hitbox, 0, lvlData))
+                        inAir = true;
+                }
             }
         }
     }
