@@ -2,6 +2,7 @@ package utils;
 
 import entities.Crabby;
 import objects.*;
+import utils.Constants.GameConstants;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
@@ -83,6 +84,21 @@ public class HelpMethods {
 
     public static boolean IsProjectileHittingLevel(Projectile p, int[][] lvlData) {
         return IsSolid(p.getHitbox().x + p.getHitbox().width / 2, p.getHitbox().y + p.getHitbox().height / 2, lvlData);
+    }
+
+    public static boolean IsEntityInWater(Rectangle2D.Float hitbox, int[][] lvlData) {
+        // Will only check if entity touch top water. Can't reach bottom water if not
+		// touched top water.
+        if (GetTileValue(hitbox.x, hitbox.y + hitbox.height, lvlData) != 48)
+            if (GetTileValue(hitbox.x + hitbox.width, hitbox.y + hitbox.height, lvlData) != 48)
+                return false;
+        return true;
+    }
+
+    private static int GetTileValue(float x, float y, int[][] lvlData) {
+        int xCord = (int) (x / TILES_SIZE);
+        int yCord = (int) (y / TILES_SIZE);
+        return lvlData[yCord][xCord];
     }
 
     public static boolean CanCannonSeePlayer(int[][] lvlData, Rectangle2D.Float firstHitbox, Rectangle2D.Float secondHitbox, int yTile) {
