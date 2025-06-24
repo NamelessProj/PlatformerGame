@@ -1,6 +1,7 @@
 ![Java version](https://img.shields.io/badge/Java-^23.0.2-orange?style=for-the-badge)
 ![Project licence](https://img.shields.io/github/license/NamelessProj/PlatformerGame?style=for-the-badge)
 ![Repo size](https://img.shields.io/github/repo-size/NamelessProj/PlatformerGame?style=for-the-badge)
+![Hackatime](https://hackatime-badge.hackclub.com/U091MLPEJ3D/PlatformerGame?style=for-the-badge&logo=hackclub&logoColor=white)
 
 # A Simple Platformer In Java
 Platform Game is a 2D platformer built in pure Java using the Swing library.
