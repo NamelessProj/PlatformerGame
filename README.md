@@ -52,10 +52,6 @@ Alternatively, you can open the project in an IDE like __IntelliJ IDEA__ or __Ec
 ## Project Structure
 ```bash
 PlatformerGame-master/
-├── .gitignore
-├── LICENCE
-├── README.md
-├── pom.xml
 ├── .idea/                          # IntelliJ IDEA project files
 ├── lib/                            # Libraries: TinySound
 └── src/
