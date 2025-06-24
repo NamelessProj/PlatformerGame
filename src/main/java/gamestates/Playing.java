@@ -178,9 +178,9 @@ public class Playing extends State implements Statemethods {
         drawClouds(g);
 
         levelManager.draw(g, xLevelOffset);
-        player.render(g, xLevelOffset);
-        enemyManager.draw(g, xLevelOffset);
         objectManager.draw(g, xLevelOffset);
+        enemyManager.draw(g, xLevelOffset);
+        player.render(g, xLevelOffset);
 
         if (paused) {
             g.setColor(new Color(0, 0, 0, 150));
