@@ -150,6 +150,7 @@ public class Player extends Entity {
         if (moving) {
             checkPotionTouched();
             checkSpikesTouched();
+            checkInsideWater();
             tileY = (int) (hitbox.y / TILES_SIZE);
             if (powerAttackActive) {
                 powerAttackTick++;
@@ -165,6 +166,11 @@ public class Player extends Entity {
 
         updateAnimationTick();
         setAnimation();
+    }
+
+    private void checkInsideWater() {
+        if (IsEntityInWater(hitbox, playing.getLevelManager().getCurrentLevel().getLevelData()))
+            currentHealth = 0;
     }
 
     private void checkSpikesTouched() {
