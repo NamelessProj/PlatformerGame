@@ -18,12 +18,19 @@ public class GameOverOverlay {
     private int imgX, imgY, imgW, imgH;
     private UrmButton menu, play;
 
+    /**
+     * Constructor for the GameOverOverlay class.
+     * @param playing the Playing instance to access game state and methods
+     */
     public GameOverOverlay(Playing playing) {
         this.playing = playing;
         createImg();
         createButtons();
     }
 
+    /**
+     * Creates the buttons for the game over overlay.
+     */
     private void createButtons() {
         int menuX = (int) (335 * SCALE);
         int playX = (int) (440 * SCALE);
@@ -32,6 +39,9 @@ public class GameOverOverlay {
         menu = new UrmButton(menuX, y, URM_SIZE, URM_SIZE, 2);
     }
 
+    /**
+     * Creates the image for the game over overlay.
+     */
     private void createImg() {
         img = LoadSave.GetSpriteAtlas(LoadSave.DEATH_SCREEN);
         imgW = (int) (img.getWidth() * SCALE);
@@ -40,6 +50,10 @@ public class GameOverOverlay {
         imgY = (int) (100 * SCALE);
     }
 
+    /**
+     * Draws the game over overlay on the screen.
+     * @param g the Graphics object used for drawing
+     */
     public void draw(Graphics g) {
         g.setColor(new Color(0, 0, 0, 200));
         g.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
@@ -50,15 +64,28 @@ public class GameOverOverlay {
         play.draw(g);
     }
 
+    /**
+     * Updates the state of the game over overlay buttons.
+     */
     public void update() {
         menu.update();
         play.update();
     }
 
+    /**
+     * Checks if the mouse event is within the bounds of a button.
+     * @param b the UrmButton to check
+     * @param e the MouseEvent to check
+     * @return true if the mouse is within the button bounds, false otherwise
+     */
     private boolean isIn(UrmButton b, MouseEvent e) {
         return b.getBounds().contains(e.getX(), e.getY());
     }
 
+    /**
+     * Handles mouse movement events to update button states.
+     * @param e the MouseEvent containing the mouse position
+     */
     public void mouseMoved(MouseEvent e) {
         play.setMouseOver(false);
         menu.setMouseOver(false);
@@ -69,6 +96,10 @@ public class GameOverOverlay {
             play.setMouseOver(true);
     }
 
+    /**
+     * Handles mouse release events to perform actions based on button clicks.
+     * @param e the MouseEvent containing the mouse position
+     */
     public void mouseReleased(MouseEvent e) {
         if (isIn(menu, e)) {
             if (menu.isMousePressed()) {
@@ -86,6 +117,10 @@ public class GameOverOverlay {
         menu.resetBools();
     }
 
+    /**
+     * Handles mouse pressed events to set button states.
+     * @param e the MouseEvent containing the mouse position
+     */
     public void mousePressed(MouseEvent e) {
         if (isIn(menu, e))
             menu.setMousePressed(true);
@@ -93,5 +128,9 @@ public class GameOverOverlay {
             play.setMousePressed(true);
     }
 
+    /**
+     * Handles key typed events (not used in this overlay).
+     * @param e the KeyEvent
+     */
     public void keyPressed(KeyEvent e) {}
 }
