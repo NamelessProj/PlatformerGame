@@ -4,11 +4,20 @@ import static utils.Constants.GameConstants.SCALE;
 import static utils.Constants.ObjectConstants.*;
 
 public class GameContainer  extends GameObject{
+    /**
+     * Constructor for the GameContainer class.
+     * @param x the x-coordinate of the game container
+     * @param y the y-coordinate of the game container
+     * @param objectType the type of the object (BOX or CONTAINER)
+     */
     public GameContainer(int x, int y, int objectType) {
         super(x, y, objectType);
         createHitbox();
     }
 
+    /**
+     * Initializes the hitbox for the game container based on its type.
+     */
     private void createHitbox() {
         if (objectType == BOX) {
             initHitbox(25, 18);
@@ -24,6 +33,9 @@ public class GameContainer  extends GameObject{
         hitbox.x += (float) xDrawOffset / 2;
     }
 
+    /**
+     * Updates the game container's animation tick if animations are enabled.
+     */
     public void update() {
         if (doAnimation)
             updateAnimationTick();
