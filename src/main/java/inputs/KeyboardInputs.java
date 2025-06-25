@@ -9,6 +9,10 @@ import java.awt.event.KeyListener;
 public class KeyboardInputs implements KeyListener {
     private final GamePanel gamePanel;
 
+    /**
+     * Constructor for KeyboardInputs
+     * @param gamePanel the GamePanel instance to which this keyboard input listener is attached
+     */
     public KeyboardInputs(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
     }
