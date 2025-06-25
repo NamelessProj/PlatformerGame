@@ -19,6 +19,10 @@ public class PauseOverlay {
     private UrmButton menuBtn, replayBtn, unpauseBtn;
     private AudioOptions audioOptions;
 
+    /**
+     * Constructor for the PauseOverlay class.
+     * @param playing the Playing instance to access game state and methods
+     */
     public PauseOverlay(Playing playing) {
         this.playing = playing;
         this.audioOptions = playing.getGame().getAudioOptions();
@@ -26,6 +30,9 @@ public class PauseOverlay {
         createUrmButtons();
     }
 
+    /**
+     * Creates the URM (Unpause, Replay, Menu) buttons for the pause overlay.
+     */
     private void createUrmButtons() {
         int menuX = (int) (313 * SCALE);
         int replayX = (int) (387 * SCALE);
@@ -37,6 +44,9 @@ public class PauseOverlay {
         unpauseBtn = new UrmButton(unpauseX, btnY, URM_SIZE, URM_SIZE, 0);
     }
 
+    /**
+     * Loads the background image for the pause overlay.
+     */
     private void loadBackground() {
         backgroundImg = LoadSave.GetSpriteAtlas(LoadSave.PAUSE_BACKGROUND);
         bgWidth = (int) (backgroundImg.getWidth() * SCALE);
@@ -45,6 +55,9 @@ public class PauseOverlay {
         bgY = (int) (25 * SCALE);
     }
 
+    /**
+     * Updates the state of the pause overlay, including button states and audio options.
+     */
     public void update() {
         menuBtn.update();
         replayBtn.update();
@@ -53,6 +66,10 @@ public class PauseOverlay {
         audioOptions.update();
     }
 
+    /**
+     * Draws the pause overlay on the screen.
+     * @param g the Graphics object used for drawing
+     */
     public void draw(Graphics g) {
         // Background
         g.drawImage(backgroundImg, bgX, bgY, bgWidth, bgHeight, null);
@@ -65,14 +82,28 @@ public class PauseOverlay {
         audioOptions.draw(g);
     }
 
+    /**
+     * Checks if the mouse event is within the bounds of a button.
+     * @param e the MouseEvent to check
+     * @param btn the PauseButton to check against
+     * @return true if the mouse is within the button bounds, false otherwise
+     */
     private boolean isIn(MouseEvent e, PauseButton btn) {
         return btn.getBounds().contains(e.getX(), e.getY());
     }
 
+    /**
+     * Handles mouse dragging events for the audio options.
+     * @param e the MouseEvent containing the mouse position
+     */
     public void mouseDragged(MouseEvent e) {
         audioOptions.mouseDragged(e);
     }
 
+    /**
+     * Handles mouse pressed events for the pause overlay buttons.
+     * @param e the MouseEvent containing the mouse position
+     */
     public void mousePressed(MouseEvent e) {
         if (isIn(e, menuBtn))
             menuBtn.setMousePressed(true);
@@ -84,6 +115,10 @@ public class PauseOverlay {
             audioOptions.mousePressed(e);
     }
 
+    /**
+     * Handles mouse released events for the pause overlay buttons.
+     * @param e the MouseEvent containing the mouse position
+     */
     public void mouseReleased(MouseEvent e) {
         if (isIn(e, menuBtn)) {
             if (menuBtn.isMousePressed()) {
@@ -107,6 +142,10 @@ public class PauseOverlay {
         unpauseBtn.resetBools();
     }
 
+    /**
+     * Handles mouse movement events to update button states.
+     * @param e the MouseEvent containing the mouse position
+     */
     public void mouseMoved(MouseEvent e) {
         menuBtn.setMouseOver(false);
         replayBtn.setMouseOver(false);
