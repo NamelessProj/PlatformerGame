@@ -27,7 +27,6 @@ public abstract class Entity {
 
     /**
      * Constructor for the Entity class.
-     *
      * @param x      The x-coordinate of the entity.
      * @param y      The y-coordinate of the entity.
      * @param width  The width of the entity.
@@ -42,7 +41,6 @@ public abstract class Entity {
 
     /**
      * Initializes the hitbox of the entity.
-     *
      * @param width  The width of the hitbox.
      * @param height The height of the hitbox.
      */
@@ -50,6 +48,9 @@ public abstract class Entity {
         hitbox = new Rectangle2D.Float(x, y, (int) (width * SCALE), (int) (height * SCALE));
     }
 
+    /**
+     * Updates the entity's animation tick and index based on the current state.
+     */
     protected void updatePushBackDrawOffset() {
         float speed = 0.95f;
         float limit = -30f;
@@ -65,6 +66,12 @@ public abstract class Entity {
         }
     }
 
+    /**
+     * Pushes the entity back in the specified direction with a speed multiplier.
+     * @param pushBackDirection The direction to push back the entity (LEFT or RIGHT).
+     * @param speedMulti The multiplier for the speed of the push back.
+     * @param lvlData The level data containing information about the environment.
+     */
     protected void pushBack(int pushBackDirection, float speedMulti, int[][] lvlData) {
         float xSpeed = walkSpeed;
         if (pushBackDirection == LEFT)
@@ -76,6 +83,8 @@ public abstract class Entity {
 
     /**
      * For debugging purposes, draws the hitbox of the entity.
+     * @param g The Graphics object used for drawing.
+     * @param xLvlOffset The x-coordinate offset for the level, used to adjust the
      */
     protected void drawHitbox(Graphics g, int xLvlOffset) {
         g.setColor(Color.PINK);
@@ -89,31 +98,50 @@ public abstract class Entity {
 
     /**
      * Get the hitbox of the entity.
-     *
      * @return The hitbox of the entity as a Rectangle2D.Float object.
      */
     public Rectangle2D.Float getHitbox() {
         return hitbox;
     }
 
+    /**
+     * Get the current state of the entity.
+     * @return The current state of the entity as an integer.
+     */
     protected int getState() {
         return state;
     }
 
+    /**
+     * Get the current animation index of the entity.
+     * @return The current animation index of the entity as an integer.
+     */
     protected int getAnimationIndex() {
         return animationIndex;
     }
 
+    /**
+     * Get the current health of the entity.
+     * @return The current health of the entity as an integer.
+     */
     public int getCurrentHealth() {
         return currentHealth;
     }
 
+    /**
+     * Sets the current health of the entity.
+     * @param state The new state to set for the entity.
+     */
     protected void newState(int state) {
         this.state = state;
         animationTick = 0;
         animationIndex = 0;
     }
 
+    /**
+     * Sets the push back direction for the entity.
+     * @param pushBackDirection The direction to push back the entity (LEFT or RIGHT).
+     */
     public void setPushBackDirection(int pushBackDirection) {
         this.pushBackDirection = pushBackDirection;
     }
