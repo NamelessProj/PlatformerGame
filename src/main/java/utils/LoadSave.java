@@ -36,6 +36,11 @@ public class LoadSave {
     public static final String WATER_TOP = "water_atlas_animation.png";
 	public static final String WATER_BOTTOM = "water.png";
 
+    /**
+     * Loads a sprite atlas image from the resources.
+     * @param fileName the name of the sprite atlas file
+     * @return BufferedImage containing the sprite atlas
+     */
     public static BufferedImage GetSpriteAtlas(String fileName) {
         BufferedImage img = null;
         InputStream is = LoadSave.class.getResourceAsStream("/images/" + fileName);
@@ -53,6 +58,10 @@ public class LoadSave {
         return img;
     }
 
+    /**
+     * Loads all level images from the resources.
+     * @return BufferedImage array containing all level images
+     */
     public static BufferedImage[] GetAllLevels() {
         URL url = LoadSave.class.getResource("/images/lvls");
         File file = null;
