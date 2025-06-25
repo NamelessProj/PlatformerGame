@@ -17,6 +17,14 @@ public abstract class Enemy extends Entity {
     protected boolean attackChecked;
     protected int attackBoxOffsetX;
 
+    /**
+     * Enemy constructor.
+     * @param x The x-coordinate of the enemy's position.
+     * @param y The y-coordinate of the enemy's position.
+     * @param width The width of the enemy's hitbox.
+     * @param height The height of the enemy's hitbox.
+     * @param enemyType The type of the enemy, determining its behavior and attributes.
+     */
     public Enemy(float x, float y, int width, int height, int enemyType) {
         super(x, y, width, height);
         this.enemyType = enemyType;
@@ -25,11 +33,17 @@ public abstract class Enemy extends Entity {
         walkSpeed = SCALE * 0.35f;
     }
 
+    /**
+     * Update the entity's attack box position based on its hitbox.
+     */
     protected void updateAttackBox() {
 		attackBox.x = hitbox.x - attackBoxOffsetX;
 		attackBox.y = hitbox.y;
 	}
 
+    /**
+     * Update the entity's attack box position based on its walking direction.
+     */
     protected void updateAttackBoxFlip() {
 		if (walkDir == RIGHT)
 			attackBox.x = hitbox.x + hitbox.width;
@@ -39,12 +53,20 @@ public abstract class Enemy extends Entity {
 		attackBox.y = hitbox.y;
 	}
 
+    /**
+     * Checks if the enemy is on the floor during the first update.
+     * @param lvlData The level data containing information about the environment.
+     */
     protected void firstUpdateCheck(int[][] lvlData) {
         firstUpdate = false;
         if (!IsEntityOnFloor(hitbox, lvlData))
             inAir = true;
     }
 
+    /**
+     * Updates the enemy's position while in the air.
+     * @param lvlData The level data containing information about the environment.
+     */
     protected void updateInAir(int[][] lvlData) {
         if (CanMoveHere(hitbox.x, hitbox.y + airSpeed, hitbox.width, hitbox.height, lvlData)) {
             hitbox.y += airSpeed;
@@ -56,6 +78,10 @@ public abstract class Enemy extends Entity {
         }
     }
 
+    /**
+     * Moves the enemy based on its walking direction and state.
+     * @param lvlData The level data containing information about the environment.
+     */
     protected void move(int[][] lvlData) {
         float xSpeed = 0;
 
@@ -77,6 +103,10 @@ public abstract class Enemy extends Entity {
         changeWalkDirection();
     }
 
+    /**
+     * Turns the enemy towards the player based on their position.
+     * @param player The player entity that the enemy will turn towards.
+     */
     protected void turnTowardsPlayer(Player player) {
         if (player.hitbox.x > hitbox.x)
             walkDir = RIGHT;
@@ -84,6 +114,12 @@ public abstract class Enemy extends Entity {
             walkDir = LEFT;
     }
 
+    /**
+     * Checks if the enemy can see the player based on their position and the level data.
+     * @param lvlData The level data containing information about the environment.
+     * @param player The player entity that the enemy will check visibility against.
+     * @return true if the enemy can see the player, false otherwise.
+     */
     protected boolean canSeePlayer(int[][] lvlData, Player player) {
         int playerTileY = (int) (player.getHitbox().y / TILES_SIZE);
         if (playerTileY == tileY)
@@ -94,22 +130,40 @@ public abstract class Enemy extends Entity {
         return false;
     }
 
+    /**
+     * Checks if the player is within a certain range of the enemy.
+     * @param player The player entity to check against the enemy's position.
+     * @return true if the player is within range, false otherwise.
+     */
     protected boolean isPlayerInRange(Player player) {
         int absValue = (int) Math.abs(player.hitbox.x - hitbox.x);
         return absValue <= attackDistance * 5;
     }
 
+    /**
+     * Checks if the player is close enough for the enemy to attack.
+     * @param player The player entity to check against the enemy's position.
+     * @return true if the player is close enough for an attack, false otherwise.
+     */
     protected boolean isPlayerCloseForAttack(Player player) {
         int absValue = (int) Math.abs(player.hitbox.x - hitbox.x);
         return absValue <= attackDistance;
     }
 
+    /**
+     * Changes the enemy's state to a new state.
+     * @param enemyState The new state to set for the enemy.
+     */
     protected void newState(int enemyState) {
         this.state = enemyState;
         animationIndex = 0;
         animationTick = 0;
     }
 
+    /**
+     * Reduces the enemy's health by a specified amount of damage.
+     * @param dmg The amount of damage to reduce from the enemy's health.
+     */
     protected void hurt(int dmg) {
         currentHealth -= dmg;
         if (currentHealth <= 0)
@@ -125,12 +179,20 @@ public abstract class Enemy extends Entity {
         }
     }
 
+    /**
+     * Checks if the enemy's attack box intersects with the player's hitbox and applies damage if it does.
+     * @param attackBox The attack box of the enemy used to check for collisions.
+     * @param player The player entity that the enemy is attacking.
+     */
     protected void checkEnemyHit(Rectangle2D.Float attackBox, Player player) {
         if (attackBox.intersects(player.getHitbox()))
             player.changeHealth(-GetEnemyDamage(enemyType), this);
         attackChecked = true;
     }
 
+    /**
+     * Updates the animation tick for the enemy, cycling through animation frames.
+     */
     protected void updateAnimationTick() {
         animationTick++;
         if (animationTick >= ANIMATION_SPEED) {
@@ -147,6 +209,9 @@ public abstract class Enemy extends Entity {
         }
     }
 
+    /**
+     * Changes the walking direction of the enemy.
+     */
     protected void changeWalkDirection() {
         if (walkDir == LEFT)
             walkDir = RIGHT;
@@ -154,10 +219,17 @@ public abstract class Enemy extends Entity {
             walkDir = LEFT;
     }
 
+    /**
+     * Checks if the enemy is currently active.
+     * @return true if the enemy is active, false otherwise.
+     */
     protected boolean isActive() {
         return active;
     }
 
+    /**
+     * Resets the enemy's state and position for reuse.
+     */
     protected void resetEnemy() {
         hitbox.x = x;
         hitbox.y = y;
@@ -170,6 +242,10 @@ public abstract class Enemy extends Entity {
         pushDrawOffset = 0;
     }
 
+    /**
+     * Flips the enemy's hitbox based on its walking direction.
+     * @return The x-coordinate offset for flipping the hitbox.
+     */
     public int flipX() {
 		if (walkDir == RIGHT)
 			return width;
@@ -177,6 +253,10 @@ public abstract class Enemy extends Entity {
 			return 0;
 	}
 
+    /**
+     * Flips the enemy's walking direction for rendering.
+     * @return -1 if walking right, 1 if walking left.
+     */
 	public int flipW() {
 		if (walkDir == RIGHT)
 			return -1;
@@ -184,6 +264,10 @@ public abstract class Enemy extends Entity {
 			return 1;
 	}
 
+    /**
+     * Gets the push draw offset for rendering the enemy's pushback effect.
+     * @return The push draw offset value.
+     */
     public float getPushDrawOffset() {
 		return pushDrawOffset;
 	}
