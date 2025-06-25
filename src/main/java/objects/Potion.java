@@ -4,12 +4,18 @@ import static utils.Constants.GameConstants.SCALE;
 import static utils.Constants.ObjectConstants.POTION_HOVER_DELTA;
 
 public class Potion extends GameObject {
-    private float hoverOffset, hoverSpeed = 0.075f * SCALE;
+    private float hoverOffset;
     private int maxHoverOffset, hoverDirection = 1;
     float hoverTime = 0f, hoverDuration = 1.5f;
     private float pauseTimer = 0f;
     private float pauseDuration = 0.3f;
 
+    /**
+     * Constructor for the Potion class.
+     * @param x the x-coordinate of the potion
+     * @param y the y-coordinate of the potion
+     * @param objectType the type of the object (RED_POTION or BLUE_POTION)
+     */
     public Potion(int x, int y, int objectType) {
         super(x, y, objectType);
         this.doAnimation = true;
@@ -20,11 +26,17 @@ public class Potion extends GameObject {
         maxHoverOffset = (int) (8 * SCALE);
     }
 
+    /**
+     * Updates the potion's animation and hover state.
+     */
     public void update() {
         updateAnimationTick();
         updateHover();
     }
 
+    /**
+     * Updates the hover effect of the potion.
+     */
     private void updateHover() {
         if (pauseTimer > 0) {
             pauseTimer -= POTION_HOVER_DELTA;
@@ -51,6 +63,11 @@ public class Potion extends GameObject {
         hitbox.y = y + hoverOffset;
     }
 
+    /**
+     * Easing function for smooth animation.
+     * @param x the normalized time value (0 to 1)
+     * @return the eased value
+     */
     private float easeInOutBack(float x) {
         final float c1 = 1.70158f;
         final float c2 = c1 * 1.525f;
