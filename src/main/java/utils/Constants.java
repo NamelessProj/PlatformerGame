@@ -48,6 +48,11 @@ public class Constants {
         public static final int CANNON_WIDTH = (int) (CANNON_WIDTH_DEFAULT * GameConstants.SCALE);
         public static final int CANNON_HEIGHT = (int) (CANNON_HEIGHT_DEFAULT * GameConstants.SCALE);
 
+        /**
+         * Returns the number of sprites for a given object type.
+         * @param objectType the type of the object
+         * @return the number of sprites for the object type
+         */
         public static int GetSpriteAmount(int objectType) {
             return switch (objectType) {
                 case RED_POTION, BLUE_POTION, CANNON_LEFT, CANNON_RIGHT -> 7;
@@ -74,6 +79,12 @@ public class Constants {
         public static final int CRABBY_DRAWOFFSET_X = (int) (26 * GameConstants.SCALE);
         public static final int CRABBY_DRAWOFFSET_Y = (int) (9 * GameConstants.SCALE);
 
+        /**
+         * Returns the number of sprites for a given enemy type and state.
+         * @param enemyType the type of the enemy
+         * @param enemyState the state of the enemy
+         * @return the number of sprites for the enemy type and state
+         */
         public static int GetSpriteAmount(int enemyType, int enemyState) {
             return switch (enemyType) {
                 case CRABBY -> switch (enemyState) {
@@ -88,6 +99,11 @@ public class Constants {
             };
         }
 
+        /**
+         * Returns the maximum health for a given enemy type.
+         * @param enemyType the type of the enemy
+         * @return the maximum health for the enemy type
+         */
         public static int GetMaxHealth(int enemyType) {
             return switch (enemyType) {
                 case CRABBY -> 10;
@@ -95,6 +111,11 @@ public class Constants {
             };
         }
 
+        /**
+         * Returns the damage dealt by a given enemy type.
+         * @param enemyType the type of the enemy
+         * @return the damage dealt by the enemy type
+         */
         public static int GetEnemyDamage(int enemyType) {
             return switch (enemyType) {
                 case CRABBY -> 15;
@@ -154,6 +175,11 @@ public class Constants {
         public static final int HIT = 5;
         public static final int DEAD = 6;
 
+        /**
+         * Returns the number of sprites for a given player action.
+         * @param player_action the action of the player
+         * @return the number of sprites for the player action
+         */
         public static int GetSpriteAmount(int player_action) {
             return switch (player_action) {
                 case DEAD -> 8;
