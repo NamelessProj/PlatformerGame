@@ -28,12 +28,20 @@ public class ObjectManager {
 
     private Level currentLevel;
 
+    /**
+     * Constructor for the ObjectManager class.
+     * @param playing the Playing instance that manages the game state
+     */
     public ObjectManager(Playing playing) {
         this.playing = playing;
         this.currentLevel = playing.getLevelManager().getCurrentLevel();
         loadImages();
     }
 
+    /**
+     * Checks if the player has touched any spikes in the current level.
+     * @param player the Player instance to check for collisions with spikes
+     */
     public void checkSpikesTouchedPlayer(Player player) {
         for (Spike s : currentLevel.getSpikes())
             if (s.getHitbox().intersects(player.getHitbox())) {
@@ -42,6 +50,10 @@ public class ObjectManager {
             }
     }
 
+    /**
+     * Checks if the player has touched any potions in the current level.
+     * @param hitbox the hitbox of the player to check for collisions with potions
+     */
     public void checkObjectTouchedPlayer(Rectangle2D.Float hitbox) {
         for (Potion p : potions)
             if (p.isActive() && hitbox.intersects(p.getHitbox())) {
@@ -50,6 +62,10 @@ public class ObjectManager {
             }
     }
 
+    /**
+     * Applies the effect of a potion to the player based on its type.
+     * @param potion the Potion instance to apply the effect from
+     */
     public void applyEffectToPlayer(Potion potion) {
         if (potion.getObjectType() == RED_POTION)
             playing.getPlayer().changeHealth(RED_POTION_VALUE);
@@ -57,6 +73,10 @@ public class ObjectManager {
             playing.getPlayer().changePower(BLUE_POTION_VALUE);
     }
 
+    /**
+     * Checks if any game containers (like barrels or boxes) are hit by an attack box.
+     * @param attackBox the Rectangle2D.Float representing the attack area
+     */
     public void checkObjectHit(Rectangle2D.Float attackBox) {
         for (GameContainer gc : containers)
             if (gc.isActive() && !gc.doAnimation && gc.getHitbox().intersects(attackBox)) {
@@ -69,6 +89,10 @@ public class ObjectManager {
             }
     }
 
+    /**
+     * Loads the objects for the current level, including potions, containers, and projectiles.
+     * @param newLevel the Level instance to load objects from
+     */
     public void loadObjects(Level newLevel) {
         this.currentLevel = newLevel;
         potions = new ArrayList<>(newLevel.getPotions());
@@ -76,6 +100,9 @@ public class ObjectManager {
         projectiles.clear();
     }
 
+    /**
+     * Loads the images for various game objects such as potions, containers, traps, and cannons.
+     */
     private void loadImages() {
         BufferedImage potionSprite = LoadSave.GetSpriteAtlas(LoadSave.POTION_ATLAS);
         potionImages = new BufferedImage[2][7];
@@ -110,6 +137,11 @@ public class ObjectManager {
             grassImages[i] = grassTemp.getSubimage(i * 32, 0, 32, 32);
     }
 
+    /**
+     * Updates the state of all game objects, including potions, containers, cannons, and projectiles.
+     * @param lvlData the level data array representing the current level
+     * @param player the Player instance to check for interactions with objects
+     */
     public void update(int[][] lvlData, Player player) {
         for (Potion p : potions)
             if (p.isActive())
@@ -123,6 +155,11 @@ public class ObjectManager {
         updateProjectiles(lvlData, player);
     }
 
+    /**
+     * Updates the position and state of all projectiles in the game.
+     * @param lvlData the level data array representing the current level
+     * @param player the Player instance to check for collisions with projectiles
+     */
     private void updateProjectiles(int[][] lvlData, Player player) {
         for (Projectile p : projectiles)
             if (p.isActive()) {
@@ -136,6 +173,11 @@ public class ObjectManager {
             }
     }
 
+    /**
+     * Updates the state of all cannons in the current level, checking if they should fire based on the player's position.
+     * @param lvlData the level data array representing the current level
+     * @param player the Player instance to check for interactions with cannons
+     */
     private void updateCannons(int[][] lvlData, Player player) {
         for (Cannon c : currentLevel.getCannons()) {
             if (!c.doAnimation && c.getTileY() == player.getTileY())
@@ -151,22 +193,43 @@ public class ObjectManager {
         }
     }
 
+    /**
+     * Shoots a cannon by creating a new Projectile instance at the cannon's position.
+     * @param c the Cannon instance that is firing
+     */
     private void shootCannon(Cannon c) {
         int dir = c.getObjectType() == CANNON_LEFT ? -1 : 1;
         projectiles.add(new Projectile((int) c.getHitbox().x, (int) c.getHitbox().y, dir));
     }
 
+    /**
+     * Checks if the player is in front of the cannon based on its type and the player's position.
+     * @param c the Cannon instance to check
+     * @param p the Player instance to check against the cannon
+     * @return true if the player is in front of the cannon, false otherwise
+     */
     private boolean isPlayerInFrontOfCannon(Cannon c, Player p) {
         if (c.getObjectType() == CANNON_LEFT) {
             return c.getHitbox().x > p.getHitbox().x;
         } else return c.getHitbox().x < p.getHitbox().x;
     }
 
+    /**
+     * Checks if the player is within a certain range of the cannon.
+     * @param c the Cannon instance to check
+     * @param p the Player instance to check against the cannon
+     * @return true if the player is within range, false otherwise
+     */
     private boolean isPlayerInRange(Cannon c, Player p) {
         int absValue = (int) (Math.abs(p.getHitbox().x - c.getHitbox().x));
         return absValue <= TILES_SIZE * 5;
     }
 
+    /**
+     * Draws all game objects on the screen, including potions, containers, traps, cannons, projectiles, and grass.
+     * @param g the Graphics object used for drawing
+     * @param xLvlOffset the x-level offset for drawing objects
+     */
     public void draw(Graphics g, int xLvlOffset) {
         drawPotions(g, xLvlOffset);
         drawContainers(g, xLvlOffset);
@@ -176,6 +239,11 @@ public class ObjectManager {
         drawGrass(g, xLvlOffset);
     }
 
+    /**
+     * Draws the grass in the current level using the grass images.
+     * @param g the Graphics object used for drawing
+     * @param xLvlOffset the x-level offset for drawing grass
+     */
     private void drawGrass(Graphics g, int xLvlOffset) {
         for (Grass grass : currentLevel.getGrass())
             g.drawImage(grassImages[grass.getType()],
@@ -186,6 +254,11 @@ public class ObjectManager {
                     null);
     }
 
+    /**
+     * Draws the projectiles on the screen, checking if they are active before drawing.
+     * @param g the Graphics object used for drawing
+     * @param xLvlOffset the x-level offset for drawing projectiles
+     */
     private void drawProjectiles(Graphics g, int xLvlOffset) {
         for (Projectile p : projectiles)
             if (p.isActive())
@@ -197,6 +270,11 @@ public class ObjectManager {
                         null);
     }
 
+    /**
+     * Draws the cannons in the current level, adjusting their position based on the x-level offset.
+     * @param g the Graphics object used for drawing
+     * @param xLvlOffset the x-level offset for drawing cannons
+     */
     private void drawCannons(Graphics g, int xLvlOffset) {
         for (Cannon c : currentLevel.getCannons()) {
             int x = (int) (c.getHitbox().x - xLvlOffset);
@@ -216,6 +294,11 @@ public class ObjectManager {
         }
     }
 
+    /**
+     * Draws the traps (spikes) in the current level, adjusting their position based on the x-level offset.
+     * @param g the Graphics object used for drawing
+     * @param xLvlOffset the x-level offset for drawing traps
+     */
     private void drawTraps(Graphics g, int xLvlOffset) {
         for (Spike s : currentLevel.getSpikes())
             g.drawImage(spikeImage,
@@ -226,6 +309,11 @@ public class ObjectManager {
                     null);
     }
 
+    /**
+     * Draws the containers (like barrels and boxes) in the current level, adjusting their position based on the x-level offset.
+     * @param g the Graphics object used for drawing
+     * @param xLvlOffset the x-level offset for drawing containers
+     */
     private void drawContainers(Graphics g, int xLvlOffset) {
         for (GameContainer gc : containers)
             if (gc.isActive()) {
@@ -242,6 +330,11 @@ public class ObjectManager {
             }
     }
 
+    /**
+     * Draws the potions in the current level, adjusting their position based on the x-level offset.
+     * @param g the Graphics object used for drawing
+     * @param xLvlOffset the x-level offset for drawing potions
+     */
     private void drawPotions(Graphics g, int xLvlOffset) {
         for (Potion p : potions)
             if (p.isActive()) {
@@ -258,6 +351,9 @@ public class ObjectManager {
             }
     }
 
+    /**
+     * Resets all game objects to their initial state, including potions, containers, and cannons.
+     */
     public void resetAllObjects() {
         loadObjects(playing.getLevelManager().getCurrentLevel());
 
