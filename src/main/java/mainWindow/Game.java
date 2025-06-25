@@ -23,6 +23,9 @@ public class Game implements Runnable {
 
     private final boolean SHOW_FPS_UPS = true;
 
+    /**
+     * Constructor for the Game class.
+     */
     public Game() {
         initClasses();
 
@@ -35,6 +38,9 @@ public class Game implements Runnable {
         startGameLoop();
     }
 
+    /**
+     * Initializes the game classes used in the game.
+     */
     private void initClasses() {
         audioOptions = new AudioOptions(this);
         audioPlayer = new AudioPlayer();
@@ -43,11 +49,17 @@ public class Game implements Runnable {
         gameOptions = new GameOptions(this);
     }
 
+    /**
+     * Starts the game loop in a new thread.
+     */
     private void startGameLoop() {
         gameThread = new Thread(this);
         gameThread.start();
     }
 
+    /**
+     * Updates the game state based on the current gamestate.
+     */
     public void update() {
         switch (Gamestate.state) {
             case MENU -> menu.update();
@@ -64,6 +76,10 @@ public class Game implements Runnable {
         }
     }
 
+    /**
+     * Renders the current game state to the graphics context.
+     * @param g the Graphics object to draw on
+     */
     public void render(Graphics g) {
         switch (Gamestate.state) {
             case MENU -> menu.draw(g);
@@ -116,27 +132,50 @@ public class Game implements Runnable {
         }
     }
 
+    /**
+     * Called when the window loses focus.
+     */
     public void windowFocusLost() {
         if (Gamestate.state == Gamestate.PLAYING)
             playing.getPlayer().resetDirBooleans();
     }
 
+    /**
+     * Returns the Menu object for the game.
+     * @return the Menu object
+     */
     public Menu getMenu() {
         return menu;
     }
 
+    /**
+     * Returns the Playing object for the game, which contains the game logic and state.
+     * @return the Playing object
+     */
     public Playing getPlaying() {
         return playing;
     }
 
+    /**
+     * Returns the GameOptions object for the game, which contains game settings.
+     * @return the GameOptions object
+     */
     public GameOptions getGameOptions() {
         return gameOptions;
     }
 
+    /**
+     * Returns the AudioOptions object for the game, which contains audio settings.
+     * @return the AudioOptions object
+     */
     public AudioOptions getAudioOptions() {
         return audioOptions;
     }
 
+    /**
+     * Returns the AudioPlayer object for the game, which handles audio playback.
+     * @return the AudioPlayer object
+     */
     public AudioPlayer getAudioPlayer() {
         return audioPlayer;
     }
