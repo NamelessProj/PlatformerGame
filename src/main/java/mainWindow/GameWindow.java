@@ -5,6 +5,10 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowFocusListener;
 
 public class GameWindow extends JFrame {
+    /**
+     * Constructor for the GameWindow class.
+     * @param gamePanel the GamePanel instance that will be added to this window
+     */
     public GameWindow(GamePanel gamePanel) {
         this.setTitle("Game Window");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
