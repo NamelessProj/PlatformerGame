@@ -12,12 +12,23 @@ public class UrmButton extends PauseButton {
     private int rowIndex, index;
     private boolean mouseOver, mousePressed;
 
+    /**
+     * Constructor for the UrmButton class.
+     * @param x the x-coordinate of the button
+     * @param y the y-coordinate of the button
+     * @param width the width of the button
+     * @param height the height of the button
+     * @param rowIndex the row index in the sprite sheet for the button images
+     */
     public UrmButton(int x, int y, int width, int height, int rowIndex) {
         super(x, y, width, height);
         this.rowIndex = rowIndex;
         loadImages();
     }
 
+    /**
+     * Loads the button images from the sprite sheet.
+     */
     private void loadImages() {
         BufferedImage temp = LoadSave.GetSpriteAtlas(LoadSave.URM_BUTTONS);
         imgs = new BufferedImage[3];
@@ -26,6 +37,9 @@ public class UrmButton extends PauseButton {
             imgs[i] = temp.getSubimage(i * URM_DEFAULT_SIZE, rowIndex * URM_DEFAULT_SIZE, URM_DEFAULT_SIZE, URM_DEFAULT_SIZE);
     }
 
+    /**
+     * Updates the state of the button based on mouse interaction.
+     */
     public void update() {
         index = 0;
         if (mouseOver)
@@ -34,27 +48,50 @@ public class UrmButton extends PauseButton {
             index = 2;
     }
 
+    /**
+     * Draws the button on the screen.
+     * @param g the Graphics object used for drawing
+     */
     public void draw(Graphics g) {
         g.drawImage(imgs[index], x, y, URM_SIZE, URM_SIZE, null);
     }
 
+    /**
+     * Resets the mouse interaction states of the button.
+     */
     public void resetBools() {
         mouseOver = false;
         mousePressed = false;
     }
 
+    /**
+     * Checks if the mouse is currently over the button.
+     * @return true if the mouse is over the button, false otherwise
+     */
     public boolean isMouseOver() {
         return mouseOver;
     }
 
+    /**
+     * Sets the mouse over state of the button.
+     * @param mouseOver true to set the button as hovered, false otherwise
+     */
     public void setMouseOver(boolean mouseOver) {
         this.mouseOver = mouseOver;
     }
 
+    /**
+     * Checks if the mouse is currently pressed on the button.
+     * @return true if the mouse is pressed, false otherwise
+     */
     public boolean isMousePressed() {
         return mousePressed;
     }
 
+    /**
+     * Sets the mouse pressed state of the button.
+     * @param mousePressed true to set the button as pressed, false otherwise
+     */
     public void setMousePressed(boolean mousePressed) {
         this.mousePressed = mousePressed;
     }
