@@ -19,6 +19,10 @@ public class GameOptions extends State implements Statemethods {
     private int bgX, bgY, bgW, bgH;
     private UrmButton menuBtn;
 
+    /**
+     * Constructor for GameOptions.
+     * @param game the game instance
+     */
     public GameOptions(Game game) {
         super(game);
         loadImages();
@@ -26,6 +30,9 @@ public class GameOptions extends State implements Statemethods {
         audioOptions = game.getAudioOptions();
     }
 
+    /**
+     * Loads the button for returning to the main menu.
+     */
     private void loadButton() {
         int menuX = (int) (387 * SCALE);
         int menuY = (int) (325 * SCALE);
@@ -33,6 +40,9 @@ public class GameOptions extends State implements Statemethods {
         menuBtn = new UrmButton(menuX, menuY, URM_SIZE, URM_SIZE, 2);
     }
 
+    /**
+     * Loads the background images for the options menu.
+     */
     private void loadImages() {
         backgroundImg = LoadSave.GetSpriteAtlas(LoadSave.MENU_BACKGROUND_IMAGE);
         optionsBackgroundImg = LoadSave.GetSpriteAtlas(LoadSave.OPTIONS_MENU);
@@ -58,10 +68,20 @@ public class GameOptions extends State implements Statemethods {
         audioOptions.draw(g);
     }
 
+    /**
+     * Checks if the mouse event is within the bounds of the specified button.
+     * @param e the mouse event
+     * @param btn the button to check
+     * @return true if the mouse is within the button bounds, false otherwise
+     */
     private boolean isIn(MouseEvent e, UrmButton btn) {
         return btn.getBounds().contains(e.getX(), e.getY());
     }
 
+    /**
+     * Handles mouse dragging events for audio options.
+     * @param e the mouse event
+     */
     public void mouseDragged(MouseEvent e) {
         audioOptions.mouseDragged(e);
     }
