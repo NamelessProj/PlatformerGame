@@ -31,6 +31,10 @@ public class Level {
     private int maxLevelOffsetX;
     private Point playerSpawn;
 
+    /**
+     * Constructor for the Level class.
+     * @param image the BufferedImage representing the level
+     */
     public Level(BufferedImage image) {
         this.image = image;
         lvlData = new int[image.getHeight()][image.getWidth()];
@@ -38,6 +42,9 @@ public class Level {
         calculateOffsets();
     }
 
+    /**
+     * Loads the level data from the BufferedImage.
+     */
     private void loadLevel() {
         for (int y = 0; y < image.getHeight(); y++)
             for (int x = 0; x < image.getWidth(); x++) {
@@ -52,6 +59,12 @@ public class Level {
             }
     }
 
+    /**
+     * Loads the level data based on the red value of the pixel.
+     * @param red the red component of the pixel color
+     * @param x the x-coordinate of the pixel in the level
+     * @param y the y-coordinate of the pixel in the level
+     */
     private void loadLevelData(int red, int x, int y) {
         if (red >= 50)
             lvlData[y][x] = 0;
@@ -63,10 +76,21 @@ public class Level {
         }
     }
 
+    /**
+     * Returns a random grass type based on the x-coordinate.
+     * @param x the x-coordinate of the pixel in the level
+     * @return the grass type (0 or 1)
+     */
     private int getRandomGrassType(int x) {
         return x % 2;
     }
 
+    /**
+     * Loads entities based on the green value of the pixel.
+     * @param green the green component of the pixel color
+     * @param x the x-coordinate of the pixel in the level
+     * @param y the y-coordinate of the pixel in the level
+     */
     private void loadEntities(int green, int x, int y) {
         switch (green) {
             case CRABBY -> crabs.add(new Crabby(x * TILES_SIZE, y * TILES_SIZE));
@@ -74,6 +98,12 @@ public class Level {
         }
     }
 
+    /**
+     * Loads objects based on the blue value of the pixel.
+     * @param blue the blue component of the pixel color
+     * @param x the x-coordinate of the pixel in the level
+     * @param y the y-coordinate of the pixel in the level
+     */
     private void loadObjects(int blue, int x, int y) {
         switch (blue) {
             case RED_POTION, BLUE_POTION -> potions.add(new Potion(x * TILES_SIZE, y * TILES_SIZE, blue));
@@ -83,48 +113,92 @@ public class Level {
         }
     }
 
+    /**
+     * Calculates the offsets for the level based on the image dimensions.
+     */
     private void calculateOffsets() {
         levelTilesWide = image.getWidth();
         maxTilesOffset = levelTilesWide - TILES_IN_WIDTH;
         maxLevelOffsetX = TILES_SIZE * maxTilesOffset;
     }
 
+    /**
+     * Returns the sprite index for a given tile position.
+     * @param x the x-coordinate of the tile
+     * @param y the y-coordinate of the tile
+     * @return the sprite index for the tile at (x, y)
+     */
     public int getSpriteIndex(int x, int y) {
         return lvlData[y][x];
     }
 
+    /**
+     * Returns the level data as a 2D array.
+     * @return the level data as a 2D array of integers
+     */
     public int[][] getLevelData() {
         return lvlData;
     }
 
+    /**
+     * Get the level offset for the x-axis.
+     */
     public int getLevelOffsetX() {
         return maxLevelOffsetX;
     }
 
+    /**
+     * Returns all crabs in the level.
+     * @return an ArrayList of Crabby objects
+     */
     public ArrayList<Crabby> getCrabs() {
         return crabs;
     }
 
+    /**
+     * Returns all game containers in the level.
+     * @return an ArrayList of GameContainer objects
+     */
     public ArrayList<GameContainer> getContainers() {
         return containers;
     }
 
+    /**
+     * Returns all potions in the level.
+     * @return an ArrayList of Potion objects
+     */
     public ArrayList<Potion> getPotions() {
         return potions;
     }
 
+    /**
+     * Returns all spikes in the level.
+     * @return an ArrayList of Spike objects
+     */
     public ArrayList<Spike> getSpikes() {
         return spikes;
     }
 
+    /**
+     * Returns all cannons in the level.
+     * @return an ArrayList of Cannon objects
+     */
     public ArrayList<Cannon> getCannons() {
         return cannons;
     }
 
+    /**
+     * Returns all grass objects in the level.
+     * @return an ArrayList of Grass objects
+     */
     public ArrayList<Grass> getGrass() {
         return grass;
     }
 
+    /**
+     * Returns the player spawn point in the level.
+     * @return a Point representing the player's spawn location
+     */
     public Point getPlayerSpawn() {
         return playerSpawn;
     }
