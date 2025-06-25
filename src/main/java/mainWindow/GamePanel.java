@@ -13,6 +13,10 @@ public class GamePanel extends JPanel {
     private MouseInputs mouseInputs;
     private Game game;
 
+    /**
+     * Constructor for the GamePanel class.
+     * @param game the Game instance that this GamePanel belongs to
+     */
     public GamePanel(Game game) {
         this.game = game;
         mouseInputs = new MouseInputs(this);
@@ -23,6 +27,9 @@ public class GamePanel extends JPanel {
         this.addMouseMotionListener(mouseInputs);
     }
 
+    /**
+     * Sets the size of the game panel.
+     */
     private void setPanelSize() {
         Dimension size = new Dimension(GAME_WIDTH, GAME_HEIGHT);
         this.setMinimumSize(size);
@@ -30,14 +37,24 @@ public class GamePanel extends JPanel {
         this.setMaximumSize(size);
     }
 
-    public void updateGame() {
-    }
+    /**
+     * Updates the game state.
+     */
+    public void updateGame() {}
 
+    /**
+     * Renders the game graphics.
+     * @param g the Graphics object used for rendering
+     */
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         game.render(g);
     }
 
+    /**
+     * Returns the Game instance associated with this GamePanel.
+     * @return the Game instance
+     */
     public Game getGame() {
         return game;
     }
