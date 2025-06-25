@@ -16,6 +16,10 @@ public class LevelManager {
     private ArrayList<Level> levels;
     private int levelIndex = 0, animationTick, animationIndex, waterBottomIndex;
 
+    /**
+     * Constructor for the LevelManager class.
+     * @param game the Game instance that this LevelManager belongs to
+     */
     public LevelManager(Game game) {
         this.game = game;
         importOutsideSprites();
@@ -24,6 +28,9 @@ public class LevelManager {
         builtAllLevels();
     }
 
+    /**
+     * Creates the water sprites used in the game.
+     */
     private void createWater() {
         waterSprite = new BufferedImage[5];
         BufferedImage temp = LoadSave.GetSpriteAtlas(LoadSave.WATER_TOP);
@@ -33,12 +40,18 @@ public class LevelManager {
         waterSprite[waterBottomIndex] = LoadSave.GetSpriteAtlas(LoadSave.WATER_BOTTOM);
     }
 
+    /**
+     * Builds all levels by loading images from the resources.
+     */
     private void builtAllLevels() {
         BufferedImage[] allLevels = LoadSave.GetAllLevels();
         for (BufferedImage img : allLevels)
             levels.add(new Level(img));
     }
 
+    /**
+     * Imports the outside sprites used in the game.
+     */
     private void importOutsideSprites() {
         BufferedImage img = LoadSave.GetSpriteAtlas(LoadSave.LEVEL_ATLAS);
 
@@ -53,6 +66,11 @@ public class LevelManager {
             }
     }
 
+    /**
+     * Draws the current level on the provided Graphics object.
+     * @param g the Graphics object to draw on
+     * @param xLvlOffset the x-level offset for drawing the level
+     */
     public void draw(Graphics g, int xLvlOffset) {
         for (int j = 0; j < TILES_IN_HEIGHT; j++)
             for (int i = 0; i < levels.get(levelIndex).getLevelData()[0].length; i++) {
@@ -68,10 +86,16 @@ public class LevelManager {
             }
     }
 
+    /**
+     * Updates the level manager, including the water animation.
+     */
     public void update() {
         updateWaterAnimation();
     }
 
+    /**
+     * Updates the water animation by cycling through the water sprites.
+     */
     private void updateWaterAnimation() {
         animationTick++;
         if (animationTick >= 40) {
@@ -83,14 +107,25 @@ public class LevelManager {
         }
     }
 
+    /**
+     * Returns the current level.
+     * @return the current Level object
+     */
     public Level getCurrentLevel() {
         return levels.get(levelIndex);
     }
 
+    /**
+     * Returns the amount of levels available.
+     * @return the number of levels
+     */
     public int getAmountOfLevels() {
         return levels.size();
     }
 
+    /**
+     * Loads the next level in the game.
+     */
     public void loadNextLevel() {
         if (levelIndex >= getAmountOfLevels()) {
             levelIndex = 0;
@@ -104,10 +139,18 @@ public class LevelManager {
         game.getPlaying().getObjectManager().loadObjects(newLevel);
     }
 
+    /**
+     * Returns the index of the current level.
+     * @return the index of the current level
+     */
     public int getLevelIndex() {
         return levelIndex;
     }
 
+    /**
+     * Sets the index of the current level.
+     * @param index the index to set for the current level
+     */
     public void setLevelIndex(int index) {
         this.levelIndex = index;
     }
