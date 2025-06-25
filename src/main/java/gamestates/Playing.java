@@ -45,6 +45,10 @@ public class Playing extends State implements Statemethods {
     private boolean levelCompleted;
     private boolean playerDying;
 
+    /**
+     * Constructor for the Playing class.
+     * @param game the game instance
+     */
     public Playing(Game game) {
         super(game);
         initClasses();
@@ -61,6 +65,9 @@ public class Playing extends State implements Statemethods {
         loadStartLevel();
     }
 
+    /**
+     * Loads the next level in the game.
+     */
     public void loadNextLevel() {
         levelManager.setLevelIndex(levelManager.getLevelIndex() + 1);
         levelManager.loadNextLevel();
@@ -68,15 +75,24 @@ public class Playing extends State implements Statemethods {
         resetAll();
     }
 
+    /**
+     * Loads the starting level data, including enemies and objects.
+     */
     private void loadStartLevel() {
         enemyManager.loadEnemies(levelManager.getCurrentLevel());
         objectManager.loadObjects(levelManager.getCurrentLevel());
     }
 
+    /**
+     * Calculates the maximum level offset based on the current level's offset.
+     */
     private void calculateLevelOffsets() {
         maxLevelOffsetX = levelManager.getCurrentLevel().getLevelOffsetX();
     }
 
+    /**
+     * Initializes the game classes used in the Playing state.
+     */
     private void initClasses() {
         levelManager = new LevelManager(game);
         enemyManager = new EnemyManager(this);
@@ -91,14 +107,24 @@ public class Playing extends State implements Statemethods {
         levelCompletedOverlay = new LevelCompletedOverlay(this);
     }
 
+    /**
+     * Sets the maximum level offset for the game.
+     * @param maxLevelOffset the maximum level offset value
+     */
     public void setMaxLevelOffset(int maxLevelOffset) {
         this.maxLevelOffsetX = maxLevelOffset;
     }
 
+    /**
+     * Unpauses the game, allowing it to continue.
+     */
     public void unPauseGame() {
         paused = false;
     }
 
+    /**
+     * Checks if the player is close to the borders of the level and adjusts the level offset accordingly.
+     */
     private void checkCloseToBorder() {
         int playerX = (int) player.getHitbox().x;
         int diff = playerX - xLevelOffset;
@@ -114,6 +140,10 @@ public class Playing extends State implements Statemethods {
             xLevelOffset = 0;
     }
 
+    /**
+     * Draws the clouds in the background of the game.
+     * @param g the graphics context to draw on
+     */
     private void drawClouds(Graphics g) {
         for (int i = 0; i < 3; i++)
             g.drawImage(bigCloud, i * BIG_CLOUD_WIDTH - (int) (xLevelOffset * 0.3), (int) (204 * GameConstants.SCALE), BIG_CLOUD_WIDTH, BIG_CLOUD_HEIGHT, null);
@@ -122,6 +152,9 @@ public class Playing extends State implements Statemethods {
             g.drawImage(smallCloud, SMALL_CLOUD_WIDTH * 4 * i - (int) (xLevelOffset * 0.7), smallCloudsPos[i], SMALL_CLOUD_WIDTH, SMALL_CLOUD_HEIGHT, null);
     }
 
+    /**
+     * Resets all game states and entities to their initial conditions.
+     */
     public void resetAll() {
         gameOver = false;
         paused = false;
@@ -132,22 +165,42 @@ public class Playing extends State implements Statemethods {
         objectManager.resetAllObjects();
     }
 
+    /**
+     * Sets the game over state.
+     * @param gameOver the new game over state (true if the game is over, false otherwise)
+     */
     public void setGameOver(boolean gameOver) {
         this.gameOver = gameOver;
     }
 
+    /**
+     * Checks if the player has hit an enemy with their attack box.
+     * @param attackBox the attack box of the player
+     */
     public void checkEnemyHit(Rectangle2D.Float attackBox) {
         enemyManager.checkEnemyHit(attackBox);
     }
 
+    /**
+     * Checks if the player has hit an object with their attack box.
+     * @param attackBox the attack box of the player
+     */
     public void checkObjectHit(Rectangle2D.Float attackBox) {
         objectManager.checkObjectHit(attackBox);
     }
 
+    /**
+     * Checks if the player has touched a potion with their hitbox.
+     * @param hitbox the hitbox of the player
+     */
     public void checkPotionTouchedPlayer(Rectangle2D.Float hitbox) {
         objectManager.checkObjectTouchedPlayer(hitbox);
     }
 
+    /**
+     * Checks if the player has touched spikes with their hitbox.
+     * @param player the player instance
+     */
     public void checkSpikesTouched(Player player) {
         objectManager.checkSpikesTouchedPlayer(player);
     }
@@ -192,6 +245,10 @@ public class Playing extends State implements Statemethods {
             levelCompletedOverlay.draw(g);
     }
 
+    /**
+     * Handles mouse dragging events for the pause overlay or level completed overlay.
+     * @param e the mouse event
+     */
     public void mouseDragged(MouseEvent e) {
         if (!gameOver && paused)
             pauseOverlay.mouseDragged(e);
@@ -264,32 +321,59 @@ public class Playing extends State implements Statemethods {
             }
     }
 
+    /**
+     * Handles the event when the window loses focus.
+     */
     public void windowFocusLost() {
         player.resetDirBooleans();
     }
 
+    /**
+     * Gets the player instance.
+     * @return the player instance
+     */
     public Player getPlayer() {
         return player;
     }
 
+    /**
+     * Gets the enemy manager instance.
+     * @return the enemy manager instance
+     */
     public EnemyManager getEnemyManager() {
         return enemyManager;
     }
 
+    /**
+     * Sets the level completed state.
+     * @param b true if the level is completed, false otherwise
+     */
     public void setLevelCompleted(boolean b) {
         this.levelCompleted = b;
         if (levelCompleted)
             game.getAudioPlayer().levelCompleted();
     }
 
+    /**
+     * Get the object manager instance.
+     * @return the object manager instance
+     */
     public ObjectManager getObjectManager() {
         return objectManager;
     }
 
+    /**
+     * Get the level manager instance.
+     * @return the level manager instance
+     */
     public LevelManager getLevelManager() {
         return levelManager;
     }
 
+    /**
+     * Set the player dying state.
+     * @param playerDying true if the player is dying, false otherwise
+     */
     public void setPlayerDying(boolean playerDying) {
         this.playerDying = playerDying;
     }
