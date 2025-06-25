@@ -62,7 +62,6 @@ public class Player extends Entity {
 
     /**
      * Constructor for the Player class.
-     *
      * @param x      The x-coordinate of the player.
      * @param y      The y-coordinate of the player.
      * @param width  The width of the player.
@@ -80,6 +79,10 @@ public class Player extends Entity {
         initAttackBox();
     }
 
+    /**
+     * Sets the spawn point for the player.
+     * @param spawn The Point object representing the spawn coordinates.
+     */
     public void setSpawn(Point spawn) {
         this.x = spawn.x;
         this.y = spawn.y;
@@ -87,6 +90,10 @@ public class Player extends Entity {
         hitbox.y = y;
     }
 
+    /**
+     * Initializes the attack box for the player.
+     * The attack box is used to detect collisions with enemies and objects during attacks.
+     */
     private void initAttackBox() {
         attackBox = new Rectangle2D.Float(x, y, (int) (20 * SCALE), (int) (20 * SCALE));
         resetAttackBox();
@@ -162,19 +169,31 @@ public class Player extends Entity {
         setAnimation();
     }
 
+    /**
+     * Checks if the player is inside water and sets health to 0 if true.
+     */
     private void checkInsideWater() {
         if (IsEntityInWater(hitbox, playing.getLevelManager().getCurrentLevel().getLevelData()))
             currentHealth = 0;
     }
 
+    /**
+     * Checks if the player has touched any spikes.
+     */
     private void checkSpikesTouched() {
         playing.checkSpikesTouched(this);
     }
 
+    /**
+     * Checks if the player has touched a potion.
+     */
     private void checkPotionTouched() {
         playing.checkPotionTouchedPlayer(hitbox);
     }
 
+    /**
+     * Checks if the player has attacked and processes the attack.
+     */
     private void checkAttack() {
         if (attackChecked || animationIndex != 1)
             return;
@@ -188,14 +207,24 @@ public class Player extends Entity {
         playing.getGame().getAudioPlayer().playAttackSound();
     }
 
+
+    /**
+     * Set the player's attack box on the right side of the hitbox.
+     */
     private void setAttackBoxOnRightSide() {
 		attackBox.x = hitbox.x + hitbox.width - (int) (SCALE * 5);
 	}
 
+    /**
+     * Set the player's attack box on the left side of the hitbox.
+     */
 	private void setAttackBoxOnLeftSide() {
 		attackBox.x = hitbox.x - hitbox.width - (int) (SCALE * 10);
 	}
 
+    /**
+     * Updates the attack box position based on the player's direction and state.
+     */
     private void updateAttackBox() {
         if (right && left) {
             if (flipW == 1)
@@ -210,10 +239,16 @@ public class Player extends Entity {
         attackBox.y = hitbox.y + (10 * SCALE);
     }
 
+    /**
+     * Updates the health bar width based on the current health.
+     */
     private void updateHealthBar() {
         healthWidth = (int) ((currentHealth / (float) maxHealth) * healthBarWidth);
     }
 
+    /**
+     * Updates the power bar width based on the current power value.
+     */
     private void updatePowerBar() {
         powerWidth = (int) ((powerValue / (float) powerMaxValue) * powerBarWidth);
 
@@ -226,8 +261,8 @@ public class Player extends Entity {
 
     /**
      * Draws the player on the screen.
-     *
      * @param g The Graphics object used for drawing.
+     * @param xLvlOffset The x-coordinate offset for the level, used to adjust the drawing position of the player.
      */
     public void render(Graphics g, int xLvlOffset) {
         g.drawImage(animations[state][animationIndex],
@@ -241,6 +276,10 @@ public class Player extends Entity {
         drawUI(g);
     }
 
+    /**
+     * Draws the user interface elements such as the status bar, health bar, and power bar.
+     * @param g The Graphics object used for drawing the UI elements.
+     */
     private void drawUI(Graphics g) {
         // Background UI
         g.drawImage(statusBarImg, statusBarX, statusBarY, statusBarWidth, statusBarHeight, null);
@@ -384,6 +423,9 @@ public class Player extends Entity {
         moving = true;
     }
 
+    /**
+     * Handles the player's jump action.
+     */
     private void jump() {
         if (inAir)
             return;
@@ -393,11 +435,18 @@ public class Player extends Entity {
         airSpeed = jumpSpeed;
     }
 
+    /**
+     * Resets the in-air state of the player.
+     */
     private void resetInAir() {
         inAir = false;
         airSpeed = 0;
     }
 
+    /**
+     * Updates the player's x position based on the speed and collision detection.
+     * @param xSpeed The speed at which the player moves horizontally.
+     */
     private void updateXPosition(float xSpeed) {
         if (CanMoveHere(hitbox.x + xSpeed, hitbox.y, hitbox.width, hitbox.height, lvlData))
             hitbox.x += xSpeed;
@@ -410,10 +459,17 @@ public class Player extends Entity {
         }
     }
 
+    /**
+     * Kills the player by setting the current health to 0.
+     */
     public void kill() {
         currentHealth = 0;
     }
 
+    /**
+     * Changes the player's health by a specified value.
+     * @param val The value to change the health by. Positive values increase health, negative values decrease it.
+     */
     public void changeHealth(int val) {
         if (val < 0) {
             if (state == HIT)
@@ -426,6 +482,11 @@ public class Player extends Entity {
         currentHealth = Math.max(Math.min(currentHealth, maxHealth), 0);
     }
 
+    /**
+     * Changes the player's health by a specified value and sets the push back direction based on the enemy's position.
+     * @param val The value to change the health by. Positive values increase health, negative values decrease it.
+     * @param e The enemy that caused the health change, used to determine the push back direction.
+     */
     public void changeHealth(int val, Enemy e) {
         if (state == HIT)
             return;
@@ -440,6 +501,10 @@ public class Player extends Entity {
             pushBackDirection = LEFT;
     }
 
+    /**
+     * Changes the player's power value by a specified amount.
+     * @param val The amount to change the power value by. Positive values increase power, negative values decrease it.
+     */
     public void changePower(int val) {
         powerValue += val;
         if (powerValue >= powerMaxValue)
@@ -449,7 +514,7 @@ public class Player extends Entity {
     }
 
     /**
-     * Loads the player animations from the sprite atlas.
+     * Loads the player animations from the sprite atlas and initializes the status bar image.
      */
     private void loadAnimations() {
         BufferedImage playerSprites = LoadSave.GetSpriteAtlas(LoadSave.PLAYER_ATLAS);
@@ -464,7 +529,6 @@ public class Player extends Entity {
 
     /**
      * Loads the level data for collision detection.
-     *
      * @param lvlData The 2D array representing the level data.
      */
     public void loadLvlData(int[][] lvlData) {
@@ -473,6 +537,9 @@ public class Player extends Entity {
             inAir = true;
     }
 
+    /**
+     * Activates a power attack if the player has enough power.
+     */
     public void powerAttack() {
         if (powerAttackActive)
             return;
@@ -493,38 +560,73 @@ public class Player extends Entity {
         right = false;
     }
 
+    /**
+     * Checks if the player is currently attacking.
+     * @return true if the player is attacking, false otherwise.
+     */
     public boolean isAttacking() {
         return attacking;
     }
 
+    /**
+     * Sets the attacking state of the player.
+     * @param attacking true to set the player as attacking, false otherwise.
+     */
     public void setAttacking(boolean attacking) {
         this.attacking = attacking;
     }
 
+    /**
+     * Checks if the player is going to the right.
+     * @return true if the player is moving right, false otherwise.
+     */
     public boolean isRight() {
         return right;
     }
 
+    /**
+     * Sets the player's right movement state.
+     * @param right true to set the player as moving right, false otherwise.
+     */
     public void setRight(boolean right) {
         this.right = right;
     }
 
+    /**
+     * Checks if the player is going to the left.
+     * @return true if the player is moving left, false otherwise.
+     */
     public boolean isLeft() {
         return left;
     }
 
+    /**
+     * Sets the player's left movement state.
+     * @param left true to set the player as moving left, false otherwise.
+     */
     public void setLeft(boolean left) {
         this.left = left;
     }
 
+    /**
+     * Checks if the player is jumping.
+     * @return true if the player is jumping, false otherwise.
+     */
     public void setJump(boolean jump) {
         this.jump = jump;
     }
 
+    /**
+     * Get the player's current tile Y position.
+     * @return the tile Y position of the player.
+     */
     public int getTileY() {
         return tileY;
     }
 
+    /**
+     * Resets the attack box position based on the player's direction.
+     */
     private void resetAttackBox() {
         if (flipW == 1)
             setAttackBoxOnRightSide();
@@ -532,6 +634,9 @@ public class Player extends Entity {
             setAttackBoxOnLeftSide();
     }
 
+    /**
+     * Resets all player attributes to their initial state.
+     */
     public void resetAll() {
         resetDirBooleans();
         inAir = false;
