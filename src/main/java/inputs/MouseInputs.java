@@ -10,6 +10,10 @@ import java.awt.event.MouseMotionListener;
 public class MouseInputs implements MouseListener, MouseMotionListener {
     private final GamePanel gamePanel;
 
+    /**
+     * Constructor for MouseInputs
+     * @param gamePanel the GamePanel instance to which this mouse input listener is attached
+     */
     public MouseInputs(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
     }
