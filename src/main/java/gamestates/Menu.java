@@ -16,6 +16,10 @@ public class Menu extends State implements Statemethods {
     private BufferedImage backgroundImg, backgroundImgPink;
     private int menuX, menuY, menuWidth, menuHeight;
 
+    /**
+     * Constructor for the Menu class.
+     * @param game the game instance
+     */
     public Menu(Game game) {
         super(game);
 
@@ -24,6 +28,9 @@ public class Menu extends State implements Statemethods {
         backgroundImgPink = LoadSave.GetSpriteAtlas(LoadSave.MENU_BACKGROUND_IMAGE);
     }
 
+    /**
+     * Loads the background image for the menu.
+     */
     private void loadBackground() {
         backgroundImg = LoadSave.GetSpriteAtlas(LoadSave.MENU_BACKGROUND);
         menuWidth = (int) (backgroundImg.getWidth() * SCALE);
@@ -32,12 +39,18 @@ public class Menu extends State implements Statemethods {
         menuY = (int) (45 * SCALE);
     }
 
+    /**
+     * Loads the buttons for the menu.
+     */
     private void loadButtons() {
         buttons[0] = new MenuButton(GAME_WIDTH / 2, (int) (150 * SCALE), 0, Gamestate.PLAYING);
         buttons[1] = new MenuButton(GAME_WIDTH / 2, (int) (220 * SCALE), 1, Gamestate.OPTIONS);
         buttons[2] = new MenuButton(GAME_WIDTH / 2, (int) (290 * SCALE), 2, Gamestate.QUIT);
     }
 
+    /**
+     * Resets the mouse pressed state of all buttons.
+     */
     private void resetButtons() {
         for (MenuButton btn : buttons)
             btn.resetBools();
