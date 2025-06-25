@@ -16,15 +16,27 @@ public class EnemyManager {
     private BufferedImage[][] crabbyArr;
     private Level currLevel;
 
+    /**
+     * EnemyManager constructor.
+     * @param playing The Playing instance that manages the game state and player interactions.
+     */
     public EnemyManager(Playing playing) {
         this.playing = playing;
         loadEnemyImages();
     }
 
+    /**
+     * Loads the enemies for the current level.
+     * @param level The Level instance containing the enemies to be loaded.
+     */
     public void loadEnemies(Level level) {
         this.currLevel = level;
     }
 
+    /**
+     * Updates the state of all active enemies in the current level.
+     * @param lvlData The level data containing information about the environment.
+     */
     public void update(int[][] lvlData) {
         boolean isAnyActive = false;
         for (Crabby c : currLevel.getCrabs())
@@ -37,10 +49,20 @@ public class EnemyManager {
             playing.setLevelCompleted(true);
     }
 
+    /**
+     * Draws all active enemies in the current level.
+     * @param g The Graphics object used for drawing the enemies.
+     * @param xLvlOffset The x-coordinate offset for the level, used to adjust the drawing position of enemies.
+     */
     public void draw(Graphics g, int xLvlOffset) {
         drawCrabs(g, xLvlOffset);
     }
 
+    /**
+     * Draws all active crabs in the current level.
+     * @param g The Graphics object used for drawing the crabs.
+     * @param xLvlOffset The x-coordinate offset for the level, used to adjust the drawing position of crabs.
+     */
     private void drawCrabs(Graphics g, int xLvlOffset) {
         for (Crabby c : currLevel.getCrabs())
             if (c.isActive()) {
@@ -54,6 +76,10 @@ public class EnemyManager {
             }
     }
 
+    /**
+     * Checks if any enemy is hit by the player's attack box.
+     * @param attackBox The attack box of the player, used to detect collisions with enemies.
+     */
     public void checkEnemyHit(Rectangle2D.Float attackBox) {
         for (Crabby c : currLevel.getCrabs())
             if (c.isActive())
@@ -64,10 +90,22 @@ public class EnemyManager {
                     }
     }
 
+    /**
+     * Loads the enemy images from the sprite atlas.
+     */
     private void loadEnemyImages() {
         crabbyArr = getImagesArray(LoadSave.GetSpriteAtlas(LoadSave.CRABBY_SPRITE), 9, 5, CRABBY_WIDTH_DEFAULT, CRABBY_HEIGHT_DEFAULT);
     }
 
+    /**
+     * Creates a 2D array of BufferedImages from the sprite atlas.
+     * @param atlas The sprite atlas containing the enemy images.
+     * @param xSize The number of images in the x-direction.
+     * @param ySize The number of images in the y-direction.
+     * @param spriteW The width of each sprite image.
+     * @param spriteH The height of each sprite image.
+     * @return A 2D array of BufferedImages representing the enemy sprites.
+     */
     private BufferedImage[][] getImagesArray(BufferedImage atlas, int xSize, int ySize, int spriteW, int spriteH) {
         BufferedImage[][] tempArr = new BufferedImage[ySize][xSize];
         for (int j = 0; j < tempArr.length; j++)
@@ -76,6 +114,9 @@ public class EnemyManager {
         return tempArr;
     }
 
+    /**
+     * Resets all enemies in the current level to their initial state.
+     */
     public void resetAllEnemies() {
         for (Crabby c : currLevel.getCrabs())
             c.resetEnemy();
