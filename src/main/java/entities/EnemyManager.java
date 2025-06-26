@@ -13,8 +13,8 @@ import static utils.Constants.EnemyConstants.*;
 
 public class EnemyManager {
     private Playing playing;
-    private BufferedImage[][] crabbyArr;
-    private Level currLevel;
+    private BufferedImage[][] crabbyArr, pinkstarArr;
+    private Level currentLevel;
 
     /**
      * EnemyManager constructor.
@@ -30,7 +30,7 @@ public class EnemyManager {
      * @param level The Level instance containing the enemies to be loaded.
      */
     public void loadEnemies(Level level) {
-        this.currLevel = level;
+        this.currentLevel = level;
     }
 
     /**
@@ -39,11 +39,17 @@ public class EnemyManager {
      */
     public void update(int[][] lvlData) {
         boolean isAnyActive = false;
-        for (Crabby c : currLevel.getCrabs())
+        for (Crabby c : currentLevel.getCrabs())
             if (c.isActive()) {
                 c.update(lvlData, playing.getPlayer());
                 isAnyActive = true;
             }
+
+        for (Pinkstar p : currentLevel.getPinkstars())
+			if (p.isActive()) {
+				p.update(lvlData, playing);
+				isAnyActive = true;
+			}
 
         if (!isAnyActive)
             playing.setLevelCompleted(true);
@@ -56,6 +62,20 @@ public class EnemyManager {
      */
     public void draw(Graphics g, int xLvlOffset) {
         drawCrabs(g, xLvlOffset);
+        drawPinkstars(g, xLvlOffset);
+    }
+
+    private void drawPinkstars(Graphics g, int xLvlOffset) {
+        for (Pinkstar p : currentLevel.getPinkstars())
+            if (p.isActive()) {
+                g.drawImage(pinkstarArr[p.getState()][p.getAnimationIndex()],
+                        (int) p.getHitbox().x - xLvlOffset - PINKSTAR_DRAWOFFSET_X + p.flipX(),
+                        (int) p.getHitbox().y - PINKSTAR_DRAWOFFSET_Y + (int) p.getPushDrawOffset(),
+                        PINKSTAR_WIDTH * p.flipW(),
+                        PINKSTAR_HEIGHT,
+                        null);
+                // p.drawHitbox(g, xLvlOffset);
+            }
     }
 
     /**
@@ -64,7 +84,7 @@ public class EnemyManager {
      * @param xLvlOffset The x-coordinate offset for the level, used to adjust the drawing position of crabs.
      */
     private void drawCrabs(Graphics g, int xLvlOffset) {
-        for (Crabby c : currLevel.getCrabs())
+        for (Crabby c : currentLevel.getCrabs())
             if (c.isActive()) {
                 g.drawImage(crabbyArr[c.getState()][c.getAnimationIndex()],
                         (int) c.getHitbox().x - CRABBY_DRAWOFFSET_X - xLvlOffset + c.flipX(),
@@ -81,13 +101,25 @@ public class EnemyManager {
      * @param attackBox The attack box of the player, used to detect collisions with enemies.
      */
     public void checkEnemyHit(Rectangle2D.Float attackBox) {
-        for (Crabby c : currLevel.getCrabs())
+        for (Crabby c : currentLevel.getCrabs())
             if (c.isActive())
                 if (c.getState() != DEAD && c.getState() != HIT)
                     if (attackBox.intersects(c.getHitbox())) {
                         c.hurt(20);
                         return;
                     }
+
+        for (Pinkstar p : currentLevel.getPinkstars())
+            if (p.isActive()) {
+                if (p.getState() == ATTACK && p.getAnimationIndex() >= 3)
+                    return;
+                else
+                    if (p.getState() != DEAD && p.getState() != HIT)
+                        if (attackBox.intersects(p.getHitbox())) {
+                            p.hurt(20);
+                            return;
+                        }
+            }
     }
 
     /**
@@ -95,6 +127,7 @@ public class EnemyManager {
      */
     private void loadEnemyImages() {
         crabbyArr = getImagesArray(LoadSave.GetSpriteAtlas(LoadSave.CRABBY_SPRITE), 9, 5, CRABBY_WIDTH_DEFAULT, CRABBY_HEIGHT_DEFAULT);
+        pinkstarArr = getImagesArray(LoadSave.GetSpriteAtlas(LoadSave.PINKSTAR_ATLAS), 8, 5, PINKSTAR_WIDTH_DEFAULT, PINKSTAR_HEIGHT_DEFAULT);
     }
 
     /**
@@ -118,7 +151,7 @@ public class EnemyManager {
      * Resets all enemies in the current level to their initial state.
      */
     public void resetAllEnemies() {
-        for (Crabby c : currLevel.getCrabs())
+        for (Crabby c : currentLevel.getCrabs())
             c.resetEnemy();
     }
 }
