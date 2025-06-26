@@ -64,6 +64,7 @@ public class Constants {
 
     public static class EnemyConstants {
         public static final int CRABBY = 0;
+        public static final int PINKSTAR = 1;
 
         public static final int IDLE = 0;
         public static final int RUNNING = 1;
@@ -75,9 +76,15 @@ public class Constants {
         public static final int CRABBY_HEIGHT_DEFAULT = 32;
         public static final int CRABBY_WIDTH = (int) (CRABBY_WIDTH_DEFAULT * GameConstants.SCALE);
         public static final int CRABBY_HEIGHT = (int) (CRABBY_HEIGHT_DEFAULT * GameConstants.SCALE);
-
         public static final int CRABBY_DRAWOFFSET_X = (int) (26 * GameConstants.SCALE);
         public static final int CRABBY_DRAWOFFSET_Y = (int) (9 * GameConstants.SCALE);
+
+        public static final int PINKSTAR_WIDTH_DEFAULT = 34;
+        public static final int PINKSTAR_HEIGHT_DEFAULT = 30;
+        public static final int PINKSTAR_WIDTH = (int) (PINKSTAR_WIDTH_DEFAULT * GameConstants.SCALE);
+        public static final int PINKSTAR_HEIGHT = (int) (PINKSTAR_HEIGHT_DEFAULT * GameConstants.SCALE);
+        public static final int PINKSTAR_DRAWOFFSET_X = (int) (9 * GameConstants.SCALE);
+        public static final int PINKSTAR_DRAWOFFSET_Y = (int) (7 * GameConstants.SCALE);
 
         /**
          * Returns the number of sprites for a given enemy type and state.
@@ -95,6 +102,14 @@ public class Constants {
                     case DEAD -> 5;
                     default -> 0;
                 };
+                case PINKSTAR -> switch (enemyState) {
+                    case IDLE -> 8;
+                    case RUNNING -> 6;
+                    case ATTACK -> 7;
+                    case HIT -> 4;
+                    case DEAD -> 5;
+                    default -> 0;
+                };
                 default -> 0; // Default for any unknown enemy type
             };
         }
@@ -106,7 +121,8 @@ public class Constants {
          */
         public static int GetMaxHealth(int enemyType) {
             return switch (enemyType) {
-                case CRABBY -> 10;
+                case CRABBY -> 50;
+                case PINKSTAR -> 20;
                 default -> 1; // Default for any unknown enemy type
             };
         }
@@ -119,6 +135,7 @@ public class Constants {
         public static int GetEnemyDamage(int enemyType) {
             return switch (enemyType) {
                 case CRABBY -> 15;
+                case PINKSTAR -> 20;
                 default -> 0; // Default for any unknown enemy type
             };
         }
