@@ -2,6 +2,8 @@ package entities;
 
 import java.awt.geom.Rectangle2D;
 
+import gamestates.Playing;
+
 import static utils.Constants.Directions.*;
 import static utils.Constants.EnemyConstants.*;
 import static utils.Constants.GameConstants.*;
@@ -61,6 +63,15 @@ public abstract class Enemy extends Entity {
         firstUpdate = false;
         if (!IsEntityOnFloor(hitbox, lvlData))
             inAir = true;
+    }
+
+    protected void inAirChecks(int[][] lvlData, Playing playing) {
+        if (state != HIT && state != DEAD) {
+            updateInAir(lvlData);
+            playing.getObjectManager().checkSpikesTouchedEnemy(this);
+            if (IsEntityInWater(hitbox, lvlData))
+                hurt(maxHealth);
+        }
     }
 
     /**
@@ -164,7 +175,7 @@ public abstract class Enemy extends Entity {
      * Reduces the enemy's health by a specified amount of damage.
      * @param dmg The amount of damage to reduce from the enemy's health.
      */
-    protected void hurt(int dmg) {
+    public void hurt(int dmg) {
         currentHealth -= dmg;
         if (currentHealth <= 0)
             newState(DEAD);
