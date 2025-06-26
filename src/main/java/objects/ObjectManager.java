@@ -1,5 +1,6 @@
 package objects;
 
+import entities.Enemy;
 import entities.Player;
 import gamestates.Playing;
 import levels.Level;
@@ -40,14 +41,24 @@ public class ObjectManager {
 
     /**
      * Checks if the player has touched any spikes in the current level.
-     * @param player the Player instance to check for collisions with spikes
+     * @param p the Player instance to check for collisions with spikes
      */
-    public void checkSpikesTouchedPlayer(Player player) {
+    public void checkSpikesTouchedPlayer(Player p) {
         for (Spike s : currentLevel.getSpikes())
-            if (s.getHitbox().intersects(player.getHitbox())) {
-                player.kill();
+            if (s.getHitbox().intersects(p.getHitbox())) {
+                p.kill();
                 return;
             }
+    }
+
+    /**
+     * Checks if an enemy has touched any spikes in the current level.
+     * @param e the Enemy instance to check for collisions with spikes
+     */
+    public void checkSpikesTouchedEnemy(Enemy e) {
+        for (Spike s : currentLevel.getSpikes())
+            if (s.getHitbox().intersects(e.getHitbox()))
+                e.hurt(200);
     }
 
     /**
