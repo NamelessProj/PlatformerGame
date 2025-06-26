@@ -1,6 +1,7 @@
 package levels;
 
 import entities.Crabby;
+import entities.Pinkstar;
 import objects.Cannon;
 import objects.GameContainer;
 import objects.Grass;
@@ -20,6 +21,7 @@ public class Level {
     private BufferedImage image;
 
     private ArrayList<Crabby> crabs = new ArrayList<>();
+    private ArrayList<Pinkstar> pinkstars = new ArrayList<>();
     private ArrayList<Potion> potions = new ArrayList<>();
     private ArrayList<GameContainer> containers = new ArrayList<>();
     private ArrayList<Spike> spikes = new ArrayList<>();
@@ -94,6 +96,7 @@ public class Level {
     private void loadEntities(int green, int x, int y) {
         switch (green) {
             case CRABBY -> crabs.add(new Crabby(x * TILES_SIZE, y * TILES_SIZE));
+            case PINKSTAR -> pinkstars.add(new Pinkstar(x * TILES_SIZE, y * TILES_SIZE));
             case 100 -> playerSpawn = new Point(x * TILES_SIZE, y * TILES_SIZE);
         }
     }
@@ -154,6 +157,14 @@ public class Level {
     public ArrayList<Crabby> getCrabs() {
         return crabs;
     }
+
+    /**
+     * Returns all pink stars in the level.
+     * @return an ArrayList of Pinkstar objects
+     */
+    public ArrayList<Pinkstar> getPinkstars() {
+		return pinkstars;
+	}
 
     /**
      * Returns all game containers in the level.
