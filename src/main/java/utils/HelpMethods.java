@@ -132,6 +132,19 @@ public class HelpMethods {
     }
 
     /**
+     * Checks if an entity is on the floor based on its hitbox and level data.
+     * @param hitbox the hitbox of the entity
+     * @param lvlData the level data array
+     * @return true if the entity is on the floor, false otherwise
+     */
+    public static boolean IsFloor(Rectangle2D.Float hitbox, int[][] lvlData) {
+        if (!IsSolid(hitbox.x + hitbox.width, hitbox.y + hitbox.height + 1, lvlData))
+            if (!IsSolid(hitbox.x, hitbox.y + hitbox.height + 1, lvlData))
+                return false;
+        return true;
+    }
+
+    /**
      * Checks if a projectile is hitting a solid tile in the level data.
      * @param p the projectile to check
      * @param lvlData the level data array
