@@ -12,16 +12,31 @@ public class Pinkstar extends Enemy {
     private int tickSinceLastDmgToPlayer, tickAfterRollInIdle;
     private int rollDurationTick, rollDuration = 300;
 
+    /**
+     * Constructor for the Pinkstar enemy.
+     * @param x the x-coordinate of the Pinkstar's position
+     * @param y the y-coordinate of the Pinkstar's position
+     */
     public Pinkstar(float x, float y) {
         super(x, y, PINKSTAR_WIDTH, PINKSTAR_HEIGHT, PINKSTAR);
         initHitbox(17, 21);
     }
 
+    /**
+     * Updates the Pinkstar's state and behavior.
+     * @param lvlData the level data containing information about the environment
+     * @param playing the Playing instance that manages the game state and player interactions
+     */
     public void update(int[][] lvlData, Playing playing) {
         updateBehavior(lvlData, playing);
         updateAnimationTick();
     }
 
+    /**
+     * Updates the Pinkstar's behavior based on its current state and the level data.
+     * @param lvlData the level data containing information about the environment
+     * @param playing the Playing instance that manages the game state and player interactions
+     */
     public void updateBehavior(int[][] lvlData, Playing playing) {
         if (firstUpdate)
             firstUpdateCheck(lvlData);
@@ -69,6 +84,10 @@ public class Pinkstar extends Enemy {
         }
     }
 
+    /**
+     * Checks if the Pinkstar is damaging the player and applies damage if necessary.
+     * @param player the Player instance to check for damage
+     */
     private void checkDamageToPlayer(Player player) {
         if (hitbox.intersects(player.getHitbox()))
             if (tickSinceLastDmgToPlayer >= 60) {
@@ -78,6 +97,10 @@ public class Pinkstar extends Enemy {
                 tickSinceLastDmgToPlayer++;
     }
 
+    /**
+     * Sets the walking direction of the Pinkstar based on the player's position.
+     * @param player the Player instance to determine the walking direction
+     */
     private void setWalkDirection(Player player) {
         if (player.getHitbox().x > hitbox.x)
             walkDir = RIGHT;
@@ -85,6 +108,11 @@ public class Pinkstar extends Enemy {
             walkDir = LEFT;
     }
 
+    /**
+     * Moves the Pinkstar based on its current state and the level data.
+     * @param lvlData the level data containing information about the environment
+     * @param playing the Playing instance that manages the game state and player interactions
+     */
     protected void move(int[][] lvlData, Playing playing) {
         float xSpeed = walkSpeed;
 
@@ -108,6 +136,10 @@ public class Pinkstar extends Enemy {
         changeWalkDirection();
     }
 
+    /**
+     * Checks if the Pinkstar should roll over based on its current state and the playing instance.
+     * @param playing the Playing instance that manages the game state and player interactions
+     */
     private void checkRollOver(Playing playing) {
         rollDurationTick++;
         if (rollDurationTick >= rollDuration) {
@@ -116,6 +148,10 @@ public class Pinkstar extends Enemy {
         }
     }
 
+    /**
+     * Changes the Pinkstar's state to IDLE when it rolls over.
+     * @param playing the Playing instance that manages the game state and player interactions
+     */
     private void rollOver(Playing playing) {
         newState(IDLE);
     }
