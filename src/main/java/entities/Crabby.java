@@ -1,12 +1,9 @@
 package entities;
 
-import java.awt.geom.Rectangle2D;
-
 import gamestates.Playing;
 
 import static utils.Constants.Directions.*;
 import static utils.Constants.EnemyConstants.*;
-import static utils.Constants.GameConstants.SCALE;
 import static utils.HelpMethods.IsFloor;
 
 public class Crabby extends Enemy {
@@ -19,15 +16,7 @@ public class Crabby extends Enemy {
     public Crabby(float x, float y) {
         super(x, y, CRABBY_WIDTH, CRABBY_HEIGHT, CRABBY);
         initHitbox(22, 19);
-        initAttackBox();
-    }
-
-    /**
-     * Initializes the hitbox for the Crabby enemy.
-     */
-    private void initAttackBox() {
-        attackBox = new Rectangle2D.Float(x, y, (int) (82 * SCALE), (int) (19 * SCALE));
-        attackBoxOffsetX = (int) (30 * SCALE);
+        initAttackBox(82, 19, 30);
     }
 
     /**
