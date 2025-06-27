@@ -56,6 +56,17 @@ public abstract class Enemy extends Entity {
 	}
 
     /**
+     * Initializes the attack box for the enemy.
+     * @param w the width of the attack box.
+     * @param h the height of the attack box.
+     * @param attackBoxOffsetX the x-coordinate offset for the attack box.
+     */
+    protected void initAttackBox(int w, int h, int attackBoxOffsetX) {
+        attackBox = new Rectangle2D.Float(x, y, (int) (w * SCALE), (int) (h * SCALE));
+        this.attackBoxOffsetX = (int) (attackBoxOffsetX * SCALE);
+    }
+
+    /**
      * Checks if the enemy is on the floor during the first update.
      * @param lvlData The level data containing information about the environment.
      */
@@ -94,12 +105,10 @@ public abstract class Enemy extends Entity {
      * @param lvlData The level data containing information about the environment.
      */
     protected void move(int[][] lvlData) {
-        float xSpeed = 0;
+        float xSpeed = walkSpeed;
 
         if (walkDir == LEFT)
             xSpeed = -walkSpeed;
-        else
-            xSpeed = walkSpeed;
 
         if (state == ATTACK)
             xSpeed *= 2;
@@ -158,7 +167,10 @@ public abstract class Enemy extends Entity {
      */
     protected boolean isPlayerCloseForAttack(Player player) {
         int absValue = (int) Math.abs(player.hitbox.x - hitbox.x);
-        return absValue <= attackDistance;
+        return switch (enemyType) {
+            case CRABBY -> absValue <= attackDistance;
+            default -> false;
+        };
     }
 
     /**
