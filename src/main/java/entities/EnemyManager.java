@@ -7,7 +7,6 @@ import utils.LoadSave;
 import java.awt.Graphics;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 
 import static utils.Constants.EnemyConstants.*;
 
