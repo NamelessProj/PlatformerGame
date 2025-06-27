@@ -51,7 +51,7 @@ public class Crabby extends Enemy {
             firstUpdateCheck(lvlData);
 
         if (inAir)
-            updateInAir(lvlData);
+            inAirChecks(lvlData, playing);
         else {
             switch (state) {
                 case IDLE -> {
