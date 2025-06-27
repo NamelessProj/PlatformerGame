@@ -2,9 +2,12 @@ package entities;
 
 import java.awt.geom.Rectangle2D;
 
+import gamestates.Playing;
+
 import static utils.Constants.Directions.*;
 import static utils.Constants.EnemyConstants.*;
 import static utils.Constants.GameConstants.SCALE;
+import static utils.HelpMethods.IsFloor;
 
 public class Crabby extends Enemy {
 
@@ -30,10 +33,10 @@ public class Crabby extends Enemy {
     /**
      * Updates the Crabby's state and behavior based on the level data and player position.
      * @param lvlData The level data containing information about the environment.
-     * @param player The player entity that the Crabby interacts with.
+     * @param playing The Playing instance that manages the game state and player interactions.
      */
-    protected void update(int[][] lvlData, Player player) {
-        updateBehavior(lvlData, player);
+    protected void update(int[][] lvlData, Playing playing) {
+        updateBehavior(lvlData, playing);
         updateAnimationTick();
         updateAttackBox();
     }
@@ -41,9 +44,9 @@ public class Crabby extends Enemy {
     /**
      * Updates the Crabby's behavior based on its current state and the player's position.
      * @param lvlData The level data containing information about the environment.
-     * @param player The player entity that the Crabby interacts with.
+     * @param playing The Playing instance that manages the game state and player interactions.
      */
-    private void updateBehavior(int[][] lvlData, Player player) {
+    private void updateBehavior(int[][] lvlData, Playing playing) {
         if (firstUpdate)
             firstUpdateCheck(lvlData);
 
@@ -51,11 +54,16 @@ public class Crabby extends Enemy {
             updateInAir(lvlData);
         else {
             switch (state) {
-                case IDLE -> newState(RUNNING);
+                case IDLE -> {
+                    if (IsFloor(hitbox, lvlData))
+                        newState(RUNNING);
+                    else
+                        inAir = true;
+                }
                 case RUNNING -> {
-                    if (canSeePlayer(lvlData, player)) {
-                        turnTowardsPlayer(player);
-                        if (isPlayerCloseForAttack(player))
+                    if (canSeePlayer(lvlData, playing.getPlayer())) {
+                        turnTowardsPlayer(playing.getPlayer());
+                        if (isPlayerCloseForAttack(playing.getPlayer()))
                             newState(ATTACK);
                     }
 
@@ -66,9 +74,13 @@ public class Crabby extends Enemy {
                         attackChecked = false;
 
                     if (animationIndex == 3 && !attackChecked)
-                        checkEnemyHit(attackBox, player);
+                        checkEnemyHit(attackBox, playing.getPlayer());
                 }
-                case HIT -> {}
+                case HIT -> {
+                    if (animationIndex <= GetSpriteAmount(enemyType, state) - 2)
+                        pushBack(pushBackDirection, 2f, lvlData);
+                    updatePushBackDrawOffset();
+                }
             }
         }
     }
