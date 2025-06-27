@@ -41,7 +41,7 @@ public class EnemyManager {
         boolean isAnyActive = false;
         for (Crabby c : currentLevel.getCrabs())
             if (c.isActive()) {
-                c.update(lvlData, playing.getPlayer());
+                c.update(lvlData, playing);
                 isAnyActive = true;
             }
 
