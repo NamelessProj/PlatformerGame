@@ -1,18 +1,11 @@
 package utils;
 
-import entities.Crabby;
 import objects.*;
 import utils.Constants.GameConstants;
 
-import java.awt.*;
 import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 
-import static utils.Constants.EnemyConstants.CRABBY;
 import static utils.Constants.GameConstants.TILES_SIZE;
-import static utils.Constants.ObjectConstants.*;
-import static utils.Constants.PlayerConstants.PLAYER_SPAWN_ID;
 
 public class HelpMethods {
     /**
