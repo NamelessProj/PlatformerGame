@@ -169,6 +169,7 @@ public abstract class Enemy extends Entity {
         int absValue = (int) Math.abs(player.hitbox.x - hitbox.x);
         return switch (enemyType) {
             case CRABBY -> absValue <= attackDistance;
+            case SHARK -> absValue <= attackDistance * 2;
             default -> false;
         };
     }
@@ -210,6 +211,8 @@ public abstract class Enemy extends Entity {
     protected void checkEnemyHit(Rectangle2D.Float attackBox, Player player) {
         if (attackBox.intersects(player.getHitbox()))
             player.changeHealth(-GetEnemyDamage(enemyType), this);
+        else if (enemyType == SHARK)
+            return;
         attackChecked = true;
     }
 
@@ -222,11 +225,23 @@ public abstract class Enemy extends Entity {
             animationTick = 0;
             animationIndex++;
             if (animationIndex >= GetSpriteAmount(enemyType, state)) {
-                animationIndex = 0;
+                if (enemyType == CRABBY || enemyType == SHARK) {
+                    animationIndex = 0;
 
-                switch (state) {
-                    case ATTACK, HIT -> state = IDLE;
-                    case DEAD -> active = false;
+                    switch (state) {
+                        case ATTACK, HIT -> state = IDLE;
+                        case DEAD -> active = false;
+                    }
+                } else if (enemyType == PINKSTAR) {
+                    if (state == ATTACK)
+                        animationIndex = 3;
+                    else {
+                        animationIndex = 0;
+                        if (state == HIT)
+                            state = IDLE;
+                        else if (state == DEAD)
+                            active = false;
+                    }
                 }
             }
         }
