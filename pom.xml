@@ -22,6 +22,29 @@
             <scope>system</scope>
             <systemPath>${project.basedir}/lib/TinySound-1.1.1.jar</systemPath>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.jcraft/jorbis -->
+        <dependency>
+            <groupId>org.jcraft</groupId>
+            <artifactId>jorbis</artifactId>
+            <version>0.0.17</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.googlecode.soundlibs/tritonus-share -->
+        <dependency>
+            <groupId>com.googlecode.soundlibs</groupId>
+            <artifactId>tritonus-share</artifactId>
+            <version>0.3.7.4</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/javazoom.vorbisspi/vorbisspi -->
+        <dependency>
+            <groupId>javazoom.vorbisspi</groupId>
+            <artifactId>vorbisspi</artifactId>
+            <version>1.0.3</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/vorbisspi-1.0.3.jar</systemPath>
+        </dependency>
     </dependencies>
 
 </project>
