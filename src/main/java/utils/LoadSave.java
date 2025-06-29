@@ -28,6 +28,7 @@ public class LoadSave {
 
     public static final String CRABBY_SPRITE = "crabby_sprite.png";
     public static final String PINKSTAR_ATLAS = "pinkstar_atlas.png";
+    public static final String SHARK_ATLAS = "shark_atlas.png";
 
     public static final String POTION_ATLAS = "potions_sprites.png";
     public static final String CONTAINER_ATLAS = "objects_sprites.png";
