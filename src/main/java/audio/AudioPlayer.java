@@ -8,6 +8,8 @@ import kuusisto.tinysound.Sound;
 import kuusisto.tinysound.TinySound;
 
 public class AudioPlayer {
+    private final String AUDIO_EXT = ".ogg";
+
     public static final int MENU_1 = 0;
     public static final int LEVEL_1 = 1;
     public static final int LEVEL_2 = 2;
@@ -86,7 +88,7 @@ public class AudioPlayer {
      * @return The loaded Music object, or null if loading fails.
     */
     private Music getMusic(String name) {
-        URL url = getClass().getResource("/audio/" + name + ".wav");
+        URL url = getClass().getResource("/audio/" + name + AUDIO_EXT);
         Music music;
 
         try {
@@ -107,7 +109,7 @@ public class AudioPlayer {
      * @return The loaded Sound object, or null if loading fails.
     */
     private Sound getSound(String name) {
-        URL url = getClass().getResource("/audio/" + name + ".wav");
+        URL url = getClass().getResource("/audio/" + name + AUDIO_EXT);
         Sound sound;
 
         try {
