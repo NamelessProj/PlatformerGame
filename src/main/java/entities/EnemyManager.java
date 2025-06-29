@@ -139,6 +139,15 @@ public class EnemyManager {
                             return;
                         }
             }
+
+        for (Shark s : currentLevel.getSharks())
+            if (s.isActive()) {
+                if (s.getState() != DEAD && s.getState() != HIT)
+                    if (attackBox.intersects(s.getHitbox())) {
+                        s.hurt(20);
+                        return;
+                    }
+            }
     }
 
     /**
@@ -173,5 +182,11 @@ public class EnemyManager {
     public void resetAllEnemies() {
         for (Crabby c : currentLevel.getCrabs())
             c.resetEnemy();
+
+        for (Pinkstar p : currentLevel.getPinkstars())
+            p.resetEnemy();
+
+        for (Shark s : currentLevel.getSharks())
+            s.resetEnemy();
     }
 }
