@@ -12,7 +12,7 @@ import static utils.Constants.EnemyConstants.*;
 
 public class EnemyManager {
     private Playing playing;
-    private BufferedImage[][] crabbyArr, pinkstarArr;
+    private BufferedImage[][] crabbyArr, pinkstarArr, sharkArr;
     private Level currentLevel;
 
     /**
@@ -50,6 +50,12 @@ public class EnemyManager {
 				isAnyActive = true;
 			}
 
+        for (Shark s : currentLevel.getSharks())
+            if (s.isActive()) {
+                s.update(lvlData, playing);
+                isAnyActive = true;
+            }
+
         if (!isAnyActive)
             playing.setLevelCompleted(true);
     }
@@ -62,6 +68,20 @@ public class EnemyManager {
     public void draw(Graphics g, int xLvlOffset) {
         drawCrabs(g, xLvlOffset);
         drawPinkstars(g, xLvlOffset);
+        drawSharks(g, xLvlOffset);
+    }
+
+    private void drawSharks(Graphics g, int xLevelOffset) {
+        for (Shark s : currentLevel.getSharks())
+            if (s.isActive()) {
+                g.drawImage(sharkArr[s.getState()][s.getAnimationIndex()],
+                        (int) s.getHitbox().x - xLevelOffset - SHARK_DRAWOFFSET_X + s.flipX(),
+                        (int) s.getHitbox().y - SHARK_DRAWOFFSET_Y + (int) s.getPushDrawOffset(),
+                        SHARK_WIDTH * s.flipW(),
+                        SHARK_HEIGHT,
+                        null);
+                // s.drawHitbox(g, xLevelOffset);
+            }
     }
 
     private void drawPinkstars(Graphics g, int xLvlOffset) {
@@ -127,6 +147,7 @@ public class EnemyManager {
     private void loadEnemyImages() {
         crabbyArr = getImagesArray(LoadSave.GetSpriteAtlas(LoadSave.CRABBY_SPRITE), 9, 5, CRABBY_WIDTH_DEFAULT, CRABBY_HEIGHT_DEFAULT);
         pinkstarArr = getImagesArray(LoadSave.GetSpriteAtlas(LoadSave.PINKSTAR_ATLAS), 8, 5, PINKSTAR_WIDTH_DEFAULT, PINKSTAR_HEIGHT_DEFAULT);
+        sharkArr = getImagesArray(LoadSave.GetSpriteAtlas(LoadSave.SHARK_ATLAS), 8, 5, SHARK_WIDTH_DEFAULT, SHARK_HEIGHT_DEFAULT);
     }
 
     /**
