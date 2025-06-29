@@ -225,22 +225,25 @@ public abstract class Enemy extends Entity {
             animationTick = 0;
             animationIndex++;
             if (animationIndex >= GetSpriteAmount(enemyType, state)) {
-                if (enemyType == CRABBY || enemyType == SHARK) {
-                    animationIndex = 0;
-
-                    switch (state) {
-                        case ATTACK, HIT -> state = IDLE;
-                        case DEAD -> active = false;
-                    }
-                } else if (enemyType == PINKSTAR) {
-                    if (state == ATTACK)
-                        animationIndex = 3;
-                    else {
+                switch (enemyType) {
+                    case CRABBY, SHARK -> {
                         animationIndex = 0;
-                        if (state == HIT)
-                            state = IDLE;
-                        else if (state == DEAD)
-                            active = false;
+
+                        switch (state) {
+                            case ATTACK, HIT -> state = IDLE;
+                            case DEAD -> active = false;
+                        }
+                    }
+                    case PINKSTAR -> {
+                        if (state == ATTACK)
+                            animationIndex = 3;
+                        else {
+                            animationIndex = 0;
+                            if (state == HIT)
+                                state = IDLE;
+                            else if (state == DEAD)
+                                active = false;
+                        }
                     }
                 }
             }
