@@ -211,10 +211,8 @@ public class Playing extends State implements Statemethods {
     private void drawDialogue(Graphics g, int xLevelOffset) {
         for (DialogueEffect de : dialogEffects)
             if (de.isActive()) {
-                if (de.getType() == QUESTION)
-                    g.drawImage(questionImgs[de.getAnimationIndex()], de.getX() - xLevelOffset, de.getY(), DIALOGUE_WIDTH, DIALOGUE_HEIGHT, null);
-                else
-                    g.drawImage(exclamationImgs[de.getAnimationIndex()], de.getX() - xLevelOffset, de.getY(), DIALOGUE_WIDTH, DIALOGUE_HEIGHT, null);
+                BufferedImage img = de.getType() == QUESTION ? questionImgs[de.getAnimationIndex()] : exclamationImgs[de.getAnimationIndex()];
+                g.drawImage(img, de.getX() - xLevelOffset, de.getY(), DIALOGUE_WIDTH, DIALOGUE_HEIGHT, null);
             }
     }
 
