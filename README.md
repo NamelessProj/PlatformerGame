@@ -33,9 +33,22 @@ The game features multiple levels, enemies, hazards, pickups, and a functional U
 | `Left Click`     | Attack            |
 | `Right Click`    | Power Attack      |
 
-## How To Build And Run
-This project is built using pure Java (Swing) — I used `TinySound` for better sound management.
+## Libraries
+I used libraries to enhanced sound management.
 
+### TinySound
+This project uses [TinySound](https://github.com/finnkuusisto/TinySound) for audio playback. TinySound is a lightweight Java library that simplifies playing sound effects and music, making it easy to add responsive audio to games. It was chosen for its minimal dependencies, ease of integration with Java Swing, and reliable performance for real-time sound effects.
+
+### Jorbis
+This project uses [Jorbis](https://github.com/ymnk/jorbis) to enable playback of Ogg Vorbis audio files. Jorbis is a pure Java decoder for the Ogg Vorbis format, allowing the game to support high-quality compressed audio without native dependencies. It was chosen for its compatibility with Java projects and its ability to handle music tracks efficiently alongside TinySound.
+
+### Tritonus-share
+This project uses [Tritonus-share](http://www.tritonus.org/) to provide additional audio system support for Java, particularly for handling various audio formats and improving compatibility with Java Sound. Tritonus-share was chosen because it extends the capabilities of the standard Java Sound API, enabling smoother playback and broader format support, which is essential for reliable audio in games.
+
+### Vorbisspi
+This project uses [Vorbisspi](https://github.com/irgsmirx/vorbisspi) to enable Java Sound API support for Ogg Vorbis audio files. Vorbisspi acts as a service provider interface (SPI) that allows Java applications to read and play Ogg Vorbis files natively through the standard Java audio system. It was chosen to ensure seamless integration of Ogg Vorbis playback with Java's built-in audio capabilities, making it easier to manage and play compressed music and sound effects alongside other supported formats.
+
+## How To Build And Run
 This project has been structured with the Maven directory layout.
 
 - Compile :
