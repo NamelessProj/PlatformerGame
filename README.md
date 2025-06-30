@@ -70,6 +70,8 @@ PlatformerGame-master/
 └── src/
     └── main/
         ├── java/
+        │   ├── audio/              # Audio class related: AudioPlayer
+        │   ├── effects/            # Effects: DialogueEffect
         │   ├── entities/           # Player, Enemy, Crabby, EnemyManager, etc.
         │   ├── gamestates/         # Menu, Playing, State management
         │   ├── inputs/             # Keyboard and mouse input handling
