@@ -1,5 +1,6 @@
 package entities;
 
+import static utils.Constants.Dialogue.QUESTION;
 import static utils.Constants.Directions.*;
 import static utils.Constants.EnemyConstants.*;
 import static utils.HelpMethods.CanMoveHere;
@@ -154,5 +155,6 @@ public class Pinkstar extends Enemy {
      */
     private void rollOver(Playing playing) {
         newState(IDLE);
+        playing.addDialogue((int) hitbox.x, (int) hitbox.y, QUESTION);
     }
 }
