@@ -1,6 +1,21 @@
 package utils;
 
 public class Constants {
+    public static class Dialogue {
+        public static final int QUESTION = 0;
+        public static final int EXCLAMATION = 1;
+
+        public static final int DIALOGUE_WIDTH = (int) (14 * GameConstants.SCALE);
+        public static final int DIALOGUE_HEIGHT = (int) (12 * GameConstants.SCALE);
+
+        public static int GetSpriteAmount(int type) {
+            return switch (type) {
+                case QUESTION, EXCLAMATION -> 5;
+                default -> 0; // Default for any unknown type
+            };
+        }
+    } 
+
     public static class Projectiles {
         public static final int CANNON_BALL_DEFAULT_WIDTH = 15;
         public static final int CANNON_BALL_DEFAULT_HEIGHT = 15;
