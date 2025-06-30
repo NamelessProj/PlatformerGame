@@ -1,5 +1,6 @@
 package entities;
 
+import static utils.Constants.Dialogue.EXCLAMATION;
 import static utils.Constants.Directions.LEFT;
 import static utils.Constants.EnemyConstants.*;
 import static utils.HelpMethods.*;
@@ -72,5 +73,6 @@ public class Shark extends Enemy {
                 return;
             }
         newState(IDLE);
+        playing.addDialogue((int) hitbox.x, (int) hitbox.y, EXCLAMATION);
     }
 }
