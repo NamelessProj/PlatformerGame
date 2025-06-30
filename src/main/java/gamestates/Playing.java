@@ -15,9 +15,13 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.Random;
 
+import effects.DialogueEffect;
+
 import static utils.Constants.*;
+import static utils.Constants.Dialogue.*;
 import static utils.Constants.Environment.*;
 
 public class Playing extends State implements Statemethods {
@@ -37,6 +41,8 @@ public class Playing extends State implements Statemethods {
     private int maxLevelOffsetX;
 
     private BufferedImage backgroundImg, bigCloud, smallCloud;
+    private BufferedImage[] questionImgs, exclamationImgs;
+    private ArrayList<DialogueEffect> dialogEffects = new ArrayList<>();
 
     private int[] smallCloudsPos;
     private Random random = new Random();
@@ -61,8 +67,44 @@ public class Playing extends State implements Statemethods {
         for (int i = 0; i < smallCloudsPos.length; i++)
             smallCloudsPos[i] = (int) (90 * GameConstants.SCALE) + random.nextInt((int) (100 * GameConstants.SCALE));
 
+        loadDialogue();
         calculateLevelOffsets();
         loadStartLevel();
+    }
+
+    /**
+     * Loads the dialogue effects used for displaying questions and exclamations.
+     */
+    private void loadDialogue() {
+        loadDialogueImages();
+
+        int maxDialogEffects = 10;
+
+        for (int i = 0; i < maxDialogEffects; i++)
+            dialogEffects.add(new DialogueEffect(0, 0, EXCLAMATION));
+        for (int i = 0; i < maxDialogEffects; i++)
+            dialogEffects.add(new DialogueEffect(0, 0, QUESTION));
+
+        for (DialogueEffect de : dialogEffects)
+            de.deactivate();
+    }
+
+    /**
+     * Loads the dialogue images used for displaying questions and exclamations.
+     */
+    private void loadDialogueImages() {
+        int dialogueWidth = 14;
+        int dialogueHeight = 12;
+
+        BufferedImage tempQ = LoadSave.GetSpriteAtlas(LoadSave.QUESTION_ATLAS);
+        questionImgs = new BufferedImage[5];
+        for (int i = 0; i < questionImgs.length; i++)
+            questionImgs[i] = tempQ.getSubimage(i * dialogueWidth, 0, dialogueWidth, dialogueHeight);
+
+        BufferedImage tempE = LoadSave.GetSpriteAtlas(LoadSave.EXCLAMATION_ATLAS);
+        exclamationImgs = new BufferedImage[5];
+        for (int i = 0; i < exclamationImgs.length; i++)
+            exclamationImgs[i] = tempE.getSubimage(i * dialogueWidth, 0, dialogueWidth, dialogueHeight);
     }
 
     /**
@@ -153,6 +195,40 @@ public class Playing extends State implements Statemethods {
     }
 
     /**
+     * Updates the dialogue effects in the game.
+     */
+    private void updateDialogue() {
+        for (DialogueEffect de : dialogEffects)
+            if (de.isActive())
+                de.update();
+    }
+
+    /**
+     * Draws the dialogue effects on the screen.
+     * @param g the graphics context to draw on
+     * @param xLevelOffset the x offset for the level, used to adjust the position of the dialogue effects
+     */
+    private void drawDialogue(Graphics g, int xLevelOffset) {
+        for (DialogueEffect de : dialogEffects)
+            if (de.isActive()) {
+                if (de.getType() == QUESTION)
+                    g.drawImage(questionImgs[de.getAnimationIndex()], de.getX() - xLevelOffset, de.getY(), DIALOGUE_WIDTH, DIALOGUE_HEIGHT, null);
+                else
+                    g.drawImage(exclamationImgs[de.getAnimationIndex()], de.getX() - xLevelOffset, de.getY(), DIALOGUE_WIDTH, DIALOGUE_HEIGHT, null);
+            }
+    }
+
+    public void addDialogue(int x, int y, int type) {
+        dialogEffects.add(new DialogueEffect(x, y - (int) (GameConstants.SCALE * 15), type));
+        for (DialogueEffect de : dialogEffects)
+            if (!de.isActive())
+                if (de.getType() == type) {
+                    de.reset(x, y - (int) (GameConstants.SCALE * 15));
+                    return;
+                }
+    }
+
+    /**
      * Resets all game states and entities to their initial conditions.
      */
     public void resetAll() {
@@ -163,6 +239,7 @@ public class Playing extends State implements Statemethods {
         player.resetAll();
         enemyManager.resetAllEnemies();
         objectManager.resetAllObjects();
+        dialogEffects.clear();
     }
 
     /**
@@ -216,6 +293,7 @@ public class Playing extends State implements Statemethods {
         else if (playerDying)
             player.update();
         else {
+            updateDialogue();
             levelManager.update();
             objectManager.update(levelManager.getCurrentLevel().getLevelData(), player);
             player.update();
@@ -234,6 +312,7 @@ public class Playing extends State implements Statemethods {
         objectManager.draw(g, xLevelOffset);
         enemyManager.draw(g, xLevelOffset);
         player.render(g, xLevelOffset);
+        drawDialogue(g, xLevelOffset);
 
         if (paused) {
             g.setColor(new Color(0, 0, 0, 150));
