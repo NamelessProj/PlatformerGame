@@ -13,6 +13,7 @@ public class AudioPlayer {
     public static final int MENU_1 = 0;
     public static final int LEVEL_1 = 1;
     public static final int LEVEL_2 = 2;
+    private final int[] LEVEL_SONGS = { LEVEL_1, LEVEL_2 };
 
     public static final int DIE = 0;
     public static final int JUMP = 1;
@@ -151,10 +152,12 @@ public class AudioPlayer {
      * @param levelIndex The index of the level to determine which song to play.
     */
     public void setLevelSong(int levelIndex) {
-        if (levelIndex % 2 == 0)
-            playSong(LEVEL_1);
-        else
-            playSong(LEVEL_2);
+        if (levelIndex < LEVEL_SONGS.length && levelIndex >= 0)
+            playSong(LEVEL_SONGS[levelIndex]);
+        else {
+            int val = levelIndex % LEVEL_SONGS.length;
+            playSong(LEVEL_SONGS[val]);
+        }
     }
 
     /**
