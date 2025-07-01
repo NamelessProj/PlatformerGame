@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 import static utils.Constants.EnemyConstants.*;
 import static utils.Constants.ObjectConstants.*;
+import static utils.Constants.PlayerConstants.PLAYER_SPAWN_ID;
 import static utils.Constants.GameConstants.*;
 
 public class Level {
@@ -100,7 +101,7 @@ public class Level {
             case CRABBY -> crabs.add(new Crabby(x * TILES_SIZE, y * TILES_SIZE));
             case PINKSTAR -> pinkstars.add(new Pinkstar(x * TILES_SIZE, y * TILES_SIZE));
             case SHARK -> sharks.add(new Shark(x * TILES_SIZE, y * TILES_SIZE));
-            case 100 -> playerSpawn = new Point(x * TILES_SIZE, y * TILES_SIZE);
+            case PLAYER_SPAWN_ID -> playerSpawn = new Point(x * TILES_SIZE, y * TILES_SIZE);
         }
     }
 
