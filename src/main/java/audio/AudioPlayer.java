@@ -71,9 +71,9 @@ public class AudioPlayer {
             "jump",
             "gameover",
             "lvlcompleted",
-            "attack1",
-            "attack2",
-            "attack3"
+            "attack1.wav",
+            "attack2.wav",
+            "attack3.wav"
         };
         effects = new Sound[effectNames.length];
         for (int i = 0; i < effects.length; i++)
@@ -110,7 +110,13 @@ public class AudioPlayer {
      * @return The loaded Sound object, or null if loading fails.
     */
     private Sound getSound(String name) {
-        URL url = getClass().getResource("/audio/" + name + AUDIO_EXT);
+        // Check if the name ends with .wav, if not, append the AUDIO_EXT
+        if (!name.endsWith(".wav"))
+            name += AUDIO_EXT;
+
+        System.out.println(name);
+
+        URL url = getClass().getResource("/audio/" + name);
         Sound sound;
 
         try {
