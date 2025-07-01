@@ -1,8 +1,12 @@
 package mainWindow;
 
 import javax.swing.JFrame;
+
+import utils.LoadSave;
+
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowFocusListener;
+import java.awt.image.BufferedImage;
 
 public class GameWindow extends JFrame {
     /**
@@ -10,7 +14,8 @@ public class GameWindow extends JFrame {
      * @param gamePanel the GamePanel instance that will be added to this window
      */
     public GameWindow(GamePanel gamePanel) {
-        this.setTitle("Game Window");
+        this.setTitle("A Pirate's Adventure");
+        this.setIconImage(getIcon());
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.add(gamePanel);
         this.setResizable(false);
@@ -26,5 +31,9 @@ public class GameWindow extends JFrame {
             @Override
             public void windowGainedFocus(WindowEvent e) {}
         });
+    }
+
+    private BufferedImage getIcon() {
+        return LoadSave.GetSpriteAtlas(LoadSave.ICON);
     }
 }
