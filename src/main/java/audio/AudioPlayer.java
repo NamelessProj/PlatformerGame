@@ -26,7 +26,7 @@ public class AudioPlayer {
     private Music[] songs;
     private Sound[] effects;
     private int currentSongId;
-    private float volume = 1f;
+    private float volume = 0.5f;
     private boolean songMute, effectMute;
     private Random random = new Random();
 
@@ -113,8 +113,6 @@ public class AudioPlayer {
         // Check if the name ends with .wav, if not, append the AUDIO_EXT
         if (!name.endsWith(".wav"))
             name += AUDIO_EXT;
-
-        System.out.println(name);
 
         URL url = getClass().getResource("/audio/" + name);
         Sound sound;
