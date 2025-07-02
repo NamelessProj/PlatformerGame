@@ -127,11 +127,6 @@ public class LevelManager {
      * Loads the next level in the game.
      */
     public void loadNextLevel() {
-        if (levelIndex >= getAmountOfLevels()) {
-            levelIndex = 0;
-            game.getPlaying().setGamestate(Gamestate.MENU);
-        }
-
         Level newLevel = levels.get(levelIndex);
         game.getPlaying().getEnemyManager().loadEnemies(newLevel);
         game.getPlaying().getPlayer().loadLvlData(newLevel.getLevelData());
