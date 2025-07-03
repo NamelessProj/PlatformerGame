@@ -655,4 +655,14 @@ public class Player extends Entity {
         if (!IsEntityOnFloor(hitbox, lvlData))
             inAir = true;
     }
+
+    /**
+     * Sets the spawn point for the player.
+     * @param spawnPoint The Point object representing the spawn coordinates.
+     */
+    public void setSpawnPoint(Point spawnPoint) {
+        this.x = spawnPoint.x;
+        this.y = spawnPoint.y;
+        resetAll();
+    }
 }
