@@ -1,7 +1,7 @@
 package gamestates;
 
 public enum Gamestate {
-    PLAYING, MENU, OPTIONS, QUIT;
+    PLAYING, MENU, OPTIONS, CREDITS, QUIT;
 
     /**
      * The current state of the game.
