@@ -2,9 +2,11 @@ package utils;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URISyntaxException;
 import java.net.URL;
 
@@ -44,6 +46,8 @@ public class LoadSave {
     public static final String GRASS_ATLAS = "grass_atlas.png";
     public static final String WATER_TOP = "water_atlas_animation.png";
 	public static final String WATER_BOTTOM = "water.png";
+
+	public static final String CREDITS = "credits.txt";
 
     /**
      * Loads a sprite atlas image from the resources.
@@ -101,5 +105,20 @@ public class LoadSave {
         }
 
         return imgs;
+    }
+
+    /**
+     * Loads a text file from the resources.
+     * @param fileName the name of the text file to load
+     * @return BufferedReader to read the text file
+     */
+    public static BufferedReader GetText(String fileName) {
+        BufferedReader br = null;
+        InputStream is = LoadSave.class.getResourceAsStream("/" + fileName);
+
+        if (is != null)
+            br = new BufferedReader(new InputStreamReader(is));
+
+        return br;
     }
 }
