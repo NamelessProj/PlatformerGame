@@ -11,9 +11,34 @@ import mainWindow.Game;
 import utils.LoadSave;
 
 public class Credits extends State implements Statemethods {
+    private final String HEADER_1 = "# ";
+    private final String HEADER_2 = "## ";
+    private final String HEADER_3 = "### ";
+
+    private final int TYPE_TEXT = 0;
+    private final int TYPE_HEADER_1 = 1;
+    private final int TYPE_HEADER_2 = 2;
+    private final int TYPE_HEADER_3 = 3;
+
     private BufferedImage backgroundImg;
     private int bgX, bgY, bgW, bgH;
     private float bgYFloat;
+
+
+
+    private class CreditsItem {
+        private int type, x, y;
+        private String text;
+
+        public CreditsItem(int x, int y, int type, String text) {
+            this.x = x;
+            this.y = y;
+            this.type = type;
+            this.text = text;
+        }
+    }
+
+
 
     public Credits(Game game) {
         super(game);
