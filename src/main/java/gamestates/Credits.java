@@ -96,19 +96,13 @@ public class Credits extends State implements Statemethods {
     private void drawCreditsItems(Graphics g) {
         g.setColor(Color.BLACK);
         for (CreditsItem ci : creditsItems) {
-            if (ci.type == TYPE_TEXT) {
-                g.setFont(g.getFont().deriveFont(12f));
-                g.drawString(ci.text, ci.x, ci.y);
-            } else if (ci.type == TYPE_HEADER_1) {
-                g.setFont(g.getFont().deriveFont(24f));
-                g.drawString(ci.text, ci.x, ci.y);
-            } else if (ci.type == TYPE_HEADER_2) {
-                g.setFont(g.getFont().deriveFont(20f));
-                g.drawString(ci.text, ci.x, ci.y);
-            } else if (ci.type == TYPE_HEADER_3) {
-                g.setFont(g.getFont().deriveFont(16f));
-                g.drawString(ci.text, ci.x, ci.y);
+            switch (ci.type) {
+                case TYPE_HEADER_1 -> g.setFont(g.getFont().deriveFont(24f * SCALE));
+                case TYPE_HEADER_2 -> g.setFont(g.getFont().deriveFont(20f * SCALE));
+                case TYPE_HEADER_3 -> g.setFont(g.getFont().deriveFont(16f * SCALE));
+                case TYPE_TEXT -> g.setFont(g.getFont().deriveFont(12f * SCALE));
             }
+            g.drawString(ci.text, ci.x, ci.y);
         }
     }
 
