@@ -59,20 +59,24 @@ public class Credits extends State implements Statemethods {
         BufferedReader reader = LoadSave.GetText(LoadSave.CREDITS);
 
         try {
-            String line = reader.readLine();
+            String line = reader.readLine().trim();
             int i = 0;
             while (line != null) {
-                int y = i * 100 + GAME_HEIGHT;
-                if (line.startsWith(HEADER_3))
-                    creditsItems.add(new CreditsItem(100, y, TYPE_HEADER_3, line.substring(HEADER_3.length())));
-                else if (line.startsWith(HEADER_2))
-                    creditsItems.add(new CreditsItem(100, y, TYPE_HEADER_2, line.substring(HEADER_2.length())));
-                else if (line.startsWith(HEADER_1))
-                    creditsItems.add(new CreditsItem(100, y, TYPE_HEADER_1, line.substring(HEADER_1.length())));
-                else
-                    creditsItems.add(new CreditsItem(100, y, TYPE_TEXT, line));
-                line = reader.readLine();
-                i++;
+                if (!line.isEmpty()) {
+                    int y = i * 100 + GAME_HEIGHT;
+                    if (line.startsWith(HEADER_3))
+                        creditsItems.add(new CreditsItem(100, y, TYPE_HEADER_3, line.substring(HEADER_3.length())));
+                    else if (line.startsWith(HEADER_2))
+                        creditsItems.add(new CreditsItem(100, y, TYPE_HEADER_2, line.substring(HEADER_2.length())));
+                    else if (line.startsWith(HEADER_1))
+                        creditsItems.add(new CreditsItem(100, y, TYPE_HEADER_1, line.substring(HEADER_1.length())));
+                    else
+                        creditsItems.add(new CreditsItem(100, y, TYPE_TEXT, line));
+
+                    i++;
+                }
+
+                line = reader.readLine().trim();
             }
         } catch (Exception e) {
             e.printStackTrace();
