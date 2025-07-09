@@ -14,7 +14,7 @@ import static utils.Constants.GameConstants.*;
 public class GameCompletedOverlay {
     private Playing playing;
     private BufferedImage img;
-    private MenuButton quitBtn;
+    private MenuButton quitBtn, creditBtn;
     private int imgX, imgY, imgW, imgH;
 
     /**
@@ -32,6 +32,7 @@ public class GameCompletedOverlay {
      */
     private void createButtons() {
         quitBtn = new MenuButton(GAME_WIDTH / 2, (int) (270 * SCALE), 2, Gamestate.MENU);
+        creditBtn = new MenuButton(GAME_WIDTH / 2, (int) (200 * SCALE), 3, Gamestate.CREDITS);
     }
 
     /**
@@ -56,6 +57,7 @@ public class GameCompletedOverlay {
         g.drawImage(img, imgX, imgY, imgW, imgH, null);
 
         quitBtn.draw(g);
+        creditBtn.draw(g);
     }
 
     /**
@@ -63,6 +65,7 @@ public class GameCompletedOverlay {
      */
     public void update() {
         quitBtn.update();
+        creditBtn.update();
     }
 
     /**
@@ -81,9 +84,12 @@ public class GameCompletedOverlay {
      */
     public void mouseMoved(MouseEvent e) {
         quitBtn.setMouseOver(false);
+        creditBtn.setMouseOver(false);
 
         if (isIn(quitBtn, e))
             quitBtn.setMouseOver(true);
+        else if (isIn(creditBtn, e))
+            creditBtn.setMouseOver(true);
     }
 
     /**
@@ -91,14 +97,22 @@ public class GameCompletedOverlay {
      * @param e The MouseEvent that triggered the release.
      */
     public void mouseReleased(MouseEvent e) {
-        if (isIn(quitBtn, e))
+        if (isIn(quitBtn, e)) {
             if (quitBtn.isMousePressed()) {
                 playing.resetAll();
                 playing.resetGameCompleted();
-                playing.setGamestate(Gamestate.MENU);
+                quitBtn.applyGamestate();
             }
+        } else if (isIn(creditBtn, e)) {
+            if (creditBtn.isMousePressed()) {
+                playing.resetAll();
+                playing.resetGameCompleted();
+                creditBtn.applyGamestate();
+            }
+        }
 
         quitBtn.resetBools();
+        creditBtn.resetBools();
     }
 
     /**
@@ -108,5 +122,7 @@ public class GameCompletedOverlay {
     public void mousePressed(MouseEvent e) {
         if (isIn(quitBtn, e))
             quitBtn.setMousePressed(true);
+        else if (isIn(creditBtn, e))
+            creditBtn.setMousePressed(true);
     }
 }
