@@ -14,9 +14,9 @@ import mainWindow.Game;
 import utils.LoadSave;
 
 public class Credits extends State implements Statemethods {
-    private final String HEADER_1 = "# ";
-    private final String HEADER_2 = "## ";
-    private final String HEADER_3 = "### ";
+    private final String HEADER_1 = "#";
+    private final String HEADER_2 = "##";
+    private final String HEADER_3 = "###";
 
     private final int TYPE_TEXT = 0;
     private final int TYPE_HEADER_1 = 1;
@@ -59,24 +59,26 @@ public class Credits extends State implements Statemethods {
         BufferedReader reader = LoadSave.GetText(LoadSave.CREDITS);
 
         try {
-            String line = reader.readLine().trim();
+            int startMargin = 200;
+            int margin = 100;
+            String line = reader.readLine();
             int i = 0;
             while (line != null) {
                 if (!line.isEmpty()) {
-                    int y = i * 100 + GAME_HEIGHT;
+                    int y = i * margin + GAME_HEIGHT + startMargin;
                     if (line.startsWith(HEADER_3))
-                        creditsItems.add(new CreditsItem(100, y, TYPE_HEADER_3, line.substring(HEADER_3.length())));
+                        creditsItems.add(new CreditsItem(100, y, TYPE_HEADER_3, line.substring(HEADER_3.length()).trim()));
                     else if (line.startsWith(HEADER_2))
-                        creditsItems.add(new CreditsItem(100, y, TYPE_HEADER_2, line.substring(HEADER_2.length())));
+                        creditsItems.add(new CreditsItem(100, y, TYPE_HEADER_2, line.substring(HEADER_2.length()).trim()));
                     else if (line.startsWith(HEADER_1))
-                        creditsItems.add(new CreditsItem(100, y, TYPE_HEADER_1, line.substring(HEADER_1.length())));
+                        creditsItems.add(new CreditsItem(100, y, TYPE_HEADER_1, line.substring(HEADER_1.length()).trim()));
                     else
-                        creditsItems.add(new CreditsItem(100, y, TYPE_TEXT, line));
+                        creditsItems.add(new CreditsItem(100, y, TYPE_TEXT, line.trim()));
 
                     i++;
                 }
 
-                line = reader.readLine().trim();
+                line = reader.readLine();
             }
         } catch (Exception e) {
             e.printStackTrace();
