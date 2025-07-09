@@ -36,17 +36,17 @@ public class Menu extends State implements Statemethods {
         menuWidth = (int) (backgroundImg.getWidth() * SCALE);
         menuHeight = (int) (backgroundImg.getHeight() * SCALE);
         menuX = GAME_WIDTH / 2 - menuWidth / 2;
-        menuY = (int) (45 * SCALE);
+        menuY = (int) (25 * SCALE);
     }
 
     /**
      * Loads the buttons for the menu.
      */
     private void loadButtons() {
-        buttons[0] = new MenuButton(GAME_WIDTH / 2, (int) (150 * SCALE), 0, Gamestate.PLAYING);
-        buttons[1] = new MenuButton(GAME_WIDTH / 2, (int) (220 * SCALE), 1, Gamestate.OPTIONS);
-        buttons[2] = new MenuButton(GAME_WIDTH / 2, (int) (290 * SCALE), 3, Gamestate.CREDITS);
-        buttons[3] = new MenuButton(GAME_WIDTH / 2, (int) (360 * SCALE), 2, Gamestate.QUIT);
+        buttons[0] = new MenuButton(GAME_WIDTH / 2, (int) (130 * SCALE), 0, Gamestate.PLAYING);
+        buttons[1] = new MenuButton(GAME_WIDTH / 2, (int) (200 * SCALE), 1, Gamestate.OPTIONS);
+        buttons[2] = new MenuButton(GAME_WIDTH / 2, (int) (270 * SCALE), 3, Gamestate.CREDITS);
+        buttons[3] = new MenuButton(GAME_WIDTH / 2, (int) (340 * SCALE), 2, Gamestate.QUIT);
     }
 
     /**
