@@ -42,12 +42,19 @@ public class Credits extends State implements Statemethods {
 
 
 
+    /**
+     * Constructor for the Credits class.
+     * @param game the Game instance that this Credits state belongs to.
+     */
     public Credits(Game game) {
         super(game);
         loadBackgroundImage();
         loadCredits();
     }
 
+    /**
+     * Loads the credits from a text file.
+     */
     private void loadCredits() {
         BufferedReader reader = LoadSave.GetText(LoadSave.CREDITS);
 
@@ -72,10 +79,16 @@ public class Credits extends State implements Statemethods {
         }
     }
 
+    /**
+     * Loads the background image for the credits screen.
+     */
     private void loadBackgroundImage() {
         backgroundImg = LoadSave.GetSpriteAtlas(LoadSave.MENU_BACKGROUND_IMAGE);
     }
 
+    /**
+     * Updates the position of each credits item, moving them upwards.
+     */
     private void updateCreditsItems() {
         for (CreditsItem ci : creditsItems)
             ci.y -= 1;
@@ -93,6 +106,10 @@ public class Credits extends State implements Statemethods {
         drawCreditsItems(g);
     }
 
+    /**
+     * Draws the credits items on the screen.
+     * @param g the Graphics object used for drawing.
+     */
     private void drawCreditsItems(Graphics g) {
         g.setColor(Color.BLACK);
         for (CreditsItem ci : creditsItems) {
