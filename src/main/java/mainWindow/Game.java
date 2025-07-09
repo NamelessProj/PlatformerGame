@@ -162,6 +162,14 @@ public class Game implements Runnable {
     }
 
     /**
+     * Returns the Credits object for the game, which contains the credits state.
+     * @return the Credits object
+     */
+    public Credits getCredits() {
+        return credits;
+    }
+
+    /**
      * Returns the GameOptions object for the game, which contains game settings.
      * @return the GameOptions object
      */
