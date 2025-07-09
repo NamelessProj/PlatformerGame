@@ -29,14 +29,68 @@ public class Credits extends State implements Statemethods {
 
 
     private class CreditsItem {
-        private int type, x, y;
+        private int type, x, y, yPosition;
         private String text;
 
+        /**
+         * Constructor for CreditsItem.
+         * @param x the x-coordinate of the item
+         * @param y the initial y-coordinate of the item
+         * @param type the type of the item (text or header)
+         * @param text the text of the item
+         */
         public CreditsItem(int x, int y, int type, String text) {
             this.x = x;
             this.y = y;
+            this.yPosition = y;
             this.type = type;
             this.text = text;
+        }
+
+        /**
+         * Gets the text of the credits item.
+         * @return the text of the item
+         */
+        public String getText() {
+            return text;
+        }
+
+        /**
+         * Gets the x-coordinate of the credits item.
+         * @return the x-coordinate
+         */
+        public int getX() {
+            return x;
+        }
+
+        /**
+         * Gets the y-coordinate of the credits item as it moves.
+         * @return the current y-coordinate
+         */
+        public int getY() {
+            return yPosition;
+        }
+
+        /**
+         * Gets the type of the credits item.
+         * @return the type of the item
+         */
+        public int getType() {
+            return type;
+        }
+
+        /**
+         * Updates the position of the credits item, moving it upwards.
+         */
+        public void update() {
+            yPosition -= 1;
+        }
+
+        /**
+         * Resets the y-coordinate of the credits item to its initial position.
+         */
+        public void reset() {
+            yPosition = y;
         }
     }
 
@@ -97,7 +151,20 @@ public class Credits extends State implements Statemethods {
      */
     private void updateCreditsItems() {
         for (CreditsItem ci : creditsItems)
-            ci.y -= 1;
+            ci.update();
+
+        if (creditsItems.getLast().getY() < -100)
+            goTo(Gamestate.MENU);
+    }
+
+    /**
+     * Changes the game state to the specified Gamestate and resets all credits items.
+     * @param state the Gamestate to switch to.
+     */
+    private void goTo(Gamestate state) {
+        game.getPlaying().setGamestate(state);
+        for (CreditsItem ci : creditsItems)
+            ci.reset();
     }
 
     @Override
@@ -119,13 +186,13 @@ public class Credits extends State implements Statemethods {
     private void drawCreditsItems(Graphics g) {
         g.setColor(Color.BLACK);
         for (CreditsItem ci : creditsItems) {
-            switch (ci.type) {
+            switch (ci.getType()) {
                 case TYPE_HEADER_1 -> g.setFont(g.getFont().deriveFont(24f * SCALE));
                 case TYPE_HEADER_2 -> g.setFont(g.getFont().deriveFont(20f * SCALE));
                 case TYPE_HEADER_3 -> g.setFont(g.getFont().deriveFont(16f * SCALE));
                 case TYPE_TEXT -> g.setFont(g.getFont().deriveFont(12f * SCALE));
             }
-            g.drawString(ci.text, ci.x, ci.y);
+            g.drawString(ci.getText(), ci.getX(), ci.getY());
         }
     }
 
@@ -146,10 +213,7 @@ public class Credits extends State implements Statemethods {
 
     @Override
     public void keyReleased(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-            game.getPlaying().setGamestate(Gamestate.MENU);
-            creditsItems.clear();
-            loadCredits();
-        }
+        if (e.getKeyCode() == KeyEvent.VK_ESCAPE)
+            goTo(Gamestate.MENU);
     }
 }
