@@ -83,7 +83,7 @@ public class Credits extends State implements Statemethods {
          * Updates the position of the credits item, moving it upwards.
          */
         public void update() {
-            yPosition -= 1;
+            yPosition -= (int) (0.5f * SCALE);
         }
 
         /**
@@ -113,21 +113,22 @@ public class Credits extends State implements Statemethods {
         BufferedReader reader = LoadSave.GetText(LoadSave.CREDITS);
 
         try {
-            int startMargin = 200;
-            int margin = 100;
+            int startMargin = (int) (100 * SCALE);
+            int margin = (int) (50 * SCALE);
+            int x = (int) (GAME_WIDTH / 6 * SCALE);
             String line = reader.readLine();
             int i = 0;
             while (line != null) {
                 if (!line.isEmpty()) {
                     int y = i * margin + GAME_HEIGHT + startMargin;
                     if (line.startsWith(HEADER_3))
-                        creditsItems.add(new CreditsItem(100, y, TYPE_HEADER_3, line.substring(HEADER_3.length()).trim()));
+                        creditsItems.add(new CreditsItem(x, y, TYPE_HEADER_3, line.substring(HEADER_3.length()).trim()));
                     else if (line.startsWith(HEADER_2))
-                        creditsItems.add(new CreditsItem(100, y, TYPE_HEADER_2, line.substring(HEADER_2.length()).trim()));
+                        creditsItems.add(new CreditsItem(x, y, TYPE_HEADER_2, line.substring(HEADER_2.length()).trim()));
                     else if (line.startsWith(HEADER_1))
-                        creditsItems.add(new CreditsItem(100, y, TYPE_HEADER_1, line.substring(HEADER_1.length()).trim()));
+                        creditsItems.add(new CreditsItem(x, y, TYPE_HEADER_1, line.substring(HEADER_1.length()).trim()));
                     else
-                        creditsItems.add(new CreditsItem(100, y, TYPE_TEXT, line.trim()));
+                        creditsItems.add(new CreditsItem(x, y, TYPE_TEXT, line.trim()));
 
                     i++;
                 }
