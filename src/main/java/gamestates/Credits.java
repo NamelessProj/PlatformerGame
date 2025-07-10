@@ -23,6 +23,8 @@ public class Credits extends State implements Statemethods {
     private final int TYPE_HEADER_2 = 2;
     private final int TYPE_HEADER_3 = 3;
 
+    private final int MAX_Y_POS = -120;
+
     private BufferedImage backgroundImg;
     private ArrayList<CreditsItem> creditsItems = new ArrayList<>();
 
@@ -31,6 +33,7 @@ public class Credits extends State implements Statemethods {
     private class CreditsItem {
         private int type, x, y, yPosition;
         private String text;
+        private boolean isActive;
 
         /**
          * Constructor for CreditsItem.
@@ -45,6 +48,7 @@ public class Credits extends State implements Statemethods {
             this.yPosition = y;
             this.type = type;
             this.text = text;
+            this.isActive = true;
         }
 
         /**
@@ -80,6 +84,22 @@ public class Credits extends State implements Statemethods {
         }
 
         /**
+         * Checks if the credits item is active.
+         * @return true if the item is active, false otherwise
+         */
+        public boolean isActive() {
+            return isActive;
+        }
+
+        /**
+         * Sets the active state of the credits item.
+         * @param isActive true to set the item as active, false to deactivate it
+         */
+        public void setActive(boolean isActive) {
+            this.isActive = isActive;
+        }
+
+        /**
          * Updates the position of the credits item, moving it upwards.
          */
         public void update() {
@@ -91,6 +111,7 @@ public class Credits extends State implements Statemethods {
          */
         public void reset() {
             yPosition = y;
+            isActive = true;
         }
     }
 
@@ -152,9 +173,13 @@ public class Credits extends State implements Statemethods {
      */
     private void updateCreditsItems() {
         for (CreditsItem ci : creditsItems)
-            ci.update();
+            if (ci.isActive()) {
+                ci.update();
+                if (ci.getY() < MAX_Y_POS)
+                    ci.setActive(false);
+            }
 
-        if (creditsItems.getLast().getY() < -100)
+        if (creditsItems.getLast().getY() < MAX_Y_POS)
             goTo(Gamestate.MENU);
     }
 
@@ -186,15 +211,16 @@ public class Credits extends State implements Statemethods {
      */
     private void drawCreditsItems(Graphics g) {
         g.setColor(Color.BLACK);
-        for (CreditsItem ci : creditsItems) {
-            switch (ci.getType()) {
-                case TYPE_HEADER_1 -> g.setFont(g.getFont().deriveFont(24f * SCALE));
-                case TYPE_HEADER_2 -> g.setFont(g.getFont().deriveFont(20f * SCALE));
-                case TYPE_HEADER_3 -> g.setFont(g.getFont().deriveFont(16f * SCALE));
-                case TYPE_TEXT -> g.setFont(g.getFont().deriveFont(12f * SCALE));
+        for (CreditsItem ci : creditsItems)
+            if (ci.isActive()) {
+                switch (ci.getType()) {
+                    case TYPE_HEADER_1 -> g.setFont(g.getFont().deriveFont(24f * SCALE));
+                    case TYPE_HEADER_2 -> g.setFont(g.getFont().deriveFont(20f * SCALE));
+                    case TYPE_HEADER_3 -> g.setFont(g.getFont().deriveFont(16f * SCALE));
+                    case TYPE_TEXT -> g.setFont(g.getFont().deriveFont(12f * SCALE));
+                }
+                g.drawString(ci.getText(), ci.getX(), ci.getY());
             }
-            g.drawString(ci.getText(), ci.getX(), ci.getY());
-        }
     }
 
     @Override
