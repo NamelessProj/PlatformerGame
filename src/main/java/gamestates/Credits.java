@@ -140,7 +140,7 @@ public class Credits extends State implements Statemethods {
             String line = reader.readLine();
             int i = 0;
             while (line != null) {
-                if (!line.isEmpty()) {
+                if (!line.trim().isEmpty()) {
                     int y = i * margin + GAME_HEIGHT + startMargin;
                     if (line.startsWith(HEADER_3))
                         creditsItems.add(new CreditsItem(x, y, TYPE_HEADER_3, line.substring(HEADER_3.length()).trim()));
