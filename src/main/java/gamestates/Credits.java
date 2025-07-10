@@ -162,7 +162,7 @@ public class Credits extends State implements Statemethods {
      * @param state the Gamestate to switch to.
      */
     private void goTo(Gamestate state) {
-        game.getPlaying().setGamestate(state);
+        setGamestate(state);
         for (CreditsItem ci : creditsItems)
             ci.reset();
     }
