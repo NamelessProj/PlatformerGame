@@ -114,7 +114,7 @@ public class LoadSave {
      */
     public static BufferedReader GetText(String fileName) {
         BufferedReader br = null;
-        InputStream is = LoadSave.class.getResourceAsStream("/" + fileName);
+        InputStream is = LoadSave.class.getResourceAsStream("/texts/" + fileName);
 
         if (is != null)
             br = new BufferedReader(new InputStreamReader(is));
