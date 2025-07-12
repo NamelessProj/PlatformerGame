@@ -218,14 +218,16 @@ public class Credits extends State implements Statemethods {
      */
     private void drawCreditsItems(Graphics g) {
         g.setColor(Color.BLACK);
+        float fontSize = 16f * SCALE;
         for (CreditsItem ci : creditsItems)
             if (ci.isActive()) {
                 switch (ci.getType()) {
-                    case TYPE_HEADER_1 -> g.setFont(font.deriveFont(30f * SCALE));
-                    case TYPE_HEADER_2 -> g.setFont(font.deriveFont(25f * SCALE));
-                    case TYPE_HEADER_3 -> g.setFont(font.deriveFont(20f * SCALE));
-                    case TYPE_TEXT -> g.setFont(font.deriveFont(16f * SCALE));
+                    case TYPE_HEADER_1 -> fontSize = 30f * SCALE;
+                    case TYPE_HEADER_2 -> fontSize = 25f * SCALE;
+                    case TYPE_HEADER_3 -> fontSize = 20f * SCALE;
+                    case TYPE_TEXT -> fontSize = 16f * SCALE;
                 }
+                g.setFont(font.deriveFont(fontSize));
                 g.drawString(ci.getText(), ci.getX(), ci.getY());
             }
     }
