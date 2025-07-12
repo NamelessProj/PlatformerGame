@@ -115,7 +115,7 @@ public class ObjectManager {
      * Loads the images for various game objects such as potions, containers, traps, and cannons.
      */
     private void loadImages() {
-        BufferedImage potionSprite = LoadSave.GetSpriteAtlas(LoadSave.POTION_ATLAS);
+        BufferedImage potionSprite = LoadSave.GetSpriteAtlas(LoadSave.Sprites.POTION_ATLAS);
         potionImages = new BufferedImage[2][7];
         int potionWidth = 12;
         int potionHeight = 16;
@@ -124,7 +124,7 @@ public class ObjectManager {
             for (int i = 0; i < potionImages[j].length; i++)
                 potionImages[j][i] = potionSprite.getSubimage(i * potionWidth, j * potionHeight, potionWidth, potionHeight);
 
-        BufferedImage containerSprite = LoadSave.GetSpriteAtlas(LoadSave.CONTAINER_ATLAS);
+        BufferedImage containerSprite = LoadSave.GetSpriteAtlas(LoadSave.Sprites.CONTAINER_ATLAS);
         containerImages = new BufferedImage[2][8];
         int containerWidth = 40;
         int containerHeight = 30;
@@ -133,16 +133,16 @@ public class ObjectManager {
             for (int i = 0; i < containerImages[j].length; i++)
                 containerImages[j][i] = containerSprite.getSubimage(i * containerWidth, j * containerHeight, containerWidth, containerHeight);
 
-        spikeImage = LoadSave.GetSpriteAtlas(LoadSave.TRAP_ATLAS);
+        spikeImage = LoadSave.GetSpriteAtlas(LoadSave.Sprites.TRAP_ATLAS);
 
         cannonImages = new BufferedImage[GetSpriteAmount(CANNON_RIGHT)];
-        BufferedImage temp = LoadSave.GetSpriteAtlas(LoadSave.CANNON_ATLAS);
+        BufferedImage temp = LoadSave.GetSpriteAtlas(LoadSave.Sprites.CANNON_ATLAS);
         for (int i = 0; i < cannonImages.length; i++)
             cannonImages[i] = temp.getSubimage(i * CANNON_WIDTH_DEFAULT, 0, CANNON_WIDTH_DEFAULT, CANNON_HEIGHT_DEFAULT);
 
-        cannonBallImage = LoadSave.GetSpriteAtlas(LoadSave.CANNON_BALL);
+        cannonBallImage = LoadSave.GetSpriteAtlas(LoadSave.Sprites.CANNON_BALL);
 
-        BufferedImage grassTemp = LoadSave.GetSpriteAtlas(LoadSave.GRASS_ATLAS);
+        BufferedImage grassTemp = LoadSave.GetSpriteAtlas(LoadSave.Sprites.GRASS_ATLAS);
         grassImages = new BufferedImage[2];
         for (int i = 0; i < grassImages.length; i++)
             grassImages[i] = grassTemp.getSubimage(i * 32, 0, 32, 32);
