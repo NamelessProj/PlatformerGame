@@ -42,7 +42,7 @@ public class LevelCompletedOverlay {
      * Initializes the background image for the level completed overlay.
      */
     private void initImage() {
-        img = LoadSave.GetSpriteAtlas(LoadSave.COMPLETED_IMG);
+        img = LoadSave.GetSpriteAtlas(LoadSave.Images.COMPLETED_IMG);
         bgW = (int) (img.getWidth() * SCALE);
         bgH = (int) (img.getHeight() * SCALE);
         bxX = GAME_WIDTH / 2 - bgW / 2;
