@@ -62,9 +62,9 @@ public class Playing extends State implements Statemethods {
         super(game);
         initClasses();
 
-        backgroundImg = LoadSave.GetSpriteAtlas(LoadSave.PLAYING_BACKGROUND_IMAGE);
-        bigCloud = LoadSave.GetSpriteAtlas(LoadSave.BIG_CLOUDS);
-        smallCloud = LoadSave.GetSpriteAtlas(LoadSave.SMALL_CLOUDS);
+        backgroundImg = LoadSave.GetSpriteAtlas(LoadSave.Images.PLAYING_BACKGROUND_IMAGE);
+        bigCloud = LoadSave.GetSpriteAtlas(LoadSave.Images.BIG_CLOUDS);
+        smallCloud = LoadSave.GetSpriteAtlas(LoadSave.Images.SMALL_CLOUDS);
         smallCloudsPos = new int[8];
 
         for (int i = 0; i < smallCloudsPos.length; i++)
@@ -99,12 +99,12 @@ public class Playing extends State implements Statemethods {
         int dialogueWidth = 14;
         int dialogueHeight = 12;
 
-        BufferedImage tempQ = LoadSave.GetSpriteAtlas(LoadSave.QUESTION_ATLAS);
+        BufferedImage tempQ = LoadSave.GetSpriteAtlas(LoadSave.Sprites.QUESTION_ATLAS);
         questionImgs = new BufferedImage[5];
         for (int i = 0; i < questionImgs.length; i++)
             questionImgs[i] = tempQ.getSubimage(i * dialogueWidth, 0, dialogueWidth, dialogueHeight);
 
-        BufferedImage tempE = LoadSave.GetSpriteAtlas(LoadSave.EXCLAMATION_ATLAS);
+        BufferedImage tempE = LoadSave.GetSpriteAtlas(LoadSave.Sprites.EXCLAMATION_ATLAS);
         exclamationImgs = new BufferedImage[5];
         for (int i = 0; i < exclamationImgs.length; i++)
             exclamationImgs[i] = tempE.getSubimage(i * dialogueWidth, 0, dialogueWidth, dialogueHeight);
