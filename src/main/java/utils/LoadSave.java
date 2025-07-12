@@ -1,6 +1,8 @@
 package utils;
 
 import javax.imageio.ImageIO;
+
+import java.awt.Font;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
@@ -48,6 +50,8 @@ public class LoadSave {
 	public static final String WATER_BOTTOM = "water.png";
 
 	public static final String TEXT_CREDITS = "credits.txt";
+
+    public static final String FONT_1 = "Jersey10-Regular.ttf";
 
     /**
      * Loads a sprite atlas image from the resources.
@@ -120,5 +124,23 @@ public class LoadSave {
             br = new BufferedReader(new InputStreamReader(is));
 
         return br;
+    }
+
+    /**
+     * Loads a font from the resources.
+     * @param fileName the name of the font file to load
+     * @return Font object representing the loaded font
+     */
+    public static Font GetFont(String fileName) {
+        Font font = null;
+        InputStream is = LoadSave.class.getResourceAsStream("/fonts/" + fileName);
+
+        try {
+            font = Font.createFont(Font.TRUETYPE_FONT, is);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return font;
     }
 }
