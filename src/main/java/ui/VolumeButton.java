@@ -37,7 +37,7 @@ public class VolumeButton extends PauseButton {
      * Loads the button images from the sprite sheet.
      */
     private void loadImages() {
-        BufferedImage temp = LoadSave.GetSpriteAtlas(LoadSave.VOLUME_BUTTONS);
+        BufferedImage temp = LoadSave.GetSpriteAtlas(LoadSave.Sprites.VOLUME_BUTTONS);
         imgs = new BufferedImage[3];
         for (int i = 0; i < imgs.length; i++)
             imgs[i] = temp.getSubimage(i * VOLUME_DEFAULT_WIDTH, 0, VOLUME_DEFAULT_WIDTH, VOLUME_DEFAULT_HEIGHT);
