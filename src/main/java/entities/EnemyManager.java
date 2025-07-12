@@ -154,9 +154,9 @@ public class EnemyManager {
      * Loads the enemy images from the sprite atlas.
      */
     private void loadEnemyImages() {
-        crabbyArr = getImagesArray(LoadSave.GetSpriteAtlas(LoadSave.CRABBY_SPRITE), 9, 5, CRABBY_WIDTH_DEFAULT, CRABBY_HEIGHT_DEFAULT);
-        pinkstarArr = getImagesArray(LoadSave.GetSpriteAtlas(LoadSave.PINKSTAR_ATLAS), 8, 5, PINKSTAR_WIDTH_DEFAULT, PINKSTAR_HEIGHT_DEFAULT);
-        sharkArr = getImagesArray(LoadSave.GetSpriteAtlas(LoadSave.SHARK_ATLAS), 8, 5, SHARK_WIDTH_DEFAULT, SHARK_HEIGHT_DEFAULT);
+        crabbyArr = getImagesArray(LoadSave.GetSpriteAtlas(LoadSave.Sprites.CRABBY_SPRITE), 9, 5, CRABBY_WIDTH_DEFAULT, CRABBY_HEIGHT_DEFAULT);
+        pinkstarArr = getImagesArray(LoadSave.GetSpriteAtlas(LoadSave.Sprites.PINKSTAR_ATLAS), 8, 5, PINKSTAR_WIDTH_DEFAULT, PINKSTAR_HEIGHT_DEFAULT);
+        sharkArr = getImagesArray(LoadSave.GetSpriteAtlas(LoadSave.Sprites.SHARK_ATLAS), 8, 5, SHARK_WIDTH_DEFAULT, SHARK_HEIGHT_DEFAULT);
     }
 
     /**
