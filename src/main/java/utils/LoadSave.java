@@ -47,7 +47,7 @@ public class LoadSave {
     public static final String WATER_TOP = "water_atlas_animation.png";
 	public static final String WATER_BOTTOM = "water.png";
 
-	public static final String CREDITS = "credits.txt";
+	public static final String TEXT_CREDITS = "credits.txt";
 
     /**
      * Loads a sprite atlas image from the resources.
