@@ -13,43 +13,50 @@ import java.net.URISyntaxException;
 import java.net.URL;
 
 public class LoadSave {
-    public static final String ICON = "icon.png";
-    public static final String PLAYER_ATLAS = "player_sprites.png";
-    public static final String LEVEL_ATLAS = "outside_sprites.png";
-    public static final String MENU_BUTTONS = "button_atlas.png";
-    public static final String SOUND_BUTTONS = "sound_button.png";
-    public static final String URM_BUTTONS = "urm_buttons.png";
-    public static final String VOLUME_BUTTONS = "volume_buttons.png";
-    public static final String PLAYING_BACKGROUND_IMAGE = "playing_bg_img.png";
-    public static final String BIG_CLOUDS = "big_clouds.png";
-    public static final String SMALL_CLOUDS = "small_clouds.png";
-    public static final String STATUS_BAR = "health_power_bar.png";
+    public static class Images {
+        public static final String ICON = "icon.png";
+        public static final String PLAYING_BACKGROUND_IMAGE = "playing_bg_img.png";
+        public static final String BIG_CLOUDS = "big_clouds.png";
+        public static final String SMALL_CLOUDS = "small_clouds.png";
+        public static final String STATUS_BAR = "health_power_bar.png";
 
-    public static final String MENU_BACKGROUND = "menu_background.png";
-    public static final String PAUSE_BACKGROUND = "pause_menu.png";
-    public static final String MENU_BACKGROUND_IMAGE = "background_menu.png";
-    public static final String COMPLETED_IMG = "completed_sprite.png";
-    public static final String DEATH_SCREEN = "death_screen.png";
-    public static final String OPTIONS_MENU = "options_background.png";
-    public static final String GAME_COMPLETED = "game_completed.png";
+        public static final String MENU_BACKGROUND = "menu_background.png";
+        public static final String PAUSE_BACKGROUND = "pause_menu.png";
+        public static final String MENU_BACKGROUND_IMAGE = "background_menu.png";
+        public static final String COMPLETED_IMG = "completed_sprite.png";
+        public static final String DEATH_SCREEN = "death_screen.png";
+        public static final String OPTIONS_MENU = "options_background.png";
+        public static final String GAME_COMPLETED = "game_completed.png";
+    }
 
-    public static final String QUESTION_ATLAS = "question_atlas.png";
-	public static final String EXCLAMATION_ATLAS = "exclamation_atlas.png";
+    public static class Sprites {
+        public static final String PLAYER_ATLAS = "player_sprites.png";
+        public static final String LEVEL_ATLAS = "outside_sprites.png";
+        public static final String MENU_BUTTONS = "button_atlas.png";
+        public static final String SOUND_BUTTONS = "sound_button.png";
+        public static final String URM_BUTTONS = "urm_buttons.png";
+        public static final String VOLUME_BUTTONS = "volume_buttons.png";
 
-    public static final String CRABBY_SPRITE = "crabby_sprite.png";
-    public static final String PINKSTAR_ATLAS = "pinkstar_atlas.png";
-    public static final String SHARK_ATLAS = "shark_atlas.png";
+        public static final String QUESTION_ATLAS = "question_atlas.png";
+        public static final String EXCLAMATION_ATLAS = "exclamation_atlas.png";
 
-    public static final String POTION_ATLAS = "potions_sprites.png";
-    public static final String CONTAINER_ATLAS = "objects_sprites.png";
-    public static final String TRAP_ATLAS = "trap_atlas.png";
-    public static final String CANNON_ATLAS = "cannon_atlas.png";
-    public static final String CANNON_BALL = "ball.png";
-    public static final String GRASS_ATLAS = "grass_atlas.png";
-    public static final String WATER_TOP = "water_atlas_animation.png";
-	public static final String WATER_BOTTOM = "water.png";
+        public static final String CRABBY_SPRITE = "crabby_sprite.png";
+        public static final String PINKSTAR_ATLAS = "pinkstar_atlas.png";
+        public static final String SHARK_ATLAS = "shark_atlas.png";
 
-	public static final String TEXT_CREDITS = "credits.txt";
+        public static final String POTION_ATLAS = "potions_sprites.png";
+        public static final String CONTAINER_ATLAS = "objects_sprites.png";
+        public static final String TRAP_ATLAS = "trap_atlas.png";
+        public static final String CANNON_ATLAS = "cannon_atlas.png";
+        public static final String CANNON_BALL = "ball.png";
+        public static final String GRASS_ATLAS = "grass_atlas.png";
+        public static final String WATER_TOP = "water_atlas_animation.png";
+        public static final String WATER_BOTTOM = "water.png";
+    }
+
+    public static class Texts {
+        public static final String CREDITS = "credits.txt";
+    }
 
     public static class Fonts {
         public static final String TITLE = "Jersey10-Regular.ttf";
