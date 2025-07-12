@@ -130,8 +130,11 @@ public class Credits extends State implements Statemethods {
         loadCredits();
     }
 
+    /**
+     * Loads the font used for displaying credits.
+     */
     private void loadFont() {
-        font = LoadSave.GetFont(LoadSave.FONT_1);
+        font = LoadSave.GetFont(LoadSave.Fonts.TITLE);
     }
 
     /**
