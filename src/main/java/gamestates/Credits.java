@@ -131,7 +131,7 @@ public class Credits extends State implements Statemethods {
      * Loads the credits from a text file.
      */
     private void loadCredits() {
-        BufferedReader reader = LoadSave.GetText(LoadSave.CREDITS);
+        BufferedReader reader = LoadSave.GetText(LoadSave.TEXT_CREDITS);
 
         try {
             int startMargin = (int) (100 * SCALE);
