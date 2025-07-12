@@ -141,7 +141,7 @@ public class Credits extends State implements Statemethods {
      * Loads the credits from a text file.
      */
     private void loadCredits() {
-        BufferedReader reader = LoadSave.GetText(LoadSave.TEXT_CREDITS);
+        BufferedReader reader = LoadSave.GetText(LoadSave.Texts.CREDITS);
 
         try {
             int startMargin = (int) (100 * SCALE);
@@ -175,7 +175,7 @@ public class Credits extends State implements Statemethods {
      * Loads the background image for the credits screen.
      */
     private void loadBackgroundImage() {
-        backgroundImg = LoadSave.GetSpriteAtlas(LoadSave.MENU_BACKGROUND_IMAGE);
+        backgroundImg = LoadSave.GetSpriteAtlas(LoadSave.Images.MENU_BACKGROUND_IMAGE);
     }
 
     /**
