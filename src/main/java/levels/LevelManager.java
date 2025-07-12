@@ -33,11 +33,11 @@ public class LevelManager {
      */
     private void createWater() {
         waterSprite = new BufferedImage[5];
-        BufferedImage temp = LoadSave.GetSpriteAtlas(LoadSave.WATER_TOP);
+        BufferedImage temp = LoadSave.GetSpriteAtlas(LoadSave.Sprites.WATER_TOP);
         waterBottomIndex = waterSprite.length - 1;
         for (int i = 0; i < waterBottomIndex; i++)
             waterSprite[i] = temp.getSubimage(i * TILES_DEFAULT_SIZE, 0, TILES_DEFAULT_SIZE, TILES_DEFAULT_SIZE);
-        waterSprite[waterBottomIndex] = LoadSave.GetSpriteAtlas(LoadSave.WATER_BOTTOM);
+        waterSprite[waterBottomIndex] = LoadSave.GetSpriteAtlas(LoadSave.Sprites.WATER_BOTTOM);
     }
 
     /**
@@ -53,7 +53,7 @@ public class LevelManager {
      * Imports the outside sprites used in the game.
      */
     private void importOutsideSprites() {
-        BufferedImage img = LoadSave.GetSpriteAtlas(LoadSave.LEVEL_ATLAS);
+        BufferedImage img = LoadSave.GetSpriteAtlas(LoadSave.Sprites.LEVEL_ATLAS);
 
         final int spriteWidth = 12;
         final int spriteHeight = 4;
