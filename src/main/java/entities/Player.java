@@ -517,14 +517,14 @@ public class Player extends Entity {
      * Loads the player animations from the sprite atlas and initializes the status bar image.
      */
     private void loadAnimations() {
-        BufferedImage playerSprites = LoadSave.GetSpriteAtlas(LoadSave.PLAYER_ATLAS);
+        BufferedImage playerSprites = LoadSave.GetSpriteAtlas(LoadSave.Sprites.PLAYER_ATLAS);
 
         animations = new BufferedImage[NUM_ANIMATIONS][MAX_NUM_SPRITES];
         for (int j = 0; j < NUM_ANIMATIONS; j++)
             for (int i = 0; i < MAX_NUM_SPRITES; i++)
                 animations[j][i] = playerSprites.getSubimage(i * IMAGE_WIDTH, j * IMAGE_HEIGHT, IMAGE_WIDTH, IMAGE_HEIGHT);
 
-        statusBarImg = LoadSave.GetSpriteAtlas(LoadSave.STATUS_BAR);
+        statusBarImg = LoadSave.GetSpriteAtlas(LoadSave.Images.STATUS_BAR);
     }
 
     /**
