@@ -30,7 +30,7 @@ public class SoundButton extends PauseButton {
      * Loads the sound button images from the sprite sheet.
      */
     private void loadSoundImages() {
-        BufferedImage temp = LoadSave.GetSpriteAtlas(LoadSave.SOUND_BUTTONS);
+        BufferedImage temp = LoadSave.GetSpriteAtlas(LoadSave.Sprites.SOUND_BUTTONS);
         soundImgs = new BufferedImage[2][3];
 
         for (int j = 0; j < soundImgs.length; j++)
