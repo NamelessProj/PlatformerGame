@@ -30,7 +30,7 @@ public class UrmButton extends PauseButton {
      * Loads the button images from the sprite sheet.
      */
     private void loadImages() {
-        BufferedImage temp = LoadSave.GetSpriteAtlas(LoadSave.URM_BUTTONS);
+        BufferedImage temp = LoadSave.GetSpriteAtlas(LoadSave.Sprites.URM_BUTTONS);
         imgs = new BufferedImage[3];
 
         for (int i = 0; i < imgs.length; i++)
