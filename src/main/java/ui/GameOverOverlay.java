@@ -43,7 +43,7 @@ public class GameOverOverlay {
      * Creates the image for the game over overlay.
      */
     private void createImg() {
-        img = LoadSave.GetSpriteAtlas(LoadSave.DEATH_SCREEN);
+        img = LoadSave.GetSpriteAtlas(LoadSave.Images.DEATH_SCREEN);
         imgW = (int) (img.getWidth() * SCALE);
         imgH = (int) (img.getHeight() * SCALE);
         imgX = GAME_WIDTH / 2 - imgW / 2;
