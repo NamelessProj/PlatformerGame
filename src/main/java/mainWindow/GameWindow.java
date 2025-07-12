@@ -34,6 +34,6 @@ public class GameWindow extends JFrame {
     }
 
     private BufferedImage getIcon() {
-        return LoadSave.GetSpriteAtlas(LoadSave.ICON);
+        return LoadSave.GetSpriteAtlas(LoadSave.Images.ICON);
     }
 }
