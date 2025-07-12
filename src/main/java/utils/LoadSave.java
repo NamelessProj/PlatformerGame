@@ -51,7 +51,9 @@ public class LoadSave {
 
 	public static final String TEXT_CREDITS = "credits.txt";
 
-    public static final String FONT_1 = "Jersey10-Regular.ttf";
+    public static class Fonts {
+        public static final String TITLE = "Jersey10-Regular.ttf";
+    }
 
     /**
      * Loads a sprite atlas image from the resources.
