@@ -3,6 +3,7 @@ package gamestates;
 import static utils.Constants.GameConstants.*;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -27,6 +28,7 @@ public class Credits extends State implements Statemethods {
 
     private BufferedImage backgroundImg;
     private ArrayList<CreditsItem> creditsItems = new ArrayList<>();
+    private Font font;
 
 
 
@@ -124,7 +126,12 @@ public class Credits extends State implements Statemethods {
     public Credits(Game game) {
         super(game);
         loadBackgroundImage();
+        loadFont();
         loadCredits();
+    }
+
+    private void loadFont() {
+        font = LoadSave.GetFont(LoadSave.FONT_1);
     }
 
     /**
@@ -214,10 +221,10 @@ public class Credits extends State implements Statemethods {
         for (CreditsItem ci : creditsItems)
             if (ci.isActive()) {
                 switch (ci.getType()) {
-                    case TYPE_HEADER_1 -> g.setFont(g.getFont().deriveFont(24f * SCALE));
-                    case TYPE_HEADER_2 -> g.setFont(g.getFont().deriveFont(20f * SCALE));
-                    case TYPE_HEADER_3 -> g.setFont(g.getFont().deriveFont(16f * SCALE));
-                    case TYPE_TEXT -> g.setFont(g.getFont().deriveFont(12f * SCALE));
+                    case TYPE_HEADER_1 -> g.setFont(font.deriveFont(30f * SCALE));
+                    case TYPE_HEADER_2 -> g.setFont(font.deriveFont(25f * SCALE));
+                    case TYPE_HEADER_3 -> g.setFont(font.deriveFont(20f * SCALE));
+                    case TYPE_TEXT -> g.setFont(font.deriveFont(16f * SCALE));
                 }
                 g.drawString(ci.getText(), ci.getX(), ci.getY());
             }
