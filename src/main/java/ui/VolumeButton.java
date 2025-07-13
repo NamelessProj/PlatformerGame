@@ -137,4 +137,14 @@ public class VolumeButton extends PauseButton {
     public float getFloatValue() {
         return floatValue;
     }
+
+    /**
+     * Sets the float value for the volume level.
+     * @param val the new float value to set
+     */
+    public void setFloatValue(float val) {
+        float range = maxX - minX;
+        float newX = minX + (val * range);
+        changeX((int) newX);
+    }
 }
