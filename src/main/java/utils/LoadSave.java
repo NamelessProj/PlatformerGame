@@ -56,6 +56,7 @@ public class LoadSave {
 
     public static class Texts {
         public static final String CREDITS = "credits.txt";
+        public static final String SETTINGS = "settings.txt";
     }
 
     public static class Fonts {
@@ -127,7 +128,8 @@ public class LoadSave {
      */
     public static BufferedReader GetText(String fileName) {
         BufferedReader br = null;
-        InputStream is = LoadSave.class.getResourceAsStream("/texts/" + fileName);
+        String folder = fileName != Texts.SETTINGS ? "/texts/" : "/";
+        InputStream is = LoadSave.class.getResourceAsStream(folder + fileName);
 
         if (is != null)
             br = new BufferedReader(new InputStreamReader(is));
