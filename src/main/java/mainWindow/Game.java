@@ -50,6 +50,7 @@ public class Game implements Runnable {
         playing = new Playing(this);
         credits = new Credits(this);
         gameOptions = new GameOptions(this);
+        new Settings(this);
     }
 
     /**
