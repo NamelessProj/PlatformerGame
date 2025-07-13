@@ -140,4 +140,31 @@ public class AudioOptions {
         else if (isIn(e, volumeBtn))
             volumeBtn.setMouseOver(true);
     }
+
+    /**
+     * Sets the mute state for the music.
+     * @param muted true to mute the music, false to unmute it
+     */
+    public void setMusicMuted(boolean muted) {
+        musicButton.setMuted(muted);
+        game.getAudioPlayer().setSongMute(muted);
+    }
+
+    /**
+     * Sets the mute state for sound effects.
+     * @param muted true to mute sound effects, false to unmute them
+     */
+    public void setSoundMuted(boolean muted) {
+        sfxButton.setMuted(muted);
+        game.getAudioPlayer().setEffectMute(muted);
+    }
+
+    /**
+     * Sets the volume level for the audio.
+     * @param volume the volume level to set (0.0 to 1.0)
+     */
+    public void setVolume(float volume) {
+        volumeBtn.setFloatValue(volume);
+        game.getAudioPlayer().setVolume(volume);
+    }
 }
