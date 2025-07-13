@@ -246,4 +246,18 @@ public class HelpMethods {
         else
             return IsAllTilesWalkable(firstXTile, secondXTile, yTile, lvlData);
     }
+
+    /**
+     * Checks if a string can be parsed as a float.
+     * @param val the string to check
+     * @return true if the string can be parsed as a float, false otherwise
+     */
+    public static boolean IsFloat(String val) {
+        try {
+            Float.parseFloat(val);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
 }
