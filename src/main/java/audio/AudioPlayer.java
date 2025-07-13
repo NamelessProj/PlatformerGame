@@ -196,9 +196,11 @@ public class AudioPlayer {
         stopSong();
 
         currentSongId = song;
-        updateSongVolume();
-        songs[currentSongId].setLoop(true);
-        songs[currentSongId].play(true);
+        if (!songMute) {
+            updateSongVolume();
+            songs[currentSongId].setLoop(true);
+            songs[currentSongId].play(true);
+        }
     }
 
     /**
@@ -234,6 +236,15 @@ public class AudioPlayer {
     }
 
     /**
+     * Sets the mute state for the current song.
+     * @param mute true to mute the song, false to unmute it
+     */
+    public void setSongMute(boolean mute) {
+        if (this.songMute != mute)
+            toggleSongMute();
+    }
+
+    /**
      * Toggles the mute state for sound effects.
      * <p/>
      * If sound effects are muted, it stops all currently playing effects; otherwise, it plays the jump effect to let the player know effects are unmuted.
@@ -248,6 +259,15 @@ public class AudioPlayer {
         }
         if (!effectMute)
             playEffect(JUMP);
+    }
+
+    /**
+     * Sets the mute state for sound effects.
+     * @param mute true to mute sound effects, false to unmute them
+     */
+    public void setEffectMute(boolean mute) {
+        if (this.effectMute != mute)
+            toggleEffectMute();
     }
 
     /**
