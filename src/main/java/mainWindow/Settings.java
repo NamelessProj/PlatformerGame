@@ -8,10 +8,11 @@ import static utils.HelpMethods.IsFloat;
 
 public class Settings {
     public class Const {
-        public static final int NUM_SETTINGS = 3;
+        public static final int NUM_SETTINGS = 4;
         public static final String SOUND_MUTED = "sound_muted";
         public static final String MUSIC_MUTED = "music_muted";
         public static final String VOLUME = "volume";
+        public static final String SCALE = "scale";
     }
 
     private Game game;
@@ -56,6 +57,14 @@ public class Settings {
                                 game.getAudioOptions().setVolume(volume);
                             }
                         }
+                        case Const.SCALE -> {
+                            if (IsFloat(value)) {
+                                float scale = Float.parseFloat(value);
+                                if (scale <= 0)
+                                    scale = 1.0f;
+                                // Setting the scale in the game options
+                            }
+                        }
                     }
 
                     line = reader.readLine();
@@ -63,9 +72,8 @@ public class Settings {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } else {
+        } else
             createSettingsFile();
-        }
     }
 
     private void createSettingsFile() {
