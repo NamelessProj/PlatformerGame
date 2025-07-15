@@ -19,6 +19,7 @@ public class AudioOptions {
     /**
      * Constructor for the AudioOptions class.
      * @param game the game instance to access audio settings
+     * @param settings the Settings instance to initialize audio options
      */
     public AudioOptions(Game game, Settings settings) {
         this.game = game;
