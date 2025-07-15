@@ -44,13 +44,13 @@ public class Game implements Runnable {
      * Initializes the game classes used in the game.
      */
     private void initClasses() {
-        audioOptions = new AudioOptions(this);
+        Settings settings = new Settings();
         audioPlayer = new AudioPlayer();
+        audioOptions = new AudioOptions(this, settings);
         menu = new Menu(this);
         playing = new Playing(this);
         credits = new Credits(this);
         gameOptions = new GameOptions(this);
-        new Settings(this);
     }
 
     /**
