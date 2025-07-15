@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 
 import mainWindow.Game;
+import mainWindow.Settings;
 
 import static utils.Constants.GameConstants.SCALE;
 import static utils.Constants.UI.PauseButtons.SOUND_SIZE;
@@ -19,10 +20,14 @@ public class AudioOptions {
      * Constructor for the AudioOptions class.
      * @param game the game instance to access audio settings
      */
-    public AudioOptions(Game game) {
+    public AudioOptions(Game game, Settings settings) {
         this.game = game;
         createSoundButtons();
         createVolumeButton();
+
+        setMusicMuted(settings.getMusicMuted());
+        setSoundMuted(settings.getSoundMuted());
+        setVolume(settings.getVolume());
     }
 
     /**
