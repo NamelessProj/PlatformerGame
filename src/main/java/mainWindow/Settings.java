@@ -17,10 +17,16 @@ public class Settings {
     private boolean musicMuted, soundMuted;
     private float volume = 0.5f;
 
+    /**
+     * Constructor for the Settings class.
+     */
     public Settings() {
         loadSettings();
     }
 
+    /**
+     * Loads the settings from a file.
+     */
     private void loadSettings() {
         BufferedReader reader = LoadSave.GetText(LoadSave.Texts.SETTINGS);
 
@@ -58,22 +64,34 @@ public class Settings {
                 e.printStackTrace();
             }
         } else
-            createSettingsFile();
+            saveSettings(volume, soundMuted, musicMuted);
     }
 
-    private void createSettingsFile() {
+    public void saveSettings(float volume, boolean soundMuted, boolean musicMuted) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'createSettingsFile'");
+        throw new UnsupportedOperationException("Unimplemented method 'saveSettings'");
     }
 
+    /**
+     * Returns whether sound is muted.
+     * @return true if sound is muted, false otherwise.
+     */
     public boolean getSoundMuted() {
         return soundMuted;
     }
 
+    /**
+     * Returns whether music is muted.
+     * @return true if music is muted, false otherwise.
+     */
     public boolean getMusicMuted() {
         return musicMuted;
     }
 
+    /**
+     * Returns the volume level.
+     * @return the volume level.
+     */
     public float getVolume() {
         return volume;
     }
