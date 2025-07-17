@@ -5,7 +5,11 @@ import javax.imageio.ImageIO;
 import java.awt.Font;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -56,6 +60,7 @@ public class LoadSave {
 
     public static class Texts {
         public static final String CREDITS = "credits.txt";
+        public static final String EXT_FOLDER = "data/";
         public static final String SETTINGS = "settings.txt";
     }
 
@@ -128,8 +133,19 @@ public class LoadSave {
      */
     public static BufferedReader GetText(String fileName) {
         BufferedReader br = null;
-        String folder = fileName != Texts.SETTINGS ? "/texts/" : "/";
-        InputStream is = LoadSave.class.getResourceAsStream(folder + fileName);
+        InputStream is = null;
+
+        if (fileName.equals(Texts.SETTINGS)) {
+            File file = new File(Texts.EXT_FOLDER + fileName);
+            if (file.exists()) {
+                try {
+                    is = new FileInputStream(file);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        } else
+            is = LoadSave.class.getResourceAsStream("/texts/" + fileName);
 
         if (is != null)
             br = new BufferedReader(new InputStreamReader(is));
@@ -153,5 +169,25 @@ public class LoadSave {
         }
 
         return font;
+    }
+
+    public static void SaveText(String fileName, String text) {
+        File dir = new File(Texts.EXT_FOLDER);
+        if (!dir.exists())
+            dir.mkdirs();
+
+        File file = new File(Texts.EXT_FOLDER + fileName);
+
+        try {
+            if (!file.exists())
+                if (!file.createNewFile())
+                    throw new IOException("Could not create file: " + file.getAbsolutePath());
+
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+                writer.write(text);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
