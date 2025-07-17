@@ -7,7 +7,7 @@ import utils.LoadSave;
 import static utils.HelpMethods.IsFloat;
 
 public class Settings {
-    public class Const {
+    public static class Const {
         public static final String EQUALS = "=";
         public static final int NUM_SETTINGS = 3;
         public static final String SOUND_MUTED = "sound_muted";
