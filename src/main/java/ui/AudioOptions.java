@@ -13,6 +13,7 @@ import static utils.Constants.UI.VolumeButtons.VOLUME_HEIGHT;
 
 public class AudioOptions {
     private Game game;
+    private Settings settings;
     private VolumeButton volumeBtn;
     private SoundButton musicButton, sfxButton;
 
@@ -23,6 +24,7 @@ public class AudioOptions {
      */
     public AudioOptions(Game game, Settings settings) {
         this.game = game;
+        this.settings = settings;
         createSoundButtons();
         createVolumeButton();
 
@@ -113,17 +115,24 @@ public class AudioOptions {
      * @param e the MouseEvent containing the mouse position
      */
     public void mouseReleased(MouseEvent e) {
+        boolean isReleased = false;
+
         if (isIn(e, musicButton)) {
             if (musicButton.isMousePressed()) {
+                isReleased = true;
                 musicButton.setMuted(!musicButton.isMuted());
                 game.getAudioPlayer().toggleSongMute();
             }
         } else if (isIn(e, sfxButton)) {
             if (sfxButton.isMousePressed()) {
+                isReleased = true;
                 sfxButton.setMuted(!sfxButton.isMuted());
                 game.getAudioPlayer().toggleEffectMute();
             }
         }
+
+        if (isReleased || volumeBtn.isMousePressed())
+            settings.saveSettings(volumeBtn.getFloatValue(), sfxButton.isMuted(), musicButton.isMuted());
 
         musicButton.resetBools();
         sfxButton.resetBools();
