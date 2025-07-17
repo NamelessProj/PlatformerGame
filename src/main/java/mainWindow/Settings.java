@@ -8,6 +8,7 @@ import static utils.HelpMethods.IsFloat;
 
 public class Settings {
     public class Const {
+        public static final String EQUALS = "=";
         public static final int NUM_SETTINGS = 3;
         public static final String SOUND_MUTED = "sound_muted";
         public static final String MUSIC_MUTED = "music_muted";
@@ -35,13 +36,13 @@ public class Settings {
                 int i = 0;
                 String line = reader.readLine();
                 while (line != null) {
-                    if (line.isBlank() || !line.contains("="))
+                    if (line.isBlank() || !line.contains(Const.EQUALS))
                         continue;
 
                     if (i++ >= Const.NUM_SETTINGS)
                         break;
 
-                    String[] parts = line.toLowerCase().split("=", 2);
+                    String[] parts = line.toLowerCase().split(Const.EQUALS, 2);
                     String key = parts[0].trim();
                     String value = parts[1].trim();
 
@@ -68,8 +69,15 @@ public class Settings {
     }
 
     public void saveSettings(float volume, boolean soundMuted, boolean musicMuted) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'saveSettings'");
+        this.volume = volume;
+        this.soundMuted = soundMuted;
+        this.musicMuted = musicMuted;
+
+        StringBuilder sb = new StringBuilder();
+        sb.append(Const.SOUND_MUTED).append(Const.EQUALS).append(soundMuted).append("\n");
+        sb.append(Const.MUSIC_MUTED).append(Const.EQUALS).append(musicMuted).append("\n");
+        sb.append(Const.VOLUME).append(Const.EQUALS).append(volume).append("\n");
+        LoadSave.SaveText(LoadSave.Texts.SETTINGS, sb.toString());
     }
 
     /**
