@@ -1,6 +1,14 @@
 package utils;
 
 public class Constants {
+    public static class Saves {
+        public static final String SAVE_FILE_NAME = "savegame";
+        public static final String SAVE_FILE_EXTENSION = ".txt";
+        public static final char DATA_SEPARATOR = ';';
+        public static final char TYPE_SEPARATOR = '_';
+        public static final char ENTITY_SEPARATOR = '-';
+    }
+
     public static class Dialogue {
         public static final int QUESTION = 0;
         public static final int EXCLAMATION = 1;
