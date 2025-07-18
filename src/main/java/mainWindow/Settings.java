@@ -68,6 +68,12 @@ public class Settings {
             saveSettings(volume, soundMuted, musicMuted);
     }
 
+    /**
+     * Saves the current settings to a file.
+     * @param volume the volume level to save.
+     * @param soundMuted whether sound is muted.
+     * @param musicMuted whether music is muted.
+     */
     public void saveSettings(float volume, boolean soundMuted, boolean musicMuted) {
         this.volume = volume;
         this.soundMuted = soundMuted;
