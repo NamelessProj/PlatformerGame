@@ -171,6 +171,11 @@ public class LoadSave {
         return font;
     }
 
+    /**
+     * Saves text to a file in the specified directory.
+     * @param fileName the name of the file to save
+     * @param text the text content to save
+     */
     public static void SaveText(String fileName, String text) {
         File dir = new File(Texts.EXT_FOLDER);
         if (!dir.exists())
