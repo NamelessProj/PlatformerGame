@@ -3,6 +3,7 @@ package entities;
 import gamestates.Playing;
 import utils.LoadSave;
 
+import static utils.Constants.Saves.DATA_SEPARATOR;
 import static utils.Constants.Directions.*;
 import static utils.Constants.GameConstants.*;
 import static utils.Constants.PlayerConstants.*;
@@ -664,5 +665,20 @@ public class Player extends Entity {
         this.x = spawnPoint.x;
         this.y = spawnPoint.y;
         resetAll();
+    }
+
+    @Override
+    public String toString() {
+        int dir = left ? -1 : 1;
+        int[] data = new int[]{(int) x, (int) y, dir, currentHealth, powerValue};
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 0; i < data.length; i++)
+            sb.append(data[i]).append(DATA_SEPARATOR);
+
+        if (sb.length() > 0) // Remove the last separator
+            sb.setLength(sb.length() - 1);
+
+        return sb.toString();
     }
 }
