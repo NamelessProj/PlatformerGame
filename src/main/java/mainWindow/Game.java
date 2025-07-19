@@ -6,6 +6,7 @@ import gamestates.Gamestate;
 import gamestates.Menu;
 import gamestates.Playing;
 import ui.AudioOptions;
+import utils.Constants;
 import audio.AudioPlayer;
 
 import java.awt.Graphics;
@@ -45,6 +46,9 @@ public class Game implements Runnable {
      */
     private void initClasses() {
         Settings settings = new Settings();
+
+        Constants.UpdateConstantsDependingOnScale(settings.getScale());
+
         audioPlayer = new AudioPlayer();
         audioOptions = new AudioOptions(this, settings);
         menu = new Menu(this);
