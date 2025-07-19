@@ -674,8 +674,8 @@ public class Player extends Entity {
         int[] data = new int[]{(int) x, (int) y, dir, currentHealth, powerValue};
         StringBuilder sb = new StringBuilder(PLAYER_DECLARATION);
 
-        for (int i = 0; i < data.length; i++)
-            sb.append(data[i]).append(DATA_SEPARATOR);
+        for (int i : data)
+            sb.append(i).append(DATA_SEPARATOR);
 
         if (sb.length() > 0) // Remove the last separator
             sb.setLength(sb.length() - 1);
