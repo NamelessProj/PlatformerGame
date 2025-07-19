@@ -7,6 +7,8 @@ public class Constants {
         public static final String DATA_SEPARATOR = ";";
         public static final String TYPE_SEPARATOR = "_";
         public static final String ENTITY_SEPARATOR = "-";
+        public static final String PLAYER_DECLARATION = "player=";
+        public static final String ENEMIES_DECLARATION = "enemies=";
     }
 
     public static class Dialogue {
