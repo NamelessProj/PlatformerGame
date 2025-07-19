@@ -322,14 +322,6 @@ public abstract class Enemy extends Entity {
     @Override
     public String toString() {
         int[] data = new int[]{(int) x, (int) y, walkDir, currentHealth};
-        StringBuilder sb = new StringBuilder(Integer.toString(enemyType) + DATA_EQUAL);
-        
-        for (int i : data)
-            sb.append(i).append(DATA_SEPARATOR);
-
-        if (sb.length() > 0)
-            sb.deleteCharAt(sb.length() - 1); // Remove the last separator
-
-        return sb.toString();
+        return toString(data);
     }
 }
