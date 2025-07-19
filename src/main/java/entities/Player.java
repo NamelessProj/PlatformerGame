@@ -4,7 +4,6 @@ import gamestates.Playing;
 import utils.LoadSave;
 
 import static utils.Constants.Saves.DATA_SEPARATOR;
-import static utils.Constants.Saves.PLAYER_DECLARATION;
 import static utils.Constants.Directions.*;
 import static utils.Constants.GameConstants.*;
 import static utils.Constants.PlayerConstants.*;
@@ -672,7 +671,7 @@ public class Player extends Entity {
     public String toString() {
         int dir = left ? -1 : 1;
         int[] data = new int[]{(int) x, (int) y, dir, currentHealth, powerValue};
-        StringBuilder sb = new StringBuilder(PLAYER_DECLARATION);
+        StringBuilder sb = new StringBuilder();
 
         for (int i : data)
             sb.append(i).append(DATA_SEPARATOR);
