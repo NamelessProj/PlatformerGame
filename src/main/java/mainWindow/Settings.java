@@ -72,11 +72,11 @@ public class Settings {
                     line = reader.readLine();
                 }
 
+                reader.close();
+
                 if (scale == -1f) {
                     scale = 1f; // Default scale if not set
                 }
-
-                reader.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
