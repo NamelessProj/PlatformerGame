@@ -2,8 +2,6 @@ package utils;
 
 public class Constants {
     public static class Saves {
-        public static final String SAVE_FILE_NAME = "savegame";
-        public static final String SAVE_FILE_EXTENSION = ".txt";
         public static final String DATA_EQUAL = "=";
         public static final String DATA_SEPARATOR = ";";
         public static final String TYPE_SEPARATOR = "_";
