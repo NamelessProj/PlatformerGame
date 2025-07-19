@@ -4,11 +4,12 @@ public class Constants {
     public static class Saves {
         public static final String SAVE_FILE_NAME = "savegame";
         public static final String SAVE_FILE_EXTENSION = ".txt";
+        public static final String DATA_EQUAL = "=";
         public static final String DATA_SEPARATOR = ";";
         public static final String TYPE_SEPARATOR = "_";
         public static final String ENTITY_SEPARATOR = "-";
-        public static final String PLAYER_DECLARATION = "player=";
-        public static final String ENEMIES_DECLARATION = "enemies=";
+        public static final String PLAYER_DECLARATION = "player" + DATA_EQUAL;
+        public static final String ENEMIES_DECLARATION = "enemies" + DATA_EQUAL;
     }
 
     public static class Dialogue {
