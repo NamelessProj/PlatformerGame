@@ -9,14 +9,16 @@ import static utils.HelpMethods.IsFloat;
 public class Settings {
     public static class Const {
         public static final String EQUALS = "=";
-        public static final int NUM_SETTINGS = 3;
+        public static final int NUM_SETTINGS = 4;
         public static final String SOUND_MUTED = "sound_muted";
         public static final String MUSIC_MUTED = "music_muted";
         public static final String VOLUME = "volume";
+        public static final String SCALE = "scale";
     }
 
     private boolean musicMuted, soundMuted;
     private float volume = 0.5f;
+    private float scale = -1f;
 
     /**
      * Constructor for the Settings class.
@@ -57,9 +59,21 @@ public class Settings {
                                 this.volume = volume;
                             }
                         }
+                        case Const.SCALE -> {
+                            if (IsFloat(value)) {
+                                float scale = Float.parseFloat(value);
+                                if (scale <= 0)
+                                    scale = 1f;
+                                this.scale = scale;
+                            }
+                        }
                     }
 
                     line = reader.readLine();
+                }
+
+                if (scale == -1f) {
+                    scale = 1f; // Default scale if not set
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -83,6 +97,7 @@ public class Settings {
         sb.append(Const.SOUND_MUTED).append(Const.EQUALS).append(soundMuted).append("\n");
         sb.append(Const.MUSIC_MUTED).append(Const.EQUALS).append(musicMuted).append("\n");
         sb.append(Const.VOLUME).append(Const.EQUALS).append(volume).append("\n");
+        sb.append(Const.SCALE).append(Const.EQUALS).append(scale).append("\n");
         LoadSave.SaveText(LoadSave.Texts.SETTINGS, sb.toString());
     }
 
@@ -108,5 +123,9 @@ public class Settings {
      */
     public float getVolume() {
         return volume;
+    }
+
+    public float getScale() {
+        return scale;
     }
 }
