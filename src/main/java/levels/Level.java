@@ -1,6 +1,7 @@
 package levels;
 
 import entities.Crabby;
+import entities.Enemy;
 import entities.Pinkstar;
 import entities.Shark;
 import objects.Cannon;
@@ -224,5 +225,20 @@ public class Level {
      */
     public Point getPlayerSpawn() {
         return playerSpawn;
+    }
+
+    public ArrayList<Enemy> getAllEnemies() {
+        ArrayList<Enemy> allEnemies = new ArrayList<>();
+
+        for (Crabby c : crabs)
+            allEnemies.add(c);
+            
+        for (Pinkstar p : pinkstars)
+            allEnemies.add(p);
+
+        for (Shark s : sharks)
+            allEnemies.add(s);
+
+        return allEnemies;
     }
 }
