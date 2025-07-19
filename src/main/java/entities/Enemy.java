@@ -307,6 +307,10 @@ public abstract class Enemy extends Entity {
 			return 1;
 	}
 
+    public int getEnemyType() {
+        return enemyType;
+    }
+
     /**
      * Gets the push draw offset for rendering the enemy's pushback effect.
      * @return The push draw offset value.
