@@ -7,6 +7,7 @@ import utils.LoadSave;
 import java.awt.Graphics;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import static utils.Constants.EnemyConstants.*;
 
@@ -188,5 +189,9 @@ public class EnemyManager {
 
         for (Shark s : currentLevel.getSharks())
             s.resetEnemy();
+    }
+
+    public ArrayList<Enemy> getAllEnemies() {
+        return currentLevel.getAllEnemies();
     }
 }
