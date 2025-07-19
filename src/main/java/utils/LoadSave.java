@@ -165,6 +165,7 @@ public class LoadSave {
 
         try {
             font = Font.createFont(Font.TRUETYPE_FONT, is);
+            is.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -191,6 +192,7 @@ public class LoadSave {
 
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
                 writer.write(text);
+                writer.close();
             }
         } catch (Exception e) {
             e.printStackTrace();
