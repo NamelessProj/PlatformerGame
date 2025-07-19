@@ -6,6 +6,7 @@ import java.awt.geom.Rectangle2D;
 
 import static utils.Constants.Directions.*;
 import static utils.Constants.GameConstants.SCALE;
+import static utils.Constants.Saves.DATA_SEPARATOR;
 import static utils.HelpMethods.CanMoveHere;
 
 public abstract class Entity {
@@ -144,5 +145,22 @@ public abstract class Entity {
      */
     public void setPushBackDirection(int pushBackDirection) {
         this.pushBackDirection = pushBackDirection;
+    }
+
+    /**
+     * Converts an array of integers to a string representation.
+     * @param arr The array of integers to convert.
+     * @return A string representation of the array, with elements separated by DATA_SEPARATOR.
+     * @see utils.Constants.Saves#DATA_SEPARATOR
+     */
+    protected String toString(int[] arr) {
+        StringBuilder sb = new StringBuilder();
+        for (int i : arr)
+            sb.append(i).append(DATA_SEPARATOR);
+
+        if (sb.length() > 0) // Remove the last separator
+            sb.setLength(sb.length() - 1);
+
+        return sb.toString();
     }
 }
