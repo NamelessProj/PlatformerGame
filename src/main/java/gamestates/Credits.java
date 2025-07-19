@@ -146,9 +146,10 @@ public class Credits extends State implements Statemethods {
         try {
             int startMargin = (int) (100 * SCALE);
             int margin = (int) (50 * SCALE);
-            int x = (int) (GAME_WIDTH / 6 * SCALE);
+            int x = (int) (350 * SCALE);
             String line = reader.readLine();
             int i = 0;
+
             while (line != null) {
                 if (!line.trim().isEmpty()) {
                     int y = i * margin + GAME_HEIGHT + startMargin;
