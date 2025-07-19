@@ -166,6 +166,7 @@ public class Credits extends State implements Statemethods {
 
                 line = reader.readLine();
             }
+            reader.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
