@@ -7,6 +7,7 @@ import gamestates.Playing;
 import static utils.Constants.Directions.*;
 import static utils.Constants.EnemyConstants.*;
 import static utils.Constants.GameConstants.*;
+import static utils.Constants.Saves.DATA_EQUAL;
 import static utils.Constants.Saves.DATA_SEPARATOR;
 import static utils.HelpMethods.*;
 
@@ -317,7 +318,7 @@ public abstract class Enemy extends Entity {
     @Override
     public String toString() {
         int[] data = new int[]{(int) x, (int) y, walkDir, currentHealth};
-        StringBuilder sb = new StringBuilder(Integer.toString(enemyType));
+        StringBuilder sb = new StringBuilder(Integer.toString(enemyType) + DATA_EQUAL);
         
         for (int i : data)
             sb.append(i).append(DATA_SEPARATOR);
