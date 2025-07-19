@@ -62,6 +62,7 @@ public class LoadSave {
         public static final String CREDITS = "credits.txt";
         public static final String EXT_FOLDER = "data/";
         public static final String SETTINGS = "settings.txt";
+        public static final String SAVE = "savegame.txt";
     }
 
     public static class Fonts {
