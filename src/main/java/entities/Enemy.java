@@ -7,6 +7,7 @@ import gamestates.Playing;
 import static utils.Constants.Directions.*;
 import static utils.Constants.EnemyConstants.*;
 import static utils.Constants.GameConstants.*;
+import static utils.Constants.Saves.DATA_SEPARATOR;
 import static utils.HelpMethods.*;
 
 public abstract class Enemy extends Entity {
@@ -312,4 +313,18 @@ public abstract class Enemy extends Entity {
     public float getPushDrawOffset() {
 		return pushDrawOffset;
 	}
+
+    @Override
+    public String toString() {
+        int[] data = new int[]{(int) x, (int) y, walkDir, currentHealth};
+        StringBuilder sb = new StringBuilder(Integer.toString(enemyType));
+        
+        for (int i : data)
+            sb.append(i).append(DATA_SEPARATOR);
+
+        if (sb.length() > 0)
+            sb.deleteCharAt(sb.length() - 1); // Remove the last separator
+
+        return sb.toString();
+    }
 }
