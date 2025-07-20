@@ -2,6 +2,9 @@ package mainWindow;
 
 import java.io.BufferedReader;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+
 import utils.LoadSave;
 
 import static utils.HelpMethods.IsFloat;
@@ -74,14 +77,28 @@ public class Settings {
 
                 reader.close();
 
-                if (scale == -1f) {
-                    scale = 1f; // Default scale if not set
-                }
+                if (scale == -1f)
+                    updateScaleBasedOnScreenSize();
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } else
-            saveSettings(volume, soundMuted, musicMuted);
+        }
+        saveSettings(volume, soundMuted, musicMuted);
+    }
+
+    private void updateScaleBasedOnScreenSize() {
+        int gameWidth = 832;
+        int gameHeight = 448;
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+
+        double screenWidth = screenSize.getWidth();
+        double screenHeight = screenSize.getHeight();
+
+        double scaleX = screenWidth / gameWidth;
+        double scaleY = screenHeight / gameHeight;
+        double scale = Math.min(scaleX, scaleY);
+
+        this.scale = (float) scale - 1;
     }
 
     /**
