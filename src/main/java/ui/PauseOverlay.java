@@ -154,9 +154,8 @@ public class PauseOverlay {
             if (unpauseBtn.isMousePressed())
                 playing.unPauseGame();
         } else if (isIn(e, saveBtn)) {
-            if (saveBtn.isMousePressed()) {
-                System.out.println("Saving game...");
-            }
+            if (saveBtn.isMousePressed())
+                playing.getGameSaves().saveGame();
         } else
             audioOptions.mouseReleased(e);
 
