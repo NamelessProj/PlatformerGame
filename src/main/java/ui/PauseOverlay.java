@@ -41,7 +41,7 @@ public class PauseOverlay {
         int saveX = (int) (415 * SCALE);
 
         int btnY = (int) (305 * SCALE);
-        int saveY = (int) (370 * SCALE);
+        int saveY = (int) (360 * SCALE);
 
         menuBtn = new UrmButton(menuX, btnY, URM_SIZE, URM_SIZE, 2);
         replayBtn = new UrmButton(replayX, btnY, URM_SIZE, URM_SIZE, 1);
