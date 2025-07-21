@@ -38,7 +38,7 @@ public class AudioOptions {
      */
     private void createVolumeButton() {
         int vX = (int) (309 * SCALE);
-        int vY = (int) (278 * SCALE);
+        int vY = (int) (258 * SCALE);
         volumeBtn = new VolumeButton(vX, vY, SLIDER_WIDTH, VOLUME_HEIGHT);
     }
 
@@ -46,9 +46,9 @@ public class AudioOptions {
      * Creates the sound buttons for toggling music and sound effects.
      */
     private void createSoundButtons() {
-        int soundX = (int) (450 * SCALE);
-        int musicY = (int) (140 * SCALE);
-        int sfxY = (int) (186 * SCALE);
+        int soundX = (int) (430 * SCALE);
+        int musicY = (int) (120 * SCALE);
+        int sfxY = (int) (166 * SCALE);
 
         musicButton = new SoundButton(soundX, musicY, SOUND_SIZE, SOUND_SIZE);
         sfxButton = new SoundButton(soundX, sfxY, SOUND_SIZE, SOUND_SIZE);
