@@ -198,4 +198,9 @@ public class LoadSave {
             e.printStackTrace();
         }
     }
+
+    public static boolean DoesFileExists(String fileName) {
+        File file = new File(Texts.EXT_FOLDER + fileName);
+        return file.exists();
+    }
 }
