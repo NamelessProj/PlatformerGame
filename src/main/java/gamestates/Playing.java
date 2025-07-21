@@ -2,6 +2,7 @@ package gamestates;
 
 import entities.EnemyManager;
 import entities.Player;
+import gamesaves.GameSaves;
 import levels.LevelManager;
 import mainWindow.Game;
 import objects.ObjectManager;
@@ -34,6 +35,7 @@ public class Playing extends State implements Statemethods {
     private GameOverOverlay gameOverOverlay;
     private GameCompletedOverlay gameCompletedOverlay;
     private LevelCompletedOverlay levelCompletedOverlay;
+    private GameSaves gameSaves;
 
     private boolean paused = false;
 
@@ -142,6 +144,7 @@ public class Playing extends State implements Statemethods {
         levelManager = new LevelManager(game);
         enemyManager = new EnemyManager(this);
         objectManager = new ObjectManager(this);
+        gameSaves = new GameSaves(this);
 
         player = new Player(200, 200, (int) (64 * GameConstants.SCALE), (int) (40 * GameConstants.SCALE), this);
         player.loadLvlData(levelManager.getCurrentLevel().getLevelData());
@@ -474,5 +477,13 @@ public class Playing extends State implements Statemethods {
      */
     public void setPlayerDying(boolean playerDying) {
         this.playerDying = playerDying;
+    }
+
+    /**
+     * Get the game saves instance.
+     * @return the game saves instance
+     */
+    public GameSaves getGameSaves() {
+        return gameSaves;
     }
 }
