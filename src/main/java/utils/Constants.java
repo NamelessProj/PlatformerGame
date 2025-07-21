@@ -269,6 +269,10 @@ public class Constants {
         public static final int ANIMATION_SPEED = 25;
     }
 
+    /**
+     * Updates the game constants based on the provided scale.
+     * @param scale the scale factor to apply
+     */
     public static void UpdateConstantsDependingOnScale(float scale) {
         GameConstants.SCALE = scale;
         GameConstants.TILES_SIZE *= scale;
