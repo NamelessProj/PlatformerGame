@@ -86,6 +86,9 @@ public class Settings {
         saveSettings(volume, soundMuted, musicMuted);
     }
 
+    /**
+     * Updates the scale based on the current screen size.
+     */
     private void updateScaleBasedOnScreenSize() {
         int gameWidth = 832;
         int gameHeight = 448;
@@ -144,6 +147,10 @@ public class Settings {
         return volume;
     }
 
+    /**
+     * Returns the scale factor.
+     * @return the scale factor.
+     */
     public float getScale() {
         return scale;
     }
