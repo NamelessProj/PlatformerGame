@@ -17,6 +17,7 @@ public class PauseOverlay {
     private BufferedImage backgroundImg;
     private int bgX, bgY, bgWidth, bgHeight;
     private UrmButton menuBtn, replayBtn, unpauseBtn;
+    private MenuButton saveBtn;
     private AudioOptions audioOptions;
 
     /**
@@ -27,21 +28,25 @@ public class PauseOverlay {
         this.playing = playing;
         this.audioOptions = playing.getGame().getAudioOptions();
         loadBackground();
-        createUrmButtons();
+        createButtons();
     }
 
     /**
      * Creates the URM (Unpause, Replay, Menu) buttons for the pause overlay.
      */
-    private void createUrmButtons() {
+    private void createButtons() {
         int menuX = (int) (313 * SCALE);
         int replayX = (int) (387 * SCALE);
-        int unpauseX = (int) (462 * SCALE);
-        int btnY = (int) (325 * SCALE);
+        int unpauseX = (int) (461 * SCALE);
+        int saveX = (int) (415 * SCALE);
+
+        int btnY = (int) (305 * SCALE);
+        int saveY = (int) (370 * SCALE);
 
         menuBtn = new UrmButton(menuX, btnY, URM_SIZE, URM_SIZE, 2);
         replayBtn = new UrmButton(replayX, btnY, URM_SIZE, URM_SIZE, 1);
         unpauseBtn = new UrmButton(unpauseX, btnY, URM_SIZE, URM_SIZE, 0);
+        saveBtn = new MenuButton(saveX, saveY, 5, Gamestate.OPTIONS);
     }
 
     /**
@@ -52,7 +57,7 @@ public class PauseOverlay {
         bgWidth = (int) (backgroundImg.getWidth() * SCALE);
         bgHeight = (int) (backgroundImg.getHeight() * SCALE);
         bgX = GAME_WIDTH / 2 - bgWidth / 2;
-        bgY = (int) (25 * SCALE);
+        bgY = (int) (5 * SCALE);
     }
 
     /**
@@ -62,6 +67,7 @@ public class PauseOverlay {
         menuBtn.update();
         replayBtn.update();
         unpauseBtn.update();
+        saveBtn.update();
 
         audioOptions.update();
     }
@@ -78,6 +84,7 @@ public class PauseOverlay {
         menuBtn.draw(g);
         replayBtn.draw(g);
         unpauseBtn.draw(g);
+        saveBtn.draw(g);
 
         audioOptions.draw(g);
     }
@@ -89,6 +96,16 @@ public class PauseOverlay {
      * @return true if the mouse is within the button bounds, false otherwise
      */
     private boolean isIn(MouseEvent e, PauseButton btn) {
+        return btn.getBounds().contains(e.getX(), e.getY());
+    }
+
+    /**
+     * Checks if the mouse event is within the bounds of a button.
+     * @param e the MouseEvent to check
+     * @param btn the PauseButton to check against
+     * @return true if the mouse is within the button bounds, false otherwise
+     */
+    private boolean isIn(MouseEvent e, MenuButton btn) {
         return btn.getBounds().contains(e.getX(), e.getY());
     }
 
@@ -111,6 +128,8 @@ public class PauseOverlay {
             replayBtn.setMousePressed(true);
         else if (isIn(e, unpauseBtn))
             unpauseBtn.setMousePressed(true);
+        else if (isIn(e, saveBtn))
+            saveBtn.setMousePressed(true);
         else
             audioOptions.mousePressed(e);
     }
@@ -134,12 +153,17 @@ public class PauseOverlay {
         } else if (isIn(e, unpauseBtn)) {
             if (unpauseBtn.isMousePressed())
                 playing.unPauseGame();
+        } else if (isIn(e, saveBtn)) {
+            if (saveBtn.isMousePressed()) {
+                System.out.println("Saving game...");
+            }
         } else
             audioOptions.mouseReleased(e);
 
         menuBtn.resetBools();
         replayBtn.resetBools();
         unpauseBtn.resetBools();
+        saveBtn.resetBools();
     }
 
     /**
@@ -150,6 +174,7 @@ public class PauseOverlay {
         menuBtn.setMouseOver(false);
         replayBtn.setMouseOver(false);
         unpauseBtn.setMouseOver(false);
+        saveBtn.setMouseOver(false);
 
         if (isIn(e, menuBtn))
             menuBtn.setMouseOver(true);
@@ -157,6 +182,8 @@ public class PauseOverlay {
             replayBtn.setMouseOver(true);
         else if (isIn(e, unpauseBtn))
             unpauseBtn.setMouseOver(true);
+        else if (isIn(e, saveBtn))
+            saveBtn.setMouseOver(true);
         else
             audioOptions.mouseMoved(e);
     }
