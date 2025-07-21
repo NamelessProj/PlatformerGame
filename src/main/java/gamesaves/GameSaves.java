@@ -12,10 +12,17 @@ import utils.LoadSave;
 public class GameSaves {
     private Playing playing;
 
+    /**
+     * Constructor for the GameSaves class.
+     * @param playing the Playing instance
+     */
     public GameSaves(Playing playing) {
         this.playing = playing;
     }
 
+    /**
+     * Saves the current game state to a file.
+     */
     public void saveGame() {
         StringBuilder saveData = new StringBuilder();
         ArrayList<Enemy> allEnemies = playing.getEnemyManager().getAllEnemies();
