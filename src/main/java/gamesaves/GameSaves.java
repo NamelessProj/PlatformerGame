@@ -55,4 +55,14 @@ public class GameSaves {
         // Save the data to a file
         LoadSave.SaveText(LoadSave.Texts.SAVE, saveData.toString());
     }
+
+    public boolean isSaveAvailable() {
+        return LoadSave.DoesFileExists(LoadSave.Texts.SAVE);
+    }
+
+    public void loadGame() {
+        System.out.println("Loading game...");
+        playing.getEnemyManager().loadEnemies(playing.getLevelManager().getCurrentLevel());
+        playing.getObjectManager().loadObjects(playing.getLevelManager().getCurrentLevel());
+    }
 }
