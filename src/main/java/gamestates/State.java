@@ -1,9 +1,6 @@
 package gamestates;
 
 import mainWindow.Game;
-import ui.MenuButton;
-
-import java.awt.event.MouseEvent;
 
 import audio.AudioPlayer;
 
