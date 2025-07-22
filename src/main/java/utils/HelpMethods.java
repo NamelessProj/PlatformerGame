@@ -276,6 +276,20 @@ public class HelpMethods {
     }
 
     /**
+     * Checks if a string can be parsed as an integer.
+     * @param val the string to check
+     * @return {@code true} if the string can be parsed as an integer, {@code false} otherwise
+     */
+    public static boolean IsInt(String val) {
+        try {
+            Integer.parseInt(val);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    /**
      * Checks if the mouse event is within the bounds of the specified button.
      * @param e the {@link MouseEvent} to check
      * @param b the {@link MyButton} to check
