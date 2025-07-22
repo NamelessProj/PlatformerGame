@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
 
 import static utils.Constants.UI.URMButtons.*;
 
-public class UrmButton extends PauseButton {
+public class UrmButton extends MyButton {
     private BufferedImage[] imgs;
     private int rowIndex, index;
     private boolean mouseOver, mousePressed;

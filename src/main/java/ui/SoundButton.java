@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
 
 import static utils.Constants.UI.PauseButtons.SOUND_SIZE_DEFAULT;
 
-public class SoundButton extends PauseButton {
+public class SoundButton extends MyButton {
     private BufferedImage[][] soundImgs;
     private boolean mouseOver, mousePressed;
     private boolean muted;
