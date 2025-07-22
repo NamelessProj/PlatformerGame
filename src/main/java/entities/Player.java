@@ -66,6 +66,7 @@ public class Player extends Entity {
      * @param y      The y-coordinate of the player.
      * @param width  The width of the player.
      * @param height The height of the player.
+     * @param playing The {@link Playing} instance that manages the game state and player interactions.
      */
     public Player(float x, float y, int width, int height, Playing playing) {
         super(x, y, width, height);
@@ -81,7 +82,7 @@ public class Player extends Entity {
 
     /**
      * Sets the spawn point for the player.
-     * @param spawn The Point object representing the spawn coordinates.
+     * @param spawn The {@link Point} object representing the spawn coordinates.
      */
     public void setSpawn(Point spawn) {
         this.x = spawn.x;
@@ -261,7 +262,7 @@ public class Player extends Entity {
 
     /**
      * Draws the player on the screen.
-     * @param g The Graphics object used for drawing.
+     * @param g The {@link Graphics} object used for drawing.
      * @param xLvlOffset The x-coordinate offset for the level, used to adjust the drawing position of the player.
      */
     public void render(Graphics g, int xLvlOffset) {
@@ -278,7 +279,7 @@ public class Player extends Entity {
 
     /**
      * Draws the user interface elements such as the status bar, health bar, and power bar.
-     * @param g The Graphics object used for drawing the UI elements.
+     * @param g The {@link Graphics} object used for drawing the UI elements.
      */
     private void drawUI(Graphics g) {
         // Background UI
@@ -485,7 +486,7 @@ public class Player extends Entity {
     /**
      * Changes the player's health by a specified value and sets the push back direction based on the enemy's position.
      * @param val The value to change the health by. Positive values increase health, negative values decrease it.
-     * @param e The enemy that caused the health change, used to determine the push back direction.
+     * @param e The {@link Enemy} that caused the health change, used to determine the push back direction.
      */
     public void changeHealth(int val, Enemy e) {
         if (state == HIT)
@@ -570,7 +571,7 @@ public class Player extends Entity {
 
     /**
      * Sets the attacking state of the player.
-     * @param attacking true to set the player as attacking, false otherwise.
+     * @param attacking {@code true} to set the player as attacking, {@code false} otherwise.
      */
     public void setAttacking(boolean attacking) {
         this.attacking = attacking;
@@ -578,7 +579,7 @@ public class Player extends Entity {
 
     /**
      * Checks if the player is going to the right.
-     * @return true if the player is moving right, false otherwise.
+     * @return {@code true} if the player is moving right, {@code false} otherwise.
      */
     public boolean isRight() {
         return right;
@@ -586,7 +587,7 @@ public class Player extends Entity {
 
     /**
      * Sets the player's right movement state.
-     * @param right true to set the player as moving right, false otherwise.
+     * @param right {@code true} to set the player as moving right, {@code false} otherwise.
      */
     public void setRight(boolean right) {
         this.right = right;
@@ -594,7 +595,7 @@ public class Player extends Entity {
 
     /**
      * Checks if the player is going to the left.
-     * @return true if the player is moving left, false otherwise.
+     * @return {@code true} if the player is moving left, {@code false} otherwise.
      */
     public boolean isLeft() {
         return left;
@@ -602,7 +603,7 @@ public class Player extends Entity {
 
     /**
      * Sets the player's left movement state.
-     * @param left true to set the player as moving left, false otherwise.
+     * @param left {@code true} to set the player as moving left, {@code false} otherwise.
      */
     public void setLeft(boolean left) {
         this.left = left;
@@ -610,7 +611,7 @@ public class Player extends Entity {
 
     /**
      * Checks if the player is jumping.
-     * @return true if the player is jumping, false otherwise.
+     * @return {@code true} if the player is jumping, {@code false} otherwise.
      */
     public void setJump(boolean jump) {
         this.jump = jump;
@@ -658,7 +659,7 @@ public class Player extends Entity {
 
     /**
      * Sets the spawn point for the player.
-     * @param spawnPoint The Point object representing the spawn coordinates.
+     * @param spawnPoint The {@link Point} object representing the spawn coordinates.
      */
     public void setSpawnPoint(Point spawnPoint) {
         this.x = spawnPoint.x;

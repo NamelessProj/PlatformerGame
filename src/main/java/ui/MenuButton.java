@@ -8,36 +8,27 @@ import java.awt.image.BufferedImage;
 
 import static utils.Constants.UI.Buttons.*;
 
-public class MenuButton {
-    private int xPos, yPos, rowIndex, index;
+public class MenuButton extends MyButton {
+    private int rowIndex, index;
     private int xOffsetCenter = B_WIDTH / 2;
     private Gamestate state;
     private BufferedImage[] imgs;
     private boolean mouseOver, mousePressed;
-    private Rectangle bounds;
 
     /**
      * Constructor for the MenuButton class.
-     * @param xPos the x-coordinate of the button
-     * @param yPos the y-coordinate of the button
+     * @param x the x-coordinate of the button
+     * @param y the y-coordinate of the button
      * @param rowIndex the row index in the sprite sheet for the button images
-     * @param state the Gamestate associated with the button
+     * @param state the {@link Gamestate} associated with the button
      */
-    public MenuButton(int xPos, int yPos, int rowIndex, Gamestate state) {
-        this.xPos = xPos;
-        this.yPos = yPos;
+    public MenuButton(int x, int y, int rowIndex, Gamestate state) {
+        super(x, y, B_WIDTH, B_HEIGHT);
         this.rowIndex = rowIndex;
         this.state = state;
 
         loadImages();
-        initBounds();
-    }
-
-    /**
-     * Initializes the bounds of the button for collision detection.
-     */
-    private void initBounds() {
-        bounds = new Rectangle(xPos - xOffsetCenter, yPos, B_WIDTH, B_HEIGHT);
+        setBounds(new Rectangle(x - xOffsetCenter, y, B_WIDTH, B_HEIGHT));
     }
 
     /**
@@ -53,10 +44,10 @@ public class MenuButton {
 
     /**
      * Draws the button on the screen.
-     * @param g the Graphics object used for drawing
+     * @param g the {@link Graphics} object used for drawing
      */
     public void draw(Graphics g) {
-        g.drawImage(imgs[index], xPos - xOffsetCenter, yPos, B_WIDTH, B_HEIGHT, null);
+        g.drawImage(imgs[index], x - xOffsetCenter, y, B_WIDTH, B_HEIGHT, null);
     }
 
     /**
@@ -71,8 +62,8 @@ public class MenuButton {
     }
 
     /**
-     * Checks if tge mouse is pressing the button.
-     * @return true if the mouse is pressed, false otherwise
+     * Checks if the mouse is pressing the button.
+     * @return {@code true} if the mouse is pressed, {@code false} otherwise
      */
     public boolean isMousePressed() {
         return mousePressed;
@@ -80,7 +71,7 @@ public class MenuButton {
 
     /**
      * Sets the mouse pressed state of the button.
-     * @param mousePressed true to set the button as pressed, false otherwise
+     * @param mousePressed {@code true} to set the button as pressed, {@code false} otherwise
      */
     public void setMousePressed(boolean mousePressed) {
         this.mousePressed = mousePressed;
@@ -88,7 +79,7 @@ public class MenuButton {
 
     /**
      * Checks if the mouse is currently hovering over the button.
-     * @return true if the mouse is over the button, false otherwise
+     * @return {@code true} if the mouse is over the button, {@code false} otherwise
      */
     public boolean isMouseOver() {
         return mouseOver;
@@ -96,7 +87,7 @@ public class MenuButton {
 
     /**
      * Sets the mouse over state of the button.
-     * @param mouseOver true to set the button as hovered, false otherwise
+     * @param mouseOver {@code true} to set the button as hovered, {@code false} otherwise
      */
     public void setMouseOver(boolean mouseOver) {
         this.mouseOver = mouseOver;
@@ -104,7 +95,7 @@ public class MenuButton {
 
     /**
      * Returns the bounds of the button for collision detection.
-     * @return the bounds of the button
+     * @return the bounds ({@link Rectangle}) of the button
      */
     public Rectangle getBounds() {
         return bounds;
@@ -127,7 +118,7 @@ public class MenuButton {
 
     /**
      * Returns the current gamestate associated with the button.
-     * @return the current Gamestate
+     * @return the current {@link Gamestate}
      */
     public Gamestate getState() {
         return state;

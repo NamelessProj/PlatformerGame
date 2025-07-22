@@ -18,7 +18,7 @@ public class GameObject {
      * Constructor for the GameObject class.
      * @param x the x-coordinate of the game object
      * @param y the y-coordinate of the game object
-     * @param objectType the type of the object (e.g., BARREL, BOX, CANNON_LEFT, CANNON_RIGHT)
+     * @param objectType the type of the object (e.g., {@link utils.Constants.ObjectConstants#BARREL}, {@link utils.Constants.ObjectConstants#BOX}, {@link utils.Constants.ObjectConstants#CANNON_LEFT}, {@link utils.Constants.ObjectConstants#CANNON_RIGHT})
      */
     public GameObject(int x, int y, int objectType) {
         this.x = x;
@@ -67,7 +67,7 @@ public class GameObject {
 
     /**
      * Draws the hitbox of the game object for debugging purposes.
-     * @param g the Graphics object used for drawing
+     * @param g the {@link Graphics} object used for drawing
      * @param xLvlOffset the x-level offset for drawing the hitbox
      */
     public void drawHitbox(Graphics g, int xLvlOffset) {
@@ -101,7 +101,7 @@ public class GameObject {
 
     /**
      * Returns the hitbox of the game object.
-     * @return the hitbox as a Rectangle2D.Float object
+     * @return the hitbox as a {@link Rectangle2D.Float} object
      */
     public Rectangle2D.Float getHitbox() {
         return hitbox;
@@ -109,7 +109,7 @@ public class GameObject {
 
     /**
      * Sets the active state of the game object.
-     * @param active true if the object is active, false otherwise
+     * @param active {@code true} if the object is active, {@code false} otherwise
      */
     public void setActive(boolean active) {
         this.active = active;
@@ -117,7 +117,7 @@ public class GameObject {
 
     /**
      * Checks if the game object is active.
-     * @return true if the object is active, false otherwise
+     * @return {@code true} if the object is active, {@code false} otherwise
      */
     public boolean isActive() {
         return active;
@@ -141,7 +141,7 @@ public class GameObject {
 
     /**
      * Sets whether the game object should animate.
-     * @param doAnimation true to enable animation, false to disable
+     * @param doAnimation {@code true} to enable animation, {@code false} to disable
      */
     public void setDoAnimation(boolean doAnimation) {
         this.doAnimation = doAnimation;

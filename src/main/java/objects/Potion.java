@@ -14,7 +14,7 @@ public class Potion extends GameObject {
      * Constructor for the Potion class.
      * @param x the x-coordinate of the potion
      * @param y the y-coordinate of the potion
-     * @param objectType the type of the object (RED_POTION or BLUE_POTION)
+     * @param objectType the type of the object ({@link utils.Constants.ObjectConstants#RED_POTION} or {@link utils.Constants.ObjectConstants#BLUE_POTION})
      */
     public Potion(int x, int y, int objectType) {
         super(x, y, objectType);

@@ -18,7 +18,7 @@ public class LevelManager {
 
     /**
      * Constructor for the LevelManager class.
-     * @param game the Game instance that this LevelManager belongs to
+     * @param game the {@link Game} instance that this LevelManager belongs to
      */
     public LevelManager(Game game) {
         this.game = game;
@@ -68,7 +68,7 @@ public class LevelManager {
 
     /**
      * Draws the current level on the provided Graphics object.
-     * @param g the Graphics object to draw on
+     * @param g the {@link Graphics} object to draw on
      * @param xLvlOffset the x-level offset for drawing the level
      */
     public void draw(Graphics g, int xLvlOffset) {
@@ -109,7 +109,7 @@ public class LevelManager {
 
     /**
      * Returns the current level.
-     * @return the current Level object
+     * @return the current {@link Level} object
      */
     public Level getCurrentLevel() {
         return levels.get(levelIndex);

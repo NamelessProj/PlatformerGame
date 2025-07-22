@@ -8,7 +8,7 @@ public class GameContainer  extends GameObject{
      * Constructor for the GameContainer class.
      * @param x the x-coordinate of the game container
      * @param y the y-coordinate of the game container
-     * @param objectType the type of the object (BOX or CONTAINER)
+     * @param objectType the type of the object (e.g., {@link utils.Constants.ObjectConstants#BOX} or {@link utils.Constants.ObjectConstants#BARREL})
      */
     public GameContainer(int x, int y, int objectType) {
         super(x, y, objectType);

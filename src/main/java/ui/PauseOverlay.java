@@ -11,6 +11,7 @@ import java.awt.image.BufferedImage;
 import static utils.Constants.GameConstants.GAME_WIDTH;
 import static utils.Constants.GameConstants.SCALE;
 import static utils.Constants.UI.URMButtons.URM_SIZE;
+import static utils.HelpMethods.IsIn;
 
 public class PauseOverlay {
     private Playing playing;
@@ -22,7 +23,7 @@ public class PauseOverlay {
 
     /**
      * Constructor for the PauseOverlay class.
-     * @param playing the Playing instance to access game state and methods
+     * @param playing the {@link Playing}    instance to access game state and methods
      */
     public PauseOverlay(Playing playing) {
         this.playing = playing;
@@ -90,26 +91,6 @@ public class PauseOverlay {
     }
 
     /**
-     * Checks if the mouse event is within the bounds of a button.
-     * @param e the MouseEvent to check
-     * @param btn the PauseButton to check against
-     * @return true if the mouse is within the button bounds, false otherwise
-     */
-    private boolean isIn(MouseEvent e, PauseButton btn) {
-        return btn.getBounds().contains(e.getX(), e.getY());
-    }
-
-    /**
-     * Checks if the mouse event is within the bounds of a button.
-     * @param e the MouseEvent to check
-     * @param btn the PauseButton to check against
-     * @return true if the mouse is within the button bounds, false otherwise
-     */
-    private boolean isIn(MouseEvent e, MenuButton btn) {
-        return btn.getBounds().contains(e.getX(), e.getY());
-    }
-
-    /**
      * Handles mouse dragging events for the audio options.
      * @param e the MouseEvent containing the mouse position
      */
@@ -122,13 +103,13 @@ public class PauseOverlay {
      * @param e the MouseEvent containing the mouse position
      */
     public void mousePressed(MouseEvent e) {
-        if (isIn(e, menuBtn))
+        if (IsIn(e, menuBtn))
             menuBtn.setMousePressed(true);
-        else if (isIn(e, replayBtn))
+        else if (IsIn(e, replayBtn))
             replayBtn.setMousePressed(true);
-        else if (isIn(e, unpauseBtn))
+        else if (IsIn(e, unpauseBtn))
             unpauseBtn.setMousePressed(true);
-        else if (isIn(e, saveBtn))
+        else if (IsIn(e, saveBtn))
             saveBtn.setMousePressed(true);
         else
             audioOptions.mousePressed(e);
@@ -139,21 +120,21 @@ public class PauseOverlay {
      * @param e the MouseEvent containing the mouse position
      */
     public void mouseReleased(MouseEvent e) {
-        if (isIn(e, menuBtn)) {
+        if (IsIn(e, menuBtn)) {
             if (menuBtn.isMousePressed()) {
                 playing.resetAll();
                 playing.setGamestate(Gamestate.MENU);
                 playing.unPauseGame();
             }
-        } else if (isIn(e, replayBtn)) {
+        } else if (IsIn(e, replayBtn)) {
             if (replayBtn.isMousePressed()) {
                 playing.resetAll();
                 playing.unPauseGame();
             }
-        } else if (isIn(e, unpauseBtn)) {
+        } else if (IsIn(e, unpauseBtn)) {
             if (unpauseBtn.isMousePressed())
                 playing.unPauseGame();
-        } else if (isIn(e, saveBtn)) {
+        } else if (IsIn(e, saveBtn)) {
             if (saveBtn.isMousePressed())
                 playing.getGameSaves().saveGame();
         } else
@@ -175,13 +156,13 @@ public class PauseOverlay {
         unpauseBtn.setMouseOver(false);
         saveBtn.setMouseOver(false);
 
-        if (isIn(e, menuBtn))
+        if (IsIn(e, menuBtn))
             menuBtn.setMouseOver(true);
-        else if (isIn(e, replayBtn))
+        else if (IsIn(e, replayBtn))
             replayBtn.setMouseOver(true);
-        else if (isIn(e, unpauseBtn))
+        else if (IsIn(e, unpauseBtn))
             unpauseBtn.setMouseOver(true);
-        else if (isIn(e, saveBtn))
+        else if (IsIn(e, saveBtn))
             saveBtn.setMouseOver(true);
         else
             audioOptions.mouseMoved(e);

@@ -1,19 +1,25 @@
 package utils;
 
 import objects.*;
+import ui.MyButton;
+
 import utils.Constants.GameConstants;
 
 import java.awt.geom.Rectangle2D;
+
+import java.awt.event.MouseEvent;
 
 import static utils.Constants.GameConstants.TILES_SIZE;
 
 public class HelpMethods {
     /**
      * Checks if a given position is solid in the level data.
+     * </p>
+     * This method also check if the tile is solid using {@link #IsTileSolid(int, int, int[][])}.
      * @param x the x-coordinate to check
      * @param y the y-coordinate to check
      * @param lvlData the level data array
-     * @return true if the position is solid, false otherwise
+     * @return {@code true} if the position is solid, {@code false} otherwise
      */
     private static boolean IsSolid(float x, float y, int[][] lvlData) {
         int maxWidth = lvlData[0].length * GameConstants.TILES_SIZE;
@@ -34,7 +40,7 @@ public class HelpMethods {
      * @param xTile the x-coordinate of the tile
      * @param yTile the y-coordinate of the tile
      * @param lvlData the level data array
-     * @return true if the tile is solid, false otherwise
+     * @return {@code true} if the tile is solid, {@code false} otherwise
      */
     public static boolean IsTileSolid(int xTile, int yTile, int[][] lvlData) {
         int val = lvlData[yTile][xTile];
@@ -47,12 +53,14 @@ public class HelpMethods {
 
     /**
      * Checks if an entity can move to a specified position without colliding with solid tiles.
+     * </>
+     * This method checks if the entity's hitbox can move to the specified position without colliding with solid tiles {@link #IsSolid(float, float, int[][])}.
      * @param x the x-coordinate of the entity
      * @param y the y-coordinate of the entity
      * @param width the width of the entity
      * @param height the height of the entity
      * @param lvlData the level data array
-     * @return true if the entity can move to the position, false otherwise
+     * @return {@code true} if the entity can move to the position, {@code false} otherwise
      */
     public static boolean CanMoveHere(float x, float y, float width, float height, int[][] lvlData) {
         if (!IsSolid(x, y, lvlData))
@@ -98,9 +106,11 @@ public class HelpMethods {
 
     /**
      * Checks if an entity is on the floor based on its hitbox and level data.
+     * </p>
+     * This method checks the pixels below the bottom left and bottom right corners of the entity's hitbox to determine if it is on the floor.
      * @param hitbox the hitbox of the entity
      * @param lvlData the level data array
-     * @return true if the entity is on the floor, false otherwise
+     * @return {@code true} if the entity is on the floor, {@code false} otherwise
      */
     public static boolean IsEntityOnFloor(Rectangle2D.Float hitbox, int[][] lvlData) {
         // Check the pixels below bottom left and bottom right
@@ -112,10 +122,12 @@ public class HelpMethods {
 
     /**
      * Checks if an entity is on the floor based on its hitbox and horizontal speed.
+     * </p>
+     * This method checks the pixels below the bottom left and bottom right corners of the entity's hitbox to determine if it is on the floor, considering its horizontal speed.
      * @param hitbox the hitbox of the entity
      * @param xSpeed the horizontal speed of the entity
      * @param lvlData the level data array
-     * @return true if the entity is on the floor, false otherwise
+     * @return {@code true} if the entity is on the floor, {@code false} otherwise
      */
     public static boolean IsFloor(Rectangle2D.Float hitbox, float xSpeed, int[][] lvlData) {
         if (xSpeed > 0) // Moving right
@@ -126,9 +138,11 @@ public class HelpMethods {
 
     /**
      * Checks if an entity is on the floor based on its hitbox and level data.
+     * </p>
+     * This method checks the pixels below the bottom left and bottom right corners of the entity's hitbox to determine if it is on the floor.
      * @param hitbox the hitbox of the entity
      * @param lvlData the level data array
-     * @return true if the entity is on the floor, false otherwise
+     * @return {@code true} if the entity is on the floor, {@code false} otherwise
      */
     public static boolean IsFloor(Rectangle2D.Float hitbox, int[][] lvlData) {
         if (!IsSolid(hitbox.x + hitbox.width, hitbox.y + hitbox.height + 1, lvlData))
@@ -141,7 +155,7 @@ public class HelpMethods {
      * Checks if a projectile is hitting a solid tile in the level data.
      * @param p the projectile to check
      * @param lvlData the level data array
-     * @return true if the projectile is hitting a solid tile, false otherwise
+     * @return {@code true} if the projectile is hitting a solid tile, {@code false} otherwise
      */
     public static boolean IsProjectileHittingLevel(Projectile p, int[][] lvlData) {
         return IsSolid(p.getHitbox().x + p.getHitbox().width / 2, p.getHitbox().y + p.getHitbox().height / 2, lvlData);
@@ -151,7 +165,7 @@ public class HelpMethods {
      * Checks if an entity is in water based on its hitbox and level data.
      * @param hitbox the hitbox of the entity
      * @param lvlData the level data array
-     * @return true if the entity is in water, false otherwise
+     * @return {@code true} if the entity is in water, {@code false} otherwise
      */
     public static boolean IsEntityInWater(Rectangle2D.Float hitbox, int[][] lvlData) {
         // Will only check if entity touch top water. Can't reach bottom water if not
@@ -181,7 +195,7 @@ public class HelpMethods {
      * @param firstHitbox the hitbox of the first entity (cannon)
      * @param secondHitbox the hitbox of the second entity (player)
      * @param yTile the y-coordinate of the tile to check visibility
-     * @return true if the cannon can see the player, false otherwise
+     * @return {@code true} if the cannon can see the player, {@code false} otherwise
      */
     public static boolean CanCannonSeePlayer(int[][] lvlData, Rectangle2D.Float firstHitbox, Rectangle2D.Float secondHitbox, int yTile) {
         int firstXTile = (int) (firstHitbox.x / GameConstants.TILES_SIZE);
@@ -199,7 +213,7 @@ public class HelpMethods {
      * @param xEnd the ending x-coordinate of the range
      * @param y the y-coordinate to check
      * @param lvlData the level data array
-     * @return true if all tiles in the range are clear, false otherwise
+     * @return {@code true} if all tiles in the range are clear, {@code false} otherwise
      */
     public static boolean IsAllTilesClear(int xStart, int xEnd, int y, int[][] lvlData) {
         for (int i = 0; i < xEnd - xStart; i++)
@@ -214,7 +228,7 @@ public class HelpMethods {
      * @param xEnd the ending x-coordinate of the range
      * @param y the y-coordinate to check
      * @param lvlData the level data array
-     * @return true if all tiles in the range are walkable, false otherwise
+     * @return {@code true} if all tiles in the range are walkable, {@code false} otherwise
      */
     public static boolean IsAllTilesWalkable(int xStart, int xEnd, int y, int[][] lvlData) {
         if (IsAllTilesClear(xStart, xEnd, y, lvlData))
@@ -230,7 +244,7 @@ public class HelpMethods {
      * @param enemyBox the hitbox of the enemy
      * @param playerBox the hitbox of the player
      * @param yTile the y-coordinate of the tile to check visibility
-     * @return true if the sight is clear, false otherwise
+     * @return {@code true} if the sight is clear, {@code false} otherwise
      */
     public static boolean IsSightClear(int[][] lvlData, Rectangle2D.Float enemyBox, Rectangle2D.Float playerBox, int yTile) {
         int firstXTile = (int) (enemyBox.x / GameConstants.TILES_SIZE);
@@ -250,7 +264,7 @@ public class HelpMethods {
     /**
      * Checks if a string can be parsed as a float.
      * @param val the string to check
-     * @return true if the string can be parsed as a float, false otherwise
+     * @return {@code true} if the string can be parsed as a float, {@code false} otherwise
      */
     public static boolean IsFloat(String val) {
         try {
@@ -259,5 +273,15 @@ public class HelpMethods {
         } catch (NumberFormatException e) {
             return false;
         }
+    }
+
+    /**
+     * Checks if the mouse event is within the bounds of the specified button.
+     * @param e the {@link MouseEvent} to check
+     * @param b the {@link MyButton} to check
+     * @return {@code true} if the mouse is within the button bounds, {@code false} otherwise
+     */
+    public static boolean IsIn(MouseEvent e, MyButton b) {
+        return b.getBounds().contains(e.getX(), e.getY());
     }
 }

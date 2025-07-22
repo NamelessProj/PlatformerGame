@@ -10,6 +10,7 @@ import static utils.Constants.GameConstants.SCALE;
 import static utils.Constants.UI.PauseButtons.SOUND_SIZE;
 import static utils.Constants.UI.VolumeButtons.SLIDER_WIDTH;
 import static utils.Constants.UI.VolumeButtons.VOLUME_HEIGHT;
+import static utils.HelpMethods.IsIn;
 
 public class AudioOptions {
     private Game game;
@@ -19,8 +20,8 @@ public class AudioOptions {
 
     /**
      * Constructor for the AudioOptions class.
-     * @param game the game instance to access audio settings
-     * @param settings the Settings instance to initialize audio options
+     * @param game the {@link Game} instance to access audio settings
+     * @param settings the {@link Settings} instance to initialize audio options
      */
     public AudioOptions(Game game, Settings settings) {
         this.game = game;
@@ -65,7 +66,7 @@ public class AudioOptions {
 
     /**
      * Draws the audio options buttons on the screen.
-     * @param g the Graphics object used for drawing
+     * @param g the {@link Graphics} object used for drawing
      */
     public void draw(Graphics g) {
         musicButton.draw(g);
@@ -74,18 +75,8 @@ public class AudioOptions {
     }
 
     /**
-     * Checks if the mouse event is within the bounds of a given button.
-     * @param e the MouseEvent to check
-     * @param btn the PauseButton to check against
-     * @return true if the mouse is within the button's bounds, false otherwise
-     */
-    private boolean isIn(MouseEvent e, PauseButton btn) {
-        return btn.getBounds().contains(e.getX(), e.getY());
-    }
-
-    /**
      * Handles mouse dragging events for the volume slider.
-     * @param e the MouseEvent containing the mouse position
+     * @param e the {@link MouseEvent} containing the mouse position
      */
     public void mouseDragged(MouseEvent e) {
         if (volumeBtn.isMousePressed()) {
@@ -99,31 +90,31 @@ public class AudioOptions {
 
     /**
      * Handles mouse pressed events for the audio options buttons.
-     * @param e the MouseEvent containing the mouse position
+     * @param e the {@link MouseEvent} containing the mouse position
      */
     public void mousePressed(MouseEvent e) {
-        if (isIn(e, musicButton))
+        if (IsIn(e, musicButton))
             musicButton.setMousePressed(true);
-        else if (isIn(e, sfxButton))
+        else if (IsIn(e, sfxButton))
             sfxButton.setMousePressed(true);
-        else if (isIn(e, volumeBtn))
+        else if (IsIn(e, volumeBtn))
             volumeBtn.setMousePressed(true);
     }
 
     /**
      * Handles mouse released events for the audio options buttons.
-     * @param e the MouseEvent containing the mouse position
+     * @param e the {@link MouseEvent} containing the mouse position
      */
     public void mouseReleased(MouseEvent e) {
         boolean isReleased = false;
 
-        if (isIn(e, musicButton)) {
+        if (IsIn(e, musicButton)) {
             if (musicButton.isMousePressed()) {
                 isReleased = true;
                 musicButton.setMuted(!musicButton.isMuted());
                 game.getAudioPlayer().toggleSongMute();
             }
-        } else if (isIn(e, sfxButton)) {
+        } else if (IsIn(e, sfxButton)) {
             if (sfxButton.isMousePressed()) {
                 isReleased = true;
                 sfxButton.setMuted(!sfxButton.isMuted());
@@ -141,24 +132,24 @@ public class AudioOptions {
 
     /**
      * Handles mouse moved events to update the mouse-over state of the buttons.
-     * @param e the MouseEvent containing the mouse position
+     * @param e the {@link MouseEvent} containing the mouse position
      */
     public void mouseMoved(MouseEvent e) {
         musicButton.setMouseOver(false);
         sfxButton.setMouseOver(false);
         volumeBtn.setMouseOver(false);
 
-        if (isIn(e, musicButton))
+        if (IsIn(e, musicButton))
             musicButton.setMouseOver(true);
-        else if (isIn(e, sfxButton))
+        else if (IsIn(e, sfxButton))
             sfxButton.setMouseOver(true);
-        else if (isIn(e, volumeBtn))
+        else if (IsIn(e, volumeBtn))
             volumeBtn.setMouseOver(true);
     }
 
     /**
      * Sets the mute state for the music.
-     * @param muted true to mute the music, false to unmute it
+     * @param muted {@code true} to mute the music, {@code false} to unmute it
      */
     public void setMusicMuted(boolean muted) {
         musicButton.setMuted(muted);
@@ -167,7 +158,7 @@ public class AudioOptions {
 
     /**
      * Sets the mute state for sound effects.
-     * @param muted true to mute sound effects, false to unmute them
+     * @param muted {@code true} to mute sound effects, {@code false} to unmute them
      */
     public void setSoundMuted(boolean muted) {
         sfxButton.setMuted(muted);
@@ -176,7 +167,7 @@ public class AudioOptions {
 
     /**
      * Sets the volume level for the audio.
-     * @param volume the volume level to set (0.0 to 1.0)
+     * @param volume the volume level to set ({@code 0.0} to {@code 1.0})
      */
     public void setVolume(float volume) {
         volumeBtn.setFloatValue(volume);

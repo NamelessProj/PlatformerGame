@@ -58,7 +58,7 @@ public class Playing extends State implements Statemethods {
 
     /**
      * Constructor for the Playing class.
-     * @param game the game instance
+     * @param game the {@link Game} instance
      */
     public Playing(Game game) {
         super(game);
@@ -195,7 +195,7 @@ public class Playing extends State implements Statemethods {
 
     /**
      * Draws the clouds in the background of the game.
-     * @param g the graphics context to draw on
+     * @param g the {@link Graphics} context to draw on
      */
     private void drawClouds(Graphics g) {
         for (int i = 0; i < 3; i++)
@@ -216,7 +216,7 @@ public class Playing extends State implements Statemethods {
 
     /**
      * Draws the dialogue effects on the screen.
-     * @param g the graphics context to draw on
+     * @param g the {@link Graphics} context to draw on
      * @param xLevelOffset the x offset for the level, used to adjust the position of the dialogue effects
      */
     private void drawDialogue(Graphics g, int xLevelOffset) {
@@ -262,7 +262,7 @@ public class Playing extends State implements Statemethods {
 
     /**
      * Checks if the player has hit an enemy with their attack box.
-     * @param attackBox the attack box of the player
+     * @param attackBox the attack box ({@link Rectangle2D.Float}) of the player
      */
     public void checkEnemyHit(Rectangle2D.Float attackBox) {
         enemyManager.checkEnemyHit(attackBox);
@@ -270,7 +270,7 @@ public class Playing extends State implements Statemethods {
 
     /**
      * Checks if the player has hit an object with their attack box.
-     * @param attackBox the attack box of the player
+     * @param attackBox the attack box ({@link Rectangle2D.Float}) of the player
      */
     public void checkObjectHit(Rectangle2D.Float attackBox) {
         objectManager.checkObjectHit(attackBox);
@@ -278,7 +278,7 @@ public class Playing extends State implements Statemethods {
 
     /**
      * Checks if the player has touched a potion with their hitbox.
-     * @param hitbox the hitbox of the player
+     * @param hitbox the hitbox ({@link Rectangle2D.Float}) of the player
      */
     public void checkPotionTouchedPlayer(Rectangle2D.Float hitbox) {
         objectManager.checkObjectTouchedPlayer(hitbox);
@@ -286,7 +286,7 @@ public class Playing extends State implements Statemethods {
 
     /**
      * Checks if the player has touched spikes with their hitbox.
-     * @param player the player instance
+     * @param player the {@link Player} instance
      */
     public void checkSpikesTouched(Player player) {
         objectManager.checkSpikesTouchedPlayer(player);
@@ -340,7 +340,7 @@ public class Playing extends State implements Statemethods {
 
     /**
      * Handles mouse dragging events for the pause overlay or level completed overlay.
-     * @param e the mouse event
+     * @param e the {@link MouseEvent} triggered by dragging
      */
     public void mouseDragged(MouseEvent e) {
         if (!gameOver && !gameCompleted && !levelCompleted && paused)
@@ -427,7 +427,7 @@ public class Playing extends State implements Statemethods {
 
     /**
      * Gets the player instance.
-     * @return the player instance
+     * @return the {@link Player} instance
      */
     public Player getPlayer() {
         return player;
@@ -435,7 +435,7 @@ public class Playing extends State implements Statemethods {
 
     /**
      * Gets the enemy manager instance.
-     * @return the enemy manager instance
+     * @return the {@link EnemyManager} instance
      */
     public EnemyManager getEnemyManager() {
         return enemyManager;
@@ -443,7 +443,7 @@ public class Playing extends State implements Statemethods {
 
     /**
      * Sets the level completed state.
-     * @param b true if the level is completed, false otherwise
+     * @param b {@code true} if the level is completed, {@code false} otherwise
      */
     public void setLevelCompleted(boolean b) {
         game.getAudioPlayer().levelCompleted();
@@ -461,7 +461,7 @@ public class Playing extends State implements Statemethods {
 
     /**
      * Get the object manager instance.
-     * @return the object manager instance
+     * @return the {@link ObjectManager} instance
      */
     public ObjectManager getObjectManager() {
         return objectManager;
@@ -469,7 +469,7 @@ public class Playing extends State implements Statemethods {
 
     /**
      * Get the level manager instance.
-     * @return the level manager instance
+     * @return the {@link LevelManager} instance
      */
     public LevelManager getLevelManager() {
         return levelManager;
@@ -477,7 +477,7 @@ public class Playing extends State implements Statemethods {
 
     /**
      * Set the player dying state.
-     * @param playerDying true if the player is dying, false otherwise
+     * @param playerDying {@code true} if the player is dying, {@code false} otherwise
      */
     public void setPlayerDying(boolean playerDying) {
         this.playerDying = playerDying;
@@ -485,7 +485,7 @@ public class Playing extends State implements Statemethods {
 
     /**
      * Get the game saves instance.
-     * @return the game saves instance
+     * @return the {@link GameSaves} instance
      */
     public GameSaves getGameSaves() {
         return gameSaves;

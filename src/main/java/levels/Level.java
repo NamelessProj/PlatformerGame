@@ -39,7 +39,7 @@ public class Level {
 
     /**
      * Constructor for the Level class.
-     * @param image the BufferedImage representing the level
+     * @param image the {@link BufferedImage} representing the level
      */
     public Level(BufferedImage image) {
         this.image = image;
@@ -85,7 +85,7 @@ public class Level {
     /**
      * Returns a random grass type based on the x-coordinate.
      * @param x the x-coordinate of the pixel in the level
-     * @return the grass type (0 or 1)
+     * @return the grass type ({@code 0} or {@code 1})
      */
     private int getRandomGrassType(int x) {
         return x % 2;
@@ -157,7 +157,7 @@ public class Level {
 
     /**
      * Returns all crabs in the level.
-     * @return an ArrayList of Crabby objects
+     * @return an ArrayList of {@link Crabby} objects
      */
     public ArrayList<Crabby> getCrabs() {
         return crabs;
@@ -165,7 +165,7 @@ public class Level {
 
     /**
      * Returns all pink stars in the level.
-     * @return an ArrayList of Pinkstar objects
+     * @return an ArrayList of {@link Pinkstar} objects
      */
     public ArrayList<Pinkstar> getPinkstars() {
 		return pinkstars;
@@ -173,7 +173,7 @@ public class Level {
 
     /**
      * Returns all sharks in the level.
-     * @return an ArrayList of Shark objects
+     * @return an ArrayList of {@link Shark} objects
      */
     public ArrayList<Shark> getSharks() {
         return sharks;
@@ -181,7 +181,7 @@ public class Level {
 
     /**
      * Returns all game containers in the level.
-     * @return an ArrayList of GameContainer objects
+     * @return an ArrayList of {@link GameContainer} objects
      */
     public ArrayList<GameContainer> getContainers() {
         return containers;
@@ -189,7 +189,7 @@ public class Level {
 
     /**
      * Returns all potions in the level.
-     * @return an ArrayList of Potion objects
+     * @return an ArrayList of {@link Potion} objects
      */
     public ArrayList<Potion> getPotions() {
         return potions;
@@ -197,7 +197,7 @@ public class Level {
 
     /**
      * Returns all spikes in the level.
-     * @return an ArrayList of Spike objects
+     * @return an ArrayList of {@link Spike} objects
      */
     public ArrayList<Spike> getSpikes() {
         return spikes;
@@ -205,7 +205,7 @@ public class Level {
 
     /**
      * Returns all cannons in the level.
-     * @return an ArrayList of Cannon objects
+     * @return an ArrayList of {@link Cannon} objects
      */
     public ArrayList<Cannon> getCannons() {
         return cannons;
@@ -213,7 +213,7 @@ public class Level {
 
     /**
      * Returns all grass objects in the level.
-     * @return an ArrayList of Grass objects
+     * @return an ArrayList of {@link Grass} objects
      */
     public ArrayList<Grass> getGrass() {
         return grass;
@@ -221,12 +221,16 @@ public class Level {
 
     /**
      * Returns the player spawn point in the level.
-     * @return a Point representing the player's spawn location
+     * @return a {@link Point} representing the player's spawn location
      */
     public Point getPlayerSpawn() {
         return playerSpawn;
     }
 
+    /**
+     * Returns all enemies in the level.
+     * @return an ArrayList of {@link Enemy} objects
+     */
     public ArrayList<Enemy> getAllEnemies() {
         ArrayList<Enemy> allEnemies = new ArrayList<>();
 

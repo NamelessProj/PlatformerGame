@@ -12,43 +12,43 @@ public interface Statemethods {
 
     /**
      * Draws the current state to the graphics context.
-     * @param g the graphics context to draw on
+     * @param g the {@link Graphics} context to draw on
      */
     void draw(Graphics g);
 
     /**
      * Handles mouse click events.
-     * @param e the mouse event
+     * @param e the {@link MouseEvent} instance
      */
     void mouseClicked(MouseEvent e);
 
     /**
      * Handles mouse press events.
-     * @param e the mouse event
+     * @param e the {@link MouseEvent} instance
      */
     void mousePressed(MouseEvent e);
 
     /**
      * Handles mouse release events.
-     * @param e the mouse event
+     * @param e the {@link MouseEvent} instance
      */
     void mouseReleased(MouseEvent e);
 
     /**
      * Handles mouse movement events.
-     * @param e the mouse event
+     * @param e the {@link MouseEvent} instance
      */
     void mouseMoved(MouseEvent e);
 
     /**
      * Handles key press events.
-     * @param e the key event
+     * @param e the {@link KeyEvent} instance
      */
     void keyPressed(KeyEvent e);
 
     /**
      * Handles key release events.
-     * @param e the key event
+     * @param e the {@link KeyEvent} instance
      */
     void keyReleased(KeyEvent e);
 }

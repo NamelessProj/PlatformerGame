@@ -87,7 +87,7 @@ public class Credits extends State implements Statemethods {
 
         /**
          * Checks if the credits item is active.
-         * @return true if the item is active, false otherwise
+         * @return {@code true} if the item is active, {@code false} otherwise
          */
         public boolean isActive() {
             return isActive;
@@ -95,7 +95,7 @@ public class Credits extends State implements Statemethods {
 
         /**
          * Sets the active state of the credits item.
-         * @param isActive true to set the item as active, false to deactivate it
+         * @param isActive {@code true} to set the item as active, {@code false} to deactivate it
          */
         public void setActive(boolean isActive) {
             this.isActive = isActive;
@@ -121,7 +121,7 @@ public class Credits extends State implements Statemethods {
 
     /**
      * Constructor for the Credits class.
-     * @param game the Game instance that this Credits state belongs to.
+     * @param game the {@link Game} instance that this Credits state belongs to.
      */
     public Credits(Game game) {
         super(game);
@@ -197,7 +197,7 @@ public class Credits extends State implements Statemethods {
 
     /**
      * Changes the game state to the specified Gamestate and resets all credits items.
-     * @param state the Gamestate to switch to.
+     * @param state the {@link Gamestate} to switch to.
      */
     private void goTo(Gamestate state) {
         setGamestate(state);
@@ -219,7 +219,7 @@ public class Credits extends State implements Statemethods {
 
     /**
      * Draws the credits items on the screen.
-     * @param g the Graphics object used for drawing.
+     * @param g the {@link Graphics} object used for drawing.
      */
     private void drawCreditsItems(Graphics g) {
         g.setColor(Color.BLACK);

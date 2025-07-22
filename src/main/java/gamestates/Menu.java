@@ -5,6 +5,7 @@ import ui.MenuButton;
 import utils.LoadSave;
 
 import static utils.Constants.GameConstants.*;
+import static utils.HelpMethods.IsIn;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -18,7 +19,7 @@ public class Menu extends State implements Statemethods {
 
     /**
      * Constructor for the Menu class.
-     * @param game the game instance
+     * @param game the {@link Game} instance
      */
     public Menu(Game game) {
         super(game);
@@ -75,7 +76,7 @@ public class Menu extends State implements Statemethods {
     @Override
     public void mousePressed(MouseEvent e) {
         for (MenuButton btn : buttons) {
-            if (isIn(e, btn)) {
+            if (IsIn(e, btn)) {
                 btn.setMousePressed(true);
                 break;
             }
@@ -85,7 +86,7 @@ public class Menu extends State implements Statemethods {
     @Override
     public void mouseReleased(MouseEvent e) {
         for (MenuButton btn : buttons) {
-            if (isIn(e, btn)) {
+            if (IsIn(e, btn)) {
                 if (btn.isMousePressed())
                     btn.applyGamestate();
 
@@ -103,7 +104,7 @@ public class Menu extends State implements Statemethods {
             btn.setMouseOver(false);
 
         for (MenuButton btn : buttons)
-            if (isIn(e, btn)) {
+            if (IsIn(e, btn)) {
                 btn.setMouseOver(true);
                 break;
             }

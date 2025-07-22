@@ -10,6 +10,7 @@ import gamestates.Playing;
 import utils.LoadSave;
 
 import static utils.Constants.GameConstants.*;
+import static utils.HelpMethods.IsIn;
 
 public class GameCompletedOverlay {
     private Playing playing;
@@ -19,7 +20,7 @@ public class GameCompletedOverlay {
 
     /**
      * Constructor for the GameCompletedOverlay class.
-     * @param playing The Playing instance that this overlay belongs to.
+     * @param playing The {@link Playing} instance that this overlay belongs to.
      */
     public GameCompletedOverlay(Playing playing) {
         this.playing = playing;
@@ -48,7 +49,7 @@ public class GameCompletedOverlay {
 
     /**
      * Draws the game completed overlay on the screen.
-     * @param g The Graphics object used for drawing.
+     * @param g The {@link Graphics} object used for drawing.
      */
     public void draw(Graphics g) {
         g.setColor(new Color(0, 0, 0, 200));
@@ -69,41 +70,31 @@ public class GameCompletedOverlay {
     }
 
     /**
-     * Checks if the mouse event is within the bounds of the specified MenuButton.
-     * @param b The MenuButton to check.
-     * @param e The MouseEvent to check against the button's bounds.
-     * @return true if the mouse event is within the button's bounds, false otherwise.
-     */
-    private boolean isIn(MenuButton b, MouseEvent e) {
-        return b.getBounds().contains(e.getX(), e.getY());
-    }
-
-    /**
      * Handles mouse movement events for the overlay.
-     * @param e The MouseEvent that triggered the movement.
+     * @param e The {@link MouseEvent} that triggered the movement.
      */
     public void mouseMoved(MouseEvent e) {
         quitBtn.setMouseOver(false);
         creditBtn.setMouseOver(false);
 
-        if (isIn(quitBtn, e))
+        if (IsIn(e, quitBtn))
             quitBtn.setMouseOver(true);
-        else if (isIn(creditBtn, e))
+        else if (IsIn(e, creditBtn))
             creditBtn.setMouseOver(true);
     }
 
     /**
      * Handles mouse release events for the overlay.
-     * @param e The MouseEvent that triggered the release.
+     * @param e The {@link MouseEvent} that triggered the release.
      */
     public void mouseReleased(MouseEvent e) {
-        if (isIn(quitBtn, e)) {
+        if (IsIn(e, quitBtn)) {
             if (quitBtn.isMousePressed()) {
                 playing.resetAll();
                 playing.resetGameCompleted();
                 quitBtn.applyGamestate();
             }
-        } else if (isIn(creditBtn, e)) {
+        } else if (IsIn(e, creditBtn)) {
             if (creditBtn.isMousePressed()) {
                 playing.resetAll();
                 playing.resetGameCompleted();
@@ -117,12 +108,12 @@ public class GameCompletedOverlay {
 
     /**
      * Handles mouse press events for the overlay.
-     * @param e The MouseEvent that triggered the press.
+     * @param e The {@link MouseEvent} that triggered the press.
      */
     public void mousePressed(MouseEvent e) {
-        if (isIn(quitBtn, e))
+        if (IsIn(e, quitBtn))
             quitBtn.setMousePressed(true);
-        else if (isIn(creditBtn, e))
+        else if (IsIn(e, creditBtn))
             creditBtn.setMousePressed(true);
     }
 }

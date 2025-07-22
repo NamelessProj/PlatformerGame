@@ -15,7 +15,7 @@ public class GamePanel extends JPanel {
 
     /**
      * Constructor for the GamePanel class.
-     * @param game the Game instance that this GamePanel belongs to
+     * @param game the {@link Game} instance that this GamePanel belongs to
      */
     public GamePanel(Game game) {
         this.game = game;
@@ -44,7 +44,7 @@ public class GamePanel extends JPanel {
 
     /**
      * Renders the game graphics.
-     * @param g the Graphics object used for rendering
+     * @param g the {@link Graphics} object used for rendering
      */
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -53,7 +53,7 @@ public class GamePanel extends JPanel {
 
     /**
      * Returns the Game instance associated with this GamePanel.
-     * @return the Game instance
+     * @return the {@link Game} instance
      */
     public Game getGame() {
         return game;

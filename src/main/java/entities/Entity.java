@@ -69,7 +69,7 @@ public abstract class Entity {
 
     /**
      * Pushes the entity back in the specified direction with a speed multiplier.
-     * @param pushBackDirection The direction to push back the entity (LEFT or RIGHT).
+     * @param pushBackDirection The direction to push back the entity ({@link utils.Constants.Directions#LEFT} or {@link utils.Constants.Directions#RIGHT}).
      * @param speedMulti The multiplier for the speed of the push back.
      * @param lvlData The level data containing information about the environment.
      */
@@ -84,14 +84,19 @@ public abstract class Entity {
 
     /**
      * For debugging purposes, draws the hitbox of the entity.
-     * @param g The Graphics object used for drawing.
-     * @param xLvlOffset The x-coordinate offset for the level, used to adjust the
+     * @param g The {@link Graphics} object used for drawing.
+     * @param xLvlOffset The x-coordinate offset for the level, used to adjust the drawing position of the hitbox.
      */
     protected void drawHitbox(Graphics g, int xLvlOffset) {
         g.setColor(Color.PINK);
         g.drawRect((int) hitbox.x - xLvlOffset, (int) hitbox.y, (int) hitbox.width, (int) hitbox.height);
     }
 
+    /**
+     * Draws the attack box of the entity.
+     * @param g The {@link Graphics} object used for drawing the attack box.
+     * @param xLvlOffset The x-coordinate offset for the level, used to adjust the drawing position of the attack box.
+     */
     protected void drawAttackBox(Graphics g, int xLvlOffset) {
         g.setColor(Color.PINK);
         g.drawRect((int) attackBox.x - xLvlOffset, (int) attackBox.y, (int) attackBox.width, (int) attackBox.height);
@@ -99,7 +104,7 @@ public abstract class Entity {
 
     /**
      * Get the hitbox of the entity.
-     * @return The hitbox of the entity as a Rectangle2D.Float object.
+     * @return The hitbox ({@link Rectangle2D.Float}) of the entity as a Rectangle2D.Float object.
      */
     public Rectangle2D.Float getHitbox() {
         return hitbox;
@@ -141,7 +146,7 @@ public abstract class Entity {
 
     /**
      * Sets the push back direction for the entity.
-     * @param pushBackDirection The direction to push back the entity (LEFT or RIGHT).
+     * @param pushBackDirection The direction to push back the entity ({@link utils.Constants.Directions#LEFT} or {@link utils.Constants.Directions#RIGHT}).
      */
     public void setPushBackDirection(int pushBackDirection) {
         this.pushBackDirection = pushBackDirection;
@@ -150,8 +155,7 @@ public abstract class Entity {
     /**
      * Converts an array of integers to a string representation.
      * @param arr The array of integers to convert.
-     * @return A string representation of the array, with elements separated by DATA_SEPARATOR.
-     * @see utils.Constants.Saves#DATA_SEPARATOR
+     * @return A string representation of the array, with elements separated by {@link utils.Constants.Saves#DATA_SEPARATOR}
      */
     protected String toString(int[] arr) {
         StringBuilder sb = new StringBuilder();

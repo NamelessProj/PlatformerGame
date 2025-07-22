@@ -58,7 +58,7 @@ public class VolumeButton extends PauseButton {
 
     /**
      * Draws the volume button on the screen.
-     * @param g the Graphics object used for drawing
+     * @param g the {@link Graphics} object used for drawing
      */
     public void draw(Graphics g) {
         g.drawImage(sliderImg, x, y, width, height, null);
@@ -100,7 +100,7 @@ public class VolumeButton extends PauseButton {
 
     /**
      * Checks if the mouse is currently over the button.
-     * @return true if the mouse is over the button, false otherwise
+     * @return {@code true} if the mouse is over the button, {@code false} otherwise
      */
     public boolean isMouseOver() {
         return mouseOver;
@@ -108,7 +108,7 @@ public class VolumeButton extends PauseButton {
 
     /**
      * Sets the mouse over state of the button.
-     * @param mouseOver true to set the button as hovered, false otherwise
+     * @param mouseOver {@code true} to set the button as hovered, {@code false} otherwise
      */
     public void setMouseOver(boolean mouseOver) {
         this.mouseOver = mouseOver;
@@ -116,7 +116,7 @@ public class VolumeButton extends PauseButton {
 
     /**
      * Checks if the mouse is currently pressed on the button.
-     * @return true if the mouse is pressed, false otherwise
+     * @return {@code true} if the mouse is pressed, {@code false} otherwise
      */
     public boolean isMousePressed() {
         return mousePressed;
@@ -124,7 +124,7 @@ public class VolumeButton extends PauseButton {
 
     /**
      * Sets the mouse pressed state of the button.
-     * @param mousePressed true to set the button as pressed, false otherwise
+     * @param mousePressed {@code true} to set the button as pressed, {@code false} otherwise
      */
     public void setMousePressed(boolean mousePressed) {
         this.mousePressed = mousePressed;

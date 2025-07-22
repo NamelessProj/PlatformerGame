@@ -18,6 +18,11 @@ public class Constants {
         public static int DIALOGUE_WIDTH = 14;
         public static int DIALOGUE_HEIGHT = 12;
 
+        /**
+         * Returns the number of sprites for a given dialogue type.
+         * @param type the type of the dialogue (e.g., {@link #QUESTION} or {@link #EXCLAMATION})
+         * @return the number of sprites for the dialogue type
+         */
         public static int GetSpriteAmount(int type) {
             return switch (type) {
                 case QUESTION, EXCLAMATION -> 5;
@@ -75,7 +80,7 @@ public class Constants {
 
         /**
          * Returns the number of sprites for a given object type.
-         * @param objectType the type of the object
+         * @param objectType the type of the object (e.g., {@link #RED_POTION}, {@link #BLUE_POTION}, etc.)
          * @return the number of sprites for the object type
          */
         public static int GetSpriteAmount(int objectType) {
@@ -121,8 +126,8 @@ public class Constants {
 
         /**
          * Returns the number of sprites for a given enemy type and state.
-         * @param enemyType the type of the enemy
-         * @param enemyState the state of the enemy
+         * @param enemyType the type of the enemy (e.g., {@link #CRABBY}, {@link #PINKSTAR}, etc.)
+         * @param enemyState the state of the enemy (e.g., {@link #IDLE}, {@link #RUNNING}, etc.)
          * @return the number of sprites for the enemy type and state
          */
         public static int GetSpriteAmount(int enemyType, int enemyState) {
@@ -144,7 +149,7 @@ public class Constants {
 
         /**
          * Returns the maximum health for a given enemy type.
-         * @param enemyType the type of the enemy
+         * @param enemyType the type of the enemy (e.g., {@link #CRABBY}, {@link #PINKSTAR}, etc.)
          * @return the maximum health for the enemy type
          */
         public static int GetMaxHealth(int enemyType) {
@@ -157,7 +162,7 @@ public class Constants {
 
         /**
          * Returns the damage dealt by a given enemy type.
-         * @param enemyType the type of the enemy
+         * @param enemyType the type of the enemy (e.g., {@link #CRABBY}, {@link #PINKSTAR}, etc.)
          * @return the damage dealt by the enemy type
          */
         public static int GetEnemyDamage(int enemyType) {
@@ -223,7 +228,7 @@ public class Constants {
 
         /**
          * Returns the number of sprites for a given player action.
-         * @param player_action the action of the player
+         * @param player_action the action of the player (e.g., {@link #IDLE}, {@link #RUNNING}, etc.)
          * @return the number of sprites for the player action
          */
         public static int GetSpriteAmount(int player_action) {

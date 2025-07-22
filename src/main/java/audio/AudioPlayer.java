@@ -237,7 +237,7 @@ public class AudioPlayer {
 
     /**
      * Sets the mute state for the current song.
-     * @param mute true to mute the song, false to unmute it
+     * @param mute {@code true} to mute the song, {@code false} to unmute it
      */
     public void setSongMute(boolean mute) {
         if (this.songMute != mute)
@@ -263,7 +263,7 @@ public class AudioPlayer {
 
     /**
      * Sets the mute state for sound effects.
-     * @param mute true to mute sound effects, false to unmute them
+     * @param mute {@code true} to mute sound effects, {@code false} to unmute them
      */
     public void setEffectMute(boolean mute) {
         if (this.effectMute != mute)

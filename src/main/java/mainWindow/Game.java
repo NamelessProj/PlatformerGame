@@ -87,7 +87,7 @@ public class Game implements Runnable {
 
     /**
      * Renders the current game state to the graphics context.
-     * @param g the Graphics object to draw on
+     * @param g the {@link Graphics} object to draw on
      */
     public void render(Graphics g) {
         switch (Gamestate.state) {
@@ -152,7 +152,7 @@ public class Game implements Runnable {
 
     /**
      * Returns the Menu object for the game.
-     * @return the Menu object
+     * @return the {@link Menu} object
      */
     public Menu getMenu() {
         return menu;
@@ -160,7 +160,7 @@ public class Game implements Runnable {
 
     /**
      * Returns the Playing object for the game, which contains the game logic and state.
-     * @return the Playing object
+     * @return the {@link Playing} object
      */
     public Playing getPlaying() {
         return playing;
@@ -168,7 +168,7 @@ public class Game implements Runnable {
 
     /**
      * Returns the Credits object for the game, which contains the credits state.
-     * @return the Credits object
+     * @return the {@link Credits} object
      */
     public Credits getCredits() {
         return credits;
@@ -176,7 +176,7 @@ public class Game implements Runnable {
 
     /**
      * Returns the GameOptions object for the game, which contains game settings.
-     * @return the GameOptions object
+     * @return the {@link GameOptions} object
      */
     public GameOptions getGameOptions() {
         return gameOptions;
@@ -184,7 +184,7 @@ public class Game implements Runnable {
 
     /**
      * Returns the AudioOptions object for the game, which contains audio settings.
-     * @return the AudioOptions object
+     * @return the {@link AudioOptions} object
      */
     public AudioOptions getAudioOptions() {
         return audioOptions;
@@ -192,7 +192,7 @@ public class Game implements Runnable {
 
     /**
      * Returns the AudioPlayer object for the game, which handles audio playback.
-     * @return the AudioPlayer object
+     * @return the {@link AudioPlayer} object
      */
     public AudioPlayer getAudioPlayer() {
         return audioPlayer;

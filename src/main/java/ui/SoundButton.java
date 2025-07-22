@@ -64,7 +64,7 @@ public class SoundButton extends PauseButton {
 
     /**
      * Draws the sound button on the screen.
-     * @param g the Graphics object used for drawing
+     * @param g the {@link Graphics} object used for drawing
      */
     public void draw(Graphics g) {
         g.drawImage(soundImgs[rowIndex][colIndex], x, y, width, height, null);
@@ -72,7 +72,7 @@ public class SoundButton extends PauseButton {
 
     /**
      * Checks if the mouse is currently over the button.
-     * @return true if the mouse is over the button, false otherwise
+     * @return {@code true} if the mouse is over the button, {@code false} otherwise
      */
     public boolean isMouseOver() {
         return mouseOver;
@@ -80,7 +80,7 @@ public class SoundButton extends PauseButton {
 
     /**
      * Sets the mouse over state of the button.
-     * @param mouseOver true to set the button as hovered, false otherwise
+     * @param mouseOver {@code true} to set the button as hovered, {@code false} otherwise
      */
     public void setMouseOver(boolean mouseOver) {
         this.mouseOver = mouseOver;
@@ -88,7 +88,7 @@ public class SoundButton extends PauseButton {
 
     /**
      * Checks if the mouse is currently pressed on the button.
-     * @return true if the mouse is pressed, false otherwise
+     * @return {@code true} if the mouse is pressed, {@code false} otherwise
      */
     public boolean isMousePressed() {
         return mousePressed;
@@ -96,7 +96,7 @@ public class SoundButton extends PauseButton {
 
     /**
      * Sets the mouse pressed state of the button.
-     * @param mousePressed true to set the button as pressed, false otherwise
+     * @param mousePressed {@code true} to set the button as pressed, {@code false} otherwise
      */
     public void setMousePressed(boolean mousePressed) {
         this.mousePressed = mousePressed;
@@ -104,7 +104,7 @@ public class SoundButton extends PauseButton {
 
     /**
      * Returns if the sound is muted.
-     * @return true if the sound is muted, false otherwise
+     * @return {@code true} if the sound is muted, {@code false} otherwise
      */
     public boolean isMuted() {
         return muted;
@@ -112,7 +112,7 @@ public class SoundButton extends PauseButton {
 
     /**
      * Sets the muted state of the sound button.
-     * @param muted true to mute the sound, false to unmute
+     * @param muted {@code true} to mute the sound, {@code false} to unmute
      */
     public void setMuted(boolean muted) {
         this.muted = muted;

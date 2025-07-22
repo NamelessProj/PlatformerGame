@@ -14,7 +14,7 @@ public class Projectile {
      * Constructor for the Projectile class.
      * @param x the x-coordinate of the projectile
      * @param y the y-coordinate of the projectile
-     * @param direction the direction of the projectile (1 for right, -1 for left)
+     * @param direction the direction of the projectile ({@code 1} for right, {@code -1} for left)
      */
     public Projectile(int x, int y, int direction) {
         int xOffset = (int) (-3 * SCALE);
@@ -46,7 +46,7 @@ public class Projectile {
 
     /**
      * Returns the hitbox of the projectile.
-     * @return the hitbox of the projectile
+     * @return the hitbox {@link Rectangle2D.Float} of the projectile
      */
     public Rectangle2D.Float getHitbox() {
         return hitbox;
@@ -54,7 +54,7 @@ public class Projectile {
 
     /**
      * Sets the active state of the projectile.
-     * @param active true to activate the projectile, false to deactivate it
+     * @param active {@code true} to activate the projectile, {@code false} to deactivate it
      */
     public void setActive(boolean active) {
         this.active = active;
@@ -62,7 +62,7 @@ public class Projectile {
 
     /**
      * Checks if the projectile is active.
-     * @return true if the projectile is active, false otherwise
+     * @return {@code true} if the projectile is active, {@code false} otherwise
      */
     public boolean isActive() {
         return active;
@@ -70,7 +70,7 @@ public class Projectile {
 
     /**
      * Returns the direction of the projectile.
-     * @return the direction of the projectile (1 for right, -1 for left)
+     * @return the direction of the projectile ({@code 1} for right, {@code -1} for left)
      */
     public int getDirection() {
         return direction;

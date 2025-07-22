@@ -125,7 +125,7 @@ public class Settings {
 
     /**
      * Returns whether sound is muted.
-     * @return true if sound is muted, false otherwise.
+     * @return {@code true} if sound is muted, {@code false} otherwise.
      */
     public boolean getSoundMuted() {
         return soundMuted;
@@ -133,7 +133,7 @@ public class Settings {
 
     /**
      * Returns whether music is muted.
-     * @return true if music is muted, false otherwise.
+     * @return {@code true} if music is muted, {@code false} otherwise.
      */
     public boolean getMusicMuted() {
         return musicMuted;

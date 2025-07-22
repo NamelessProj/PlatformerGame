@@ -18,7 +18,7 @@ public class EnemyManager {
 
     /**
      * EnemyManager constructor.
-     * @param playing The Playing instance that manages the game state and player interactions.
+     * @param playing The {@link Playing} instance that manages the game state and player interactions.
      */
     public EnemyManager(Playing playing) {
         this.playing = playing;
@@ -27,7 +27,7 @@ public class EnemyManager {
 
     /**
      * Loads the enemies for the current level.
-     * @param level The Level instance containing the enemies to be loaded.
+     * @param level The {@link Level} instance containing the enemies to be loaded.
      */
     public void loadEnemies(Level level) {
         this.currentLevel = level;
@@ -63,7 +63,7 @@ public class EnemyManager {
 
     /**
      * Draws all active enemies in the current level.
-     * @param g The Graphics object used for drawing the enemies.
+     * @param g The {@link Graphics} object used for drawing the enemies.
      * @param xLvlOffset The x-coordinate offset for the level, used to adjust the drawing position of enemies.
      */
     public void draw(Graphics g, int xLvlOffset) {
@@ -72,6 +72,11 @@ public class EnemyManager {
         drawSharks(g, xLvlOffset);
     }
 
+    /**
+     * Draws all active sharks in the current level.
+     * @param g The {@link Graphics} object used for drawing the sharks.
+     * @param xLevelOffset The x-coordinate offset for the level, used to adjust the drawing position of sharks.
+     */
     private void drawSharks(Graphics g, int xLevelOffset) {
         for (Shark s : currentLevel.getSharks())
             if (s.isActive()) {
@@ -85,6 +90,11 @@ public class EnemyManager {
             }
     }
 
+    /**
+     * Draws all active pink stars in the current level.
+     * @param g The {@link Graphics} object used for drawing the pink stars.
+     * @param xLvlOffset The x-coordinate offset for the level, used to adjust the drawing position of pink stars.
+     */
     private void drawPinkstars(Graphics g, int xLvlOffset) {
         for (Pinkstar p : currentLevel.getPinkstars())
             if (p.isActive()) {
@@ -100,7 +110,7 @@ public class EnemyManager {
 
     /**
      * Draws all active crabs in the current level.
-     * @param g The Graphics object used for drawing the crabs.
+     * @param g The {@link Graphics} object used for drawing the crabs.
      * @param xLvlOffset The x-coordinate offset for the level, used to adjust the drawing position of crabs.
      */
     private void drawCrabs(Graphics g, int xLvlOffset) {
@@ -118,7 +128,7 @@ public class EnemyManager {
 
     /**
      * Checks if any enemy is hit by the player's attack box.
-     * @param attackBox The attack box of the player, used to detect collisions with enemies.
+     * @param attackBox The attack box ({@link Rectangle2D.Float}) of the player, used to detect collisions with enemies.
      */
     public void checkEnemyHit(Rectangle2D.Float attackBox) {
         for (Crabby c : currentLevel.getCrabs())
@@ -191,6 +201,10 @@ public class EnemyManager {
             s.resetEnemy();
     }
 
+    /**
+     * Returns a list of all enemies in the current level.
+     * @return A list of all enemies.
+     */
     public ArrayList<Enemy> getAllEnemies() {
         return currentLevel.getAllEnemies();
     }

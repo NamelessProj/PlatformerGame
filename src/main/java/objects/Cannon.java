@@ -10,7 +10,7 @@ public class Cannon extends GameObject {
      * Constructor for the Cannon class.
      * @param x the x-coordinate of the cannon
      * @param y the y-coordinate of the cannon
-     * @param objectType the type of the object (CANNON)
+     * @param objectType the type of the object ({@link utils.Constants.ObjectConstants#CANNON_LEFT} or {@link utils.Constants.ObjectConstants#CANNON_RIGHT})
      */
     public Cannon(int x, int y, int objectType) {
         super(x, y, objectType);

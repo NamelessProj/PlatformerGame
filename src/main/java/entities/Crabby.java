@@ -34,7 +34,7 @@ public class Crabby extends Enemy {
     /**
      * Updates the Crabby's behavior based on its current state and the player's position.
      * @param lvlData The level data containing information about the environment.
-     * @param playing The Playing instance that manages the game state and player interactions.
+     * @param playing The {@link Playing} instance that manages the game state and player interactions.
      */
     private void updateBehavior(int[][] lvlData, Playing playing) {
         if (firstUpdate)

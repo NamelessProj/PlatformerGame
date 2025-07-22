@@ -10,6 +10,7 @@ import java.awt.image.BufferedImage;
 
 import static utils.Constants.GameConstants.*;
 import static utils.Constants.UI.URMButtons.*;
+import static utils.HelpMethods.IsIn;
 
 public class LevelCompletedOverlay {
     private Playing playing;
@@ -19,7 +20,7 @@ public class LevelCompletedOverlay {
 
     /**
      * Constructor for the LevelCompletedOverlay class.
-     * @param playing the Playing instance to access game state and methods
+     * @param playing the {@link Playing} instance to access game state and methods
      */
     public LevelCompletedOverlay(Playing playing) {
         this.playing = playing;
@@ -59,7 +60,7 @@ public class LevelCompletedOverlay {
 
     /**
      * Draws the level completed overlay on the screen.
-     * @param g the Graphics object used for drawing
+     * @param g the {@link Graphics} object used for drawing
      */
     public void draw(Graphics g) {
         g.drawImage(img, bxX, bgY, bgW, bgH, null); // Draw background image
@@ -68,41 +69,31 @@ public class LevelCompletedOverlay {
     }
 
     /**
-     * Checks if the mouse event is within the bounds of a button.
-     * @param b the UrmButton to check
-     * @param e the MouseEvent to check
-     * @return true if the mouse is within the button bounds, false otherwise
-     */
-    private boolean isIn(UrmButton b, MouseEvent e) {
-        return b.getBounds().contains(e.getX(), e.getY());
-    }
-
-    /**
      * Handles mouse movement events to update button states.
-     * @param e the MouseEvent containing the mouse position
+     * @param e the {@link MouseEvent} containing the mouse position
      */
     public void mouseMoved(MouseEvent e) {
         next.setMouseOver(false);
         menu.setMouseOver(false);
 
-        if (isIn(menu, e))
+        if (IsIn(e, menu))
             menu.setMouseOver(true);
-        else if (isIn(next, e))
+        else if (IsIn(e, next))
             next.setMouseOver(true);
     }
 
     /**
      * Handles mouse released events to perform actions based on button clicks.
-     * @param e the MouseEvent containing the mouse position
+     * @param e the {@link MouseEvent} containing the mouse position
      */
     public void mouseReleased(MouseEvent e) {
-        if (isIn(menu, e)) {
+        if (IsIn(e, menu)) {
             if (menu.isMousePressed()) {
                 playing.resetAll();
                 playing.setGamestate(Gamestate.MENU);
                 playing.loadNextLevel();
             }
-        } else if (isIn(next, e)) {
+        } else if (IsIn(e, next)) {
             if (next.isMousePressed()) {
                 playing.loadNextLevel();
                 if (playing.getLevelManager().getLevelIndex() > 0)
@@ -116,12 +107,12 @@ public class LevelCompletedOverlay {
 
     /**
      * Handles mouse pressed events to set button states.
-     * @param e the MouseEvent containing the mouse position
+     * @param e the {@link MouseEvent} containing the mouse position
      */
     public void mousePressed(MouseEvent e) {
-        if (isIn(menu, e))
+        if (IsIn(e, menu))
             menu.setMousePressed(true);
-        else if (isIn(next, e))
+        else if (IsIn(e, next))
             next.setMousePressed(true);
     }
 }

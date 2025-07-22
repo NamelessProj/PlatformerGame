@@ -14,7 +14,7 @@ public class GameSaves {
 
     /**
      * Constructor for the GameSaves class.
-     * @param playing the Playing instance
+     * @param playing the {@link Playing} instance.
      */
     public GameSaves(Playing playing) {
         this.playing = playing;
@@ -56,10 +56,19 @@ public class GameSaves {
         LoadSave.SaveText(LoadSave.Texts.SAVE, saveData.toString());
     }
 
+    /**
+     * Checks if a saved game is available.
+     * @return {@code true} if a saved game is available, {@code false} otherwise.
+     */
     public boolean isSaveAvailable() {
         return LoadSave.DoesFileExists(LoadSave.Texts.SAVE);
     }
 
+    /**
+     * Load the saved game state from a file.
+     * </p>
+     * This method initializes the enemies and objects in the current level based on the saved data.
+     */
     public void loadGame() {
         System.out.println("Loading game...");
         playing.getEnemyManager().loadEnemies(playing.getLevelManager().getCurrentLevel());

@@ -7,8 +7,6 @@ import gamestates.Playing;
 import static utils.Constants.Directions.*;
 import static utils.Constants.EnemyConstants.*;
 import static utils.Constants.GameConstants.*;
-import static utils.Constants.Saves.DATA_EQUAL;
-import static utils.Constants.Saves.DATA_SEPARATOR;
 import static utils.HelpMethods.*;
 
 public abstract class Enemy extends Entity {
@@ -78,6 +76,11 @@ public abstract class Enemy extends Entity {
             inAir = true;
     }
 
+    /**
+     * Performs checks for the enemy while it is in the air.
+     * @param lvlData The level data containing information about the environment.
+     * @param playing The {@link Playing} instance that manages the game state and player interactions.
+     */
     protected void inAirChecks(int[][] lvlData, Playing playing) {
         if (state != HIT && state != DEAD) {
             updateInAir(lvlData);
@@ -127,7 +130,7 @@ public abstract class Enemy extends Entity {
 
     /**
      * Turns the enemy towards the player based on their position.
-     * @param player The player entity that the enemy will turn towards.
+     * @param player The {@link Player} entity that the enemy will turn towards.
      */
     protected void turnTowardsPlayer(Player player) {
         if (player.hitbox.x > hitbox.x)
@@ -139,8 +142,8 @@ public abstract class Enemy extends Entity {
     /**
      * Checks if the enemy can see the player based on their position and the level data.
      * @param lvlData The level data containing information about the environment.
-     * @param player The player entity that the enemy will check visibility against.
-     * @return true if the enemy can see the player, false otherwise.
+     * @param player The {@link Player} entity that the enemy will check visibility against.
+     * @return {@code true} if the enemy can see the player, {@code false} otherwise.
      */
     protected boolean canSeePlayer(int[][] lvlData, Player player) {
         int playerTileY = (int) (player.getHitbox().y / TILES_SIZE);
@@ -154,8 +157,8 @@ public abstract class Enemy extends Entity {
 
     /**
      * Checks if the player is within a certain range of the enemy.
-     * @param player The player entity to check against the enemy's position.
-     * @return true if the player is within range, false otherwise.
+     * @param player The {@link Player} entity to check against the enemy's position.
+     * @return {@code true} if the player is within range, {@code false} otherwise.
      */
     protected boolean isPlayerInRange(Player player) {
         int absValue = (int) Math.abs(player.hitbox.x - hitbox.x);
@@ -164,8 +167,8 @@ public abstract class Enemy extends Entity {
 
     /**
      * Checks if the player is close enough for the enemy to attack.
-     * @param player The player entity to check against the enemy's position.
-     * @return true if the player is close enough for an attack, false otherwise.
+     * @param player The {@link Player} entity to check against the enemy's position.
+     * @return {@code true} if the player is close enough for an attack, {@code false} otherwise.
      */
     protected boolean isPlayerCloseForAttack(Player player) {
         int absValue = (int) Math.abs(player.hitbox.x - hitbox.x);
@@ -207,8 +210,8 @@ public abstract class Enemy extends Entity {
 
     /**
      * Checks if the enemy's attack box intersects with the player's hitbox and applies damage if it does.
-     * @param attackBox The attack box of the enemy used to check for collisions.
-     * @param player The player entity that the enemy is attacking.
+     * @param attackBox The attack box ({@link Rectangle2D.Float}) of the enemy used to check for collisions.
+     * @param player The {@link Player} entity that the enemy is attacking.
      */
     protected void checkEnemyHit(Rectangle2D.Float attackBox, Player player) {
         if (attackBox.intersects(player.getHitbox()))
@@ -264,7 +267,7 @@ public abstract class Enemy extends Entity {
 
     /**
      * Checks if the enemy is currently active.
-     * @return true if the enemy is active, false otherwise.
+     * @return {@code true} if the enemy is active, {@code false} otherwise.
      */
     protected boolean isActive() {
         return active;
@@ -298,7 +301,7 @@ public abstract class Enemy extends Entity {
 
     /**
      * Flips the enemy's walking direction for rendering.
-     * @return -1 if walking right, 1 if walking left.
+     * @return {@code -1} if walking right, {@code 1} if walking left.
      */
 	public int flipW() {
 		if (walkDir == RIGHT)

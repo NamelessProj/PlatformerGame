@@ -12,6 +12,7 @@ import java.awt.image.BufferedImage;
 
 import static utils.Constants.GameConstants.*;
 import static utils.Constants.UI.URMButtons.URM_SIZE;
+import static utils.HelpMethods.IsIn;
 
 public class GameOptions extends State implements Statemethods {
     private AudioOptions audioOptions;
@@ -21,7 +22,7 @@ public class GameOptions extends State implements Statemethods {
 
     /**
      * Constructor for GameOptions.
-     * @param game the game instance
+     * @param game the {@link Game} instance
      */
     public GameOptions(Game game) {
         super(game);
@@ -69,18 +70,8 @@ public class GameOptions extends State implements Statemethods {
     }
 
     /**
-     * Checks if the mouse event is within the bounds of the specified button.
-     * @param e the mouse event
-     * @param btn the button to check
-     * @return true if the mouse is within the button bounds, false otherwise
-     */
-    private boolean isIn(MouseEvent e, UrmButton btn) {
-        return btn.getBounds().contains(e.getX(), e.getY());
-    }
-
-    /**
      * Handles mouse dragging events for audio options.
-     * @param e the mouse event
+     * @param e the {@link MouseEvent} triggered by dragging
      */
     public void mouseDragged(MouseEvent e) {
         audioOptions.mouseDragged(e);
@@ -88,7 +79,7 @@ public class GameOptions extends State implements Statemethods {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        if (isIn(e, menuBtn))
+        if (IsIn(e, menuBtn))
             menuBtn.setMousePressed(true);
         else
             audioOptions.mousePressed(e);
@@ -96,7 +87,7 @@ public class GameOptions extends State implements Statemethods {
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        if (isIn(e, menuBtn)) {
+        if (IsIn(e, menuBtn)) {
             if (menuBtn.isMousePressed())
                 Gamestate.state = Gamestate.MENU;
         } else
@@ -109,7 +100,7 @@ public class GameOptions extends State implements Statemethods {
     public void mouseMoved(MouseEvent e) {
         menuBtn.setMouseOver(false);
 
-        if (isIn(e, menuBtn))
+        if (IsIn(e, menuBtn))
             menuBtn.setMouseOver(true);
         else
             audioOptions.mouseMoved(e);

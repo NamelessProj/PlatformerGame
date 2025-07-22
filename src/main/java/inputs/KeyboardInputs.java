@@ -11,7 +11,7 @@ public class KeyboardInputs implements KeyListener {
 
     /**
      * Constructor for KeyboardInputs
-     * @param gamePanel the GamePanel instance to which this keyboard input listener is attached
+     * @param gamePanel the {@link GamePanel} instance to which this keyboard input listener is attached
      */
     public KeyboardInputs(GamePanel gamePanel) {
         this.gamePanel = gamePanel;

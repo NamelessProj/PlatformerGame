@@ -72,7 +72,7 @@ public class LoadSave {
     /**
      * Loads a sprite atlas image from the resources.
      * @param fileName the name of the sprite atlas file
-     * @return BufferedImage containing the sprite atlas
+     * @return {@link BufferedImage} containing the sprite atlas
      */
     public static BufferedImage GetSpriteAtlas(String fileName) {
         BufferedImage img = null;
@@ -93,7 +93,7 @@ public class LoadSave {
 
     /**
      * Loads all level images from the resources.
-     * @return BufferedImage array containing all level images
+     * @return {@link BufferedImage} array containing all level images
      */
     public static BufferedImage[] GetAllLevels() {
         URL url = LoadSave.class.getResource("/images/lvls");
@@ -130,7 +130,7 @@ public class LoadSave {
     /**
      * Loads a text file from the resources.
      * @param fileName the name of the text file to load
-     * @return BufferedReader to read the text file
+     * @return {@link BufferedReader} to read the text file
      */
     public static BufferedReader GetText(String fileName) {
         BufferedReader br = null;
@@ -157,7 +157,7 @@ public class LoadSave {
     /**
      * Loads a font from the resources.
      * @param fileName the name of the font file to load
-     * @return Font object representing the loaded font
+     * @return {@link Font} object representing the loaded font
      */
     public static Font GetFont(String fileName) {
         Font font = null;
@@ -199,6 +199,11 @@ public class LoadSave {
         }
     }
 
+    /**
+     * Checks if a file exists in the specified directory.
+     * @param fileName the name of the file to check
+     * @return {@code true} if the file exists, {@code false} otherwise
+     */
     public static boolean DoesFileExists(String fileName) {
         File file = new File(Texts.EXT_FOLDER + fileName);
         return file.exists();

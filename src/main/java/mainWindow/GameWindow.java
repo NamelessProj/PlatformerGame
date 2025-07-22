@@ -11,7 +11,7 @@ import java.awt.image.BufferedImage;
 public class GameWindow extends JFrame {
     /**
      * Constructor for the GameWindow class.
-     * @param gamePanel the GamePanel instance that will be added to this window
+     * @param gamePanel the {@link GamePanel} instance that will be added to this window
      */
     public GameWindow(GamePanel gamePanel) {
         this.setTitle("A Pirate's Adventure");
@@ -33,6 +33,10 @@ public class GameWindow extends JFrame {
         });
     }
 
+    /**
+     * Returns the icon image for the game window.
+     * @return the {@link BufferedImage} representing the icon
+     */
     private BufferedImage getIcon() {
         return LoadSave.GetSpriteAtlas(LoadSave.Images.ICON);
     }

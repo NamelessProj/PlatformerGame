@@ -26,7 +26,7 @@ public class Pinkstar extends Enemy {
     /**
      * Updates the Pinkstar's state and behavior.
      * @param lvlData the level data containing information about the environment
-     * @param playing the Playing instance that manages the game state and player interactions
+     * @param playing the {@link Playing} instance that manages the game state and player interactions
      */
     public void update(int[][] lvlData, Playing playing) {
         updateBehavior(lvlData, playing);
@@ -36,7 +36,7 @@ public class Pinkstar extends Enemy {
     /**
      * Updates the Pinkstar's behavior based on its current state and the level data.
      * @param lvlData the level data containing information about the environment
-     * @param playing the Playing instance that manages the game state and player interactions
+     * @param playing the {@link Playing} instance that manages the game state and player interactions
      */
     public void updateBehavior(int[][] lvlData, Playing playing) {
         if (firstUpdate)
@@ -87,7 +87,7 @@ public class Pinkstar extends Enemy {
 
     /**
      * Checks if the Pinkstar is damaging the player and applies damage if necessary.
-     * @param player the Player instance to check for damage
+     * @param player the {@link Player} instance to check for damage
      */
     private void checkDamageToPlayer(Player player) {
         if (hitbox.intersects(player.getHitbox()))
@@ -100,7 +100,7 @@ public class Pinkstar extends Enemy {
 
     /**
      * Sets the walking direction of the Pinkstar based on the player's position.
-     * @param player the Player instance to determine the walking direction
+     * @param player the {@link Player} instance to determine the walking direction
      */
     private void setWalkDirection(Player player) {
         if (player.getHitbox().x > hitbox.x)
@@ -112,7 +112,7 @@ public class Pinkstar extends Enemy {
     /**
      * Moves the Pinkstar based on its current state and the level data.
      * @param lvlData the level data containing information about the environment
-     * @param playing the Playing instance that manages the game state and player interactions
+     * @param playing the {@link Playing} instance that manages the game state and player interactions
      */
     protected void move(int[][] lvlData, Playing playing) {
         float xSpeed = walkSpeed;
@@ -139,7 +139,7 @@ public class Pinkstar extends Enemy {
 
     /**
      * Checks if the Pinkstar should roll over based on its current state and the playing instance.
-     * @param playing the Playing instance that manages the game state and player interactions
+     * @param playing the {@link Playing} instance that manages the game state and player interactions
      */
     private void checkRollOver(Playing playing) {
         rollDurationTick++;
@@ -151,7 +151,7 @@ public class Pinkstar extends Enemy {
 
     /**
      * Changes the Pinkstar's state to IDLE when it rolls over.
-     * @param playing the Playing instance that manages the game state and player interactions
+     * @param playing the {@link Playing} instance that manages the game state and player interactions
      */
     private void rollOver(Playing playing) {
         newState(IDLE);
