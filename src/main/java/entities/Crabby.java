@@ -21,6 +21,20 @@ public class Crabby extends Enemy {
     }
 
     /**
+     * Crabby enemy constructor with parameters for direction, health, and active state.
+     * @param x The x-coordinate of the Crabby's position.
+     * @param y The y-coordinate of the Crabby's position.
+     * @param direction The direction the Crabby is facing ({@link utils.Constants.Directions#LEFT} or {@link utils.Constants.Directions#RIGHT}).
+     * @param health The initial health of the Crabby.
+     * @param active The active state of the Crabby ({@code 1} for active, {@code 0} for inactive).
+     */
+    public Crabby(float x, float y, int direction, int health, int active) {
+        super(x, y, CRABBY_WIDTH, CRABBY_HEIGHT, CRABBY, direction, health, active);
+        initHitbox(22, 19);
+        initAttackBox(82, 19, 30);
+    }
+
+    /**
      * Updates the Crabby's state and behavior based on the level data and player position.
      * @param lvlData The level data containing information about the environment.
      * @param playing The Playing instance that manages the game state and player interactions.

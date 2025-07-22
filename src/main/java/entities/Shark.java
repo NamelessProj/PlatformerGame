@@ -21,6 +21,20 @@ public class Shark extends Enemy {
     }
 
     /**
+     * Constructor for the Shark enemy with parameters for direction, health, and active state.
+     * @param x The x-coordinate of the Shark's position.
+     * @param y The y-coordinate of the Shark's position.
+     * @param direction The direction the Shark is facing ({@link utils.Constants.Directions#LEFT} or {@link utils.Constants.Directions#RIGHT}).
+     * @param health The initial health of the Shark.
+     * @param active The active state of the Shark ({@code 1} for active, {@code 0} for inactive).
+     */
+    public Shark(float x, float y, int direction, int health, int active) {
+        super(x, y, SHARK_WIDTH, SHARK_HEIGHT, SHARK, direction, health, active);
+        initHitbox(18, 22);
+        initAttackBox(20, 18, 20);
+    }
+
+    /**
      * Updates the Shark's state and behavior.
      * @param lvlData The level data containing information about the environment.
      * @param playing The {@link Playing} instance that manages the game state and player interactions.

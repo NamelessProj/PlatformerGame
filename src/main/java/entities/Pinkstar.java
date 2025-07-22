@@ -24,6 +24,19 @@ public class Pinkstar extends Enemy {
     }
 
     /**
+     * Constructor for the Pinkstar enemy with parameters for direction, health, and active state.
+     * @param x the x-coordinate of the Pinkstar's position
+     * @param y the y-coordinate of the Pinkstar's position
+     * @param direction the direction the Pinkstar is facing ({@link utils.Constants.Directions#LEFT} or {@link utils.Constants.Directions#RIGHT})
+     * @param health the initial health of the Pinkstar
+     * @param active the active state of the Pinkstar ({@code 1} for active, {@code 0} for inactive)
+     */
+    public Pinkstar(float x, float y, int direction, int health, int active) {
+        super(x, y, PINKSTAR_WIDTH, PINKSTAR_HEIGHT, PINKSTAR, direction, health, active);
+        initHitbox(17, 21);
+    }
+
+    /**
      * Updates the Pinkstar's state and behavior.
      * @param lvlData the level data containing information about the environment
      * @param playing the {@link Playing} instance that manages the game state and player interactions
