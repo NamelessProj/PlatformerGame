@@ -36,6 +36,27 @@ public abstract class Enemy extends Entity {
     }
 
     /**
+     * Enemy constructor with additional parameters for direction, health, and active state.
+     * @param x the x-coordinate of the enemy's position
+     * @param y the y-coordinate of the enemy's position
+     * @param width the width of the enemy's hitbox
+     * @param height the height of the enemy's hitbox
+     * @param enemyType the type of the enemy, determining its behavior and attributes
+     * @param direction the initial walking direction of the enemy ({@link utils.Constants.Directions#LEFT} or {@link utils.Constants.Directions#RIGHT})
+     * @param health the initial health of the enemy
+     * @param active the active state of the enemy ({@code 1} for active, {@code 0} for inactive)
+     */
+    public Enemy(float x, float y, int width, int height, int enemyType, int direction, int health, int active) {
+        super(x, y, width, height);
+        this.enemyType = enemyType;
+        maxHealth = GetMaxHealth(enemyType);
+        currentHealth = health;
+        walkSpeed = SCALE * 0.35f;
+        walkDir = direction == LEFT ? LEFT : RIGHT;
+        this.active = active == 1;
+    }
+
+    /**
      * Update the entity's attack box position based on its hitbox.
      */
     protected void updateAttackBox() {
@@ -324,7 +345,7 @@ public abstract class Enemy extends Entity {
 
     @Override
     public String toString() {
-        int[] data = new int[]{(int) x, (int) y, walkDir, currentHealth};
+        int[] data = new int[]{(int) x, (int) y, walkDir, currentHealth, active ? 1 : 0};
         return toString(data);
     }
 }
