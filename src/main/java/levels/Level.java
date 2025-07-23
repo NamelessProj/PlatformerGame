@@ -245,4 +245,16 @@ public class Level {
 
         return allEnemies;
     }
+
+    public void setCrabs(ArrayList<Crabby> crabs) {
+        this.crabs = crabs;
+    }
+
+    public void setPinkstars(ArrayList<Pinkstar> pinkstars) {
+        this.pinkstars = pinkstars;
+    }
+
+    public void setSharks(ArrayList<Shark> sharks) {
+        this.sharks = sharks;
+    }
 }
