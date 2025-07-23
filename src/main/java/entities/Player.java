@@ -6,6 +6,7 @@ import utils.LoadSave;
 import static utils.Constants.Directions.*;
 import static utils.Constants.GameConstants.*;
 import static utils.Constants.PlayerConstants.*;
+import static utils.Constants.Saves.DATA_SEPARATOR;
 import static utils.HelpMethods.*;
 
 import java.awt.*;
@@ -89,6 +90,24 @@ public class Player extends Entity {
         this.y = spawn.y;
         hitbox.x = x;
         hitbox.y = y;
+    }
+
+    /**
+     * Sets the player's position and state.
+     * @param x the x-coordinate of the player.
+     * @param y the y-coordinate of the player.
+     * @param left the direction the player is facing ({@code 1} for left, {@code 0} for right).
+     * @param right the direction the player is facing ({@code 1} for right, {@code 0} for left).
+     * @param health the current health of the player.
+     * @param power the current power of the player.
+     */
+    public void setPlayer(float x, float y, int left, int right, int health, int power) {
+        this.x = x;
+        this.y = y;
+        this.left = left == 1;
+        this.right = right == 1;
+        this.currentHealth = health;
+        this.powerValue = power;
     }
 
     /**
@@ -669,8 +688,8 @@ public class Player extends Entity {
 
     @Override
     public String toString() {
-        int dir = left ? -1 : 1;
-        int[] data = new int[]{(int) x, (int) y, dir, currentHealth, powerValue};
-        return toString(data);
+        String playerString = Float.toString(x) + DATA_SEPARATOR + Float.toString(y) + DATA_SEPARATOR;
+        int[] data = new int[]{left ? 1 : 0, right ? 1 : 0, currentHealth, powerValue};
+        return playerString + toString(data);
     }
 }
