@@ -45,16 +45,16 @@ public abstract class Enemy extends Entity {
      * @param enemyType the type of the enemy, determining its behavior and attributes
      * @param direction the initial walking direction of the enemy ({@link utils.Constants.Directions#LEFT} or {@link utils.Constants.Directions#RIGHT})
      * @param health the initial health of the enemy
-     * @param active the active state of the enemy ({@code 1} for active, {@code 0} for inactive)
+     * @param active the active state of the enemy
      */
-    public Enemy(float x, float y, int width, int height, int enemyType, int direction, int health, int active) {
+    public Enemy(float x, float y, int width, int height, int enemyType, int direction, int health, boolean active) {
         super(x, y, width, height);
         this.enemyType = enemyType;
         maxHealth = GetMaxHealth(enemyType);
         currentHealth = health;
         walkSpeed = SCALE * 0.35f;
         walkDir = direction == LEFT ? LEFT : RIGHT;
-        this.active = active == 1;
+        this.active = active;
     }
 
     /**
