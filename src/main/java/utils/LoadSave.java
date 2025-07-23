@@ -136,7 +136,7 @@ public class LoadSave {
         BufferedReader br = null;
         InputStream is = null;
 
-        if (fileName.equals(Texts.SETTINGS)) {
+        if (fileName.equals(Texts.SETTINGS) || fileName.equals(Texts.SAVE)) {
             File file = new File(Texts.EXT_FOLDER + fileName);
             if (file.exists()) {
                 try {
