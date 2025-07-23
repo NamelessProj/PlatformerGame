@@ -7,6 +7,7 @@ import gamestates.Playing;
 import static utils.Constants.Directions.*;
 import static utils.Constants.EnemyConstants.*;
 import static utils.Constants.GameConstants.*;
+import static utils.Constants.Saves.DATA_SEPARATOR;
 import static utils.HelpMethods.*;
 
 public abstract class Enemy extends Entity {
@@ -345,7 +346,8 @@ public abstract class Enemy extends Entity {
 
     @Override
     public String toString() {
-        int[] data = new int[]{(int) x, (int) y, walkDir, currentHealth, active ? 1 : 0};
-        return toString(data);
+        String enemyString = Float.toString(x) + DATA_SEPARATOR + Float.toString(y) + DATA_SEPARATOR;
+        int[] data = new int[]{walkDir, currentHealth, active ? 1 : 0};
+        return enemyString + toString(data);
     }
 }
