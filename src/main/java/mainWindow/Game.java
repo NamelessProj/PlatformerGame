@@ -8,6 +8,7 @@ import gamestates.Playing;
 import ui.AudioOptions;
 import utils.Constants;
 import audio.AudioPlayer;
+import gamesaves.GameSaves;
 
 import java.awt.Graphics;
 
@@ -52,9 +53,22 @@ public class Game implements Runnable {
         audioPlayer = new AudioPlayer();
         audioOptions = new AudioOptions(this, settings);
         menu = new Menu(this);
-        playing = new Playing(this);
         credits = new Credits(this);
         gameOptions = new GameOptions(this);
+        
+        // Create Playing instance first (without GameSaves)
+        playing = new Playing(this);
+        
+        // Create GameSaves instance after Playing is initialized
+        GameSaves gameSaves = new GameSaves(this);
+        
+        // Set the GameSaves instance in Playing
+        playing.setGameSaves(gameSaves);
+        
+        // Load save file if it exists
+        if (gameSaves.isSaveAvailable()) {
+            gameSaves.loadGame();
+        }
     }
 
     /**
@@ -95,6 +109,9 @@ public class Game implements Runnable {
             case PLAYING -> playing.draw(g);
             case OPTIONS -> gameOptions.draw(g);
             case CREDITS -> credits.draw(g);
+            case QUIT -> {
+                // No need to render anything when quitting
+            }
         }
     }
 
