@@ -108,6 +108,9 @@ public class Player extends Entity {
         this.right = right == 1;
         this.currentHealth = health;
         this.powerValue = power;
+        // Update hitbox position
+        hitbox.x = x;
+        hitbox.y = y;
     }
 
     /**
