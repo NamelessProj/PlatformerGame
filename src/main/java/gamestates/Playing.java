@@ -74,7 +74,7 @@ public class Playing extends State implements Statemethods {
 
         loadDialogue();
         calculateLevelOffsets();
-        loadStartLevel();
+        // Don't load the start level yet - wait for GameSaves to be set
     }
 
     /**
@@ -126,7 +126,7 @@ public class Playing extends State implements Statemethods {
      * Loads the starting level data, including enemies and objects.
      */
     private void loadStartLevel() {
-        if (gameSaves.isSaveAvailable())
+        if (gameSaves != null && gameSaves.isSaveAvailable())
             gameSaves.loadGame();
         else {
             enemyManager.loadEnemies(levelManager.getCurrentLevel());
@@ -148,7 +148,6 @@ public class Playing extends State implements Statemethods {
         levelManager = new LevelManager(game);
         enemyManager = new EnemyManager(this);
         objectManager = new ObjectManager(this);
-        gameSaves = new GameSaves(this);
 
         player = new Player(200, 200, (int) (64 * GameConstants.SCALE), (int) (40 * GameConstants.SCALE), this);
         player.loadLvlData(levelManager.getCurrentLevel().getLevelData());
@@ -489,5 +488,14 @@ public class Playing extends State implements Statemethods {
      */
     public GameSaves getGameSaves() {
         return gameSaves;
+    }
+
+    /**
+     * Set the game saves instance and load the start level.
+     * @param gameSaves the {@link GameSaves} instance to set
+     */
+    public void setGameSaves(GameSaves gameSaves) {
+        this.gameSaves = gameSaves;
+        loadStartLevel(); // Now we can load the start level
     }
 }
