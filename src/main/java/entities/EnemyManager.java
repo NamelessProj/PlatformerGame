@@ -208,4 +208,16 @@ public class EnemyManager {
     public ArrayList<Enemy> getAllEnemies() {
         return currentLevel.getAllEnemies();
     }
+
+    public void setCrabbies(ArrayList<Crabby> crabbies) {
+        currentLevel.setCrabs(crabbies);
+    }
+
+    public void setPinkstars(ArrayList<Pinkstar> pinkstars) {
+        currentLevel.setPinkstars(pinkstars);
+    }
+
+    public void setSharks(ArrayList<Shark> sharks) {
+        currentLevel.setSharks(sharks);
+    }
 }
