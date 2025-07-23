@@ -26,9 +26,9 @@ public class Shark extends Enemy {
      * @param y The y-coordinate of the Shark's position.
      * @param direction The direction the Shark is facing ({@link utils.Constants.Directions#LEFT} or {@link utils.Constants.Directions#RIGHT}).
      * @param health The initial health of the Shark.
-     * @param active The active state of the Shark ({@code 1} for active, {@code 0} for inactive).
+     * @param active The active state of the Shark
      */
-    public Shark(float x, float y, int direction, int health, int active) {
+    public Shark(float x, float y, int direction, int health, boolean active) {
         super(x, y, SHARK_WIDTH, SHARK_HEIGHT, SHARK, direction, health, active);
         initHitbox(18, 22);
         initAttackBox(20, 18, 20);

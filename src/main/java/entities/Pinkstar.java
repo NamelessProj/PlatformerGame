@@ -29,9 +29,9 @@ public class Pinkstar extends Enemy {
      * @param y the y-coordinate of the Pinkstar's position
      * @param direction the direction the Pinkstar is facing ({@link utils.Constants.Directions#LEFT} or {@link utils.Constants.Directions#RIGHT})
      * @param health the initial health of the Pinkstar
-     * @param active the active state of the Pinkstar ({@code 1} for active, {@code 0} for inactive)
+     * @param active the active state of the Pinkstar
      */
-    public Pinkstar(float x, float y, int direction, int health, int active) {
+    public Pinkstar(float x, float y, int direction, int health, boolean active) {
         super(x, y, PINKSTAR_WIDTH, PINKSTAR_HEIGHT, PINKSTAR, direction, health, active);
         initHitbox(17, 21);
     }

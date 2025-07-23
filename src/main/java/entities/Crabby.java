@@ -26,9 +26,9 @@ public class Crabby extends Enemy {
      * @param y The y-coordinate of the Crabby's position.
      * @param direction The direction the Crabby is facing ({@link utils.Constants.Directions#LEFT} or {@link utils.Constants.Directions#RIGHT}).
      * @param health The initial health of the Crabby.
-     * @param active The active state of the Crabby ({@code 1} for active, {@code 0} for inactive).
+     * @param active The active state of the Crabby
      */
-    public Crabby(float x, float y, int direction, int health, int active) {
+    public Crabby(float x, float y, int direction, int health, boolean active) {
         super(x, y, CRABBY_WIDTH, CRABBY_HEIGHT, CRABBY, direction, health, active);
         initHitbox(22, 19);
         initAttackBox(82, 19, 30);
