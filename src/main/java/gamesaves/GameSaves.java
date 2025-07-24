@@ -106,39 +106,40 @@ public class GameSaves {
                 String value = parts[1].trim();
 
                 switch (key) {
-                    case LEVEL_DECLARATION -> {
+                    case LEVEL -> {
                         if (!levelUpdated && IsInt(value)) {
                             levelUpdated = true;
                             int levelIndex = Integer.parseInt(value);
                             game.getPlaying().getLevelManager().setLevelIndex(levelIndex);
                         }
                     }
-                    case PLAYER_DECLARATION -> {
-                        if (!playerUpdated) {
-                            playerUpdated = true;
-                            String[] playerData = value.split(DATA_SEPARATOR);
+                    case PLAYER -> {
+                        if (playerUpdated)
+                            continue;
 
-                            if (playerData.length >= 6) {
-                                for (int i = 0; i < 2; i++)
-                                    if (!IsFloat(playerData[i]))
-                                        return;
+                        playerUpdated = true;
+                        String[] playerData = value.split(DATA_SEPARATOR);
 
-                                for (int i = 2; i < 6; i++)
-                                    if (!IsInt(playerData[i]))
-                                        return;
+                        if (playerData.length >= 6) {
+                            for (int i = 0; i < 2; i++)
+                                if (!IsFloat(playerData[i]))
+                                    return;
 
-                                float playerX = Float.parseFloat(playerData[0]);
-                                float playerY = Float.parseFloat(playerData[1]);
-                                int playerLeft = Integer.parseInt(playerData[2]);
-                                int playerRight = Integer.parseInt(playerData[3]);
-                                int playerHealth = Integer.parseInt(playerData[4]);
-                                int playerPower = Integer.parseInt(playerData[5]);
+                            for (int i = 2; i < 6; i++)
+                                if (!IsInt(playerData[i]))
+                                    return;
 
-                                game.getPlaying().getPlayer().setPlayer(playerX, playerY, playerLeft, playerRight, playerHealth, playerPower);
-                            }
+                            float playerX = Float.parseFloat(playerData[0]);
+                            float playerY = Float.parseFloat(playerData[1]);
+                            int playerLeft = Integer.parseInt(playerData[2]);
+                            int playerRight = Integer.parseInt(playerData[3]);
+                            int playerHealth = Integer.parseInt(playerData[4]);
+                            int playerPower = Integer.parseInt(playerData[5]);
+
+                            game.getPlaying().getPlayer().setPlayer(playerX, playerY, playerLeft, playerRight, playerHealth, playerPower);
                         }
                     }
-                    case ENEMIES_DECLARATION -> {
+                    case ENEMIES -> {
                         if (enemiesUpdated)
                             continue;
 
@@ -202,19 +203,27 @@ public class GameSaves {
         if (!levelUpdated)
             game.getPlaying().getLevelManager().setLevelIndex(0);
 
+        System.out.println("Level index: " + game.getPlaying().getLevelManager().getLevelIndex());
+
+        if (!playerUpdated) {
+            System.out.println("Player data not found, using default values.");
+            game.getPlaying().getPlayer().setSpawn(game.getPlaying().getLevelManager().getCurrentLevel().getPlayerSpawn());
+        }
+            
+
+        System.out.println("Player x: " + game.getPlaying().getPlayer().getHitbox().x);
+        System.out.println("Player y: " + game.getPlaying().getPlayer().getHitbox().y);
+
+        game.getPlaying().getEnemyManager().loadEnemies(game.getPlaying().getLevelManager().getCurrentLevel());
+
         if (enemiesUpdated) {
             // Set the saved enemy data
             game.getPlaying().getEnemyManager().setCrabbies(crabbies);
             game.getPlaying().getEnemyManager().setPinkstars(pinkstars);
             game.getPlaying().getEnemyManager().setSharks(sharks);
-        } else {
-            // Load enemies from level data if no saved data exists
-            game.getPlaying().getEnemyManager().loadEnemies(game.getPlaying().getLevelManager().getCurrentLevel());
         }
 
         // Always load objects from the current level
         game.getPlaying().getObjectManager().loadObjects(game.getPlaying().getLevelManager().getCurrentLevel());
-
-        game.getPlaying().getLevelManager().loadNextLevel();
     }
 }
