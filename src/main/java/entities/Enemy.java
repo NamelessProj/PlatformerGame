@@ -346,7 +346,7 @@ public abstract class Enemy extends Entity {
 
     @Override
     public String toString() {
-        String enemyString = Float.toString(x) + DATA_SEPARATOR + Float.toString(y) + DATA_SEPARATOR;
+        String enemyString = Float.toString(hitbox.x) + DATA_SEPARATOR + Float.toString(hitbox.y) + DATA_SEPARATOR;
         int[] data = new int[]{walkDir, currentHealth, active ? 1 : 0};
         return enemyString + toString(data);
     }

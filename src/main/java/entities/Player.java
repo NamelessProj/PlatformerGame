@@ -691,7 +691,7 @@ public class Player extends Entity {
 
     @Override
     public String toString() {
-        String playerString = Float.toString(x) + DATA_SEPARATOR + Float.toString(y) + DATA_SEPARATOR;
+        String playerString = Float.toString(hitbox.x) + DATA_SEPARATOR + Float.toString(hitbox.y) + DATA_SEPARATOR;
         int[] data = new int[]{left ? 1 : 0, right ? 1 : 0, currentHealth, powerValue};
         return playerString + toString(data);
     }
