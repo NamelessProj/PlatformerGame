@@ -64,11 +64,6 @@ public class Game implements Runnable {
         
         // Set the GameSaves instance in Playing
         playing.setGameSaves(gameSaves);
-        
-        // Load save file if it exists
-        if (gameSaves.isSaveAvailable()) {
-            gameSaves.loadGame();
-        }
     }
 
     /**
