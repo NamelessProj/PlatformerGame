@@ -119,7 +119,7 @@ public class Settings {
         sb.append(Const.SOUND_MUTED).append(Const.EQUALS).append(soundMuted).append("\n");
         sb.append(Const.MUSIC_MUTED).append(Const.EQUALS).append(musicMuted).append("\n");
         sb.append(Const.VOLUME).append(Const.EQUALS).append(volume).append("\n");
-        sb.append(Const.SCALE).append(Const.EQUALS).append(scale).append("\n");
+        sb.append(Const.SCALE).append(Const.EQUALS).append(scale);
         LoadSave.SaveText(LoadSave.Texts.SETTINGS, sb.toString());
     }
 
