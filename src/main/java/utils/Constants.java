@@ -6,9 +6,12 @@ public class Constants {
         public static final String DATA_SEPARATOR = ";";
         public static final String TYPE_SEPARATOR = "_";
         public static final String ENTITY_SEPARATOR = "-";
-        public static final String LEVEL_DECLARATION = "level" + DATA_EQUAL;
-        public static final String PLAYER_DECLARATION = "player" + DATA_EQUAL;
-        public static final String ENEMIES_DECLARATION = "enemies" + DATA_EQUAL;
+        public static final String LEVEL = "level";
+        public static final String PLAYER = "player";
+        public static final String ENEMIES = "enemies";
+        public static final String LEVEL_DECLARATION = LEVEL + DATA_EQUAL;
+        public static final String PLAYER_DECLARATION = PLAYER + DATA_EQUAL;
+        public static final String ENEMIES_DECLARATION = ENEMIES + DATA_EQUAL;
     }
 
     public static class Dialogue {
