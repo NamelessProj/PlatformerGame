@@ -126,7 +126,7 @@ public class Playing extends State implements Statemethods {
      * Loads the starting level data, including enemies and objects.
      */
     private void loadStartLevel() {
-        if (gameSaves != null && gameSaves.isSaveAvailable())
+        if (gameSaves.isSaveAvailable())
             gameSaves.loadGame();
         else {
             enemyManager.loadEnemies(levelManager.getCurrentLevel());
