@@ -73,6 +73,7 @@ PlatformerGame-master/
         │   ├── audio/              # Audio class related: AudioPlayer
         │   ├── effects/            # Effects: DialogueEffect
         │   ├── entities/           # Player, Enemy, Crabby, EnemyManager, etc.
+        │   ├── gamesaves/          # GameSaves: writing and loading saves
         │   ├── gamestates/         # Menu, Playing, State management
         │   ├── inputs/             # Keyboard and mouse input handling
         │   ├── levels/             # Level and level manager
