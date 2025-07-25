@@ -80,8 +80,6 @@ public class GameSaves {
      * This method initializes the enemies and objects in the current level based on the saved data.
      */
     public void loadGame() {
-        System.out.println("Loading game...");
-
         ArrayList<Crabby> crabbies = new ArrayList<>();
         ArrayList<Pinkstar> pinkstars = new ArrayList<>();
         ArrayList<Shark> sharks = new ArrayList<>();
@@ -200,30 +198,26 @@ public class GameSaves {
             e.printStackTrace();
         }
 
+        Playing playingState = game.getPlaying();
+
         if (!levelUpdated)
-            game.getPlaying().getLevelManager().setLevelIndex(0);
+            playingState.getLevelManager().setLevelIndex(0);
 
-        System.out.println("Level index: " + game.getPlaying().getLevelManager().getLevelIndex());
+        if (!playerUpdated)
+            playingState.getPlayer().setSpawn(playingState.getLevelManager().getCurrentLevel().getPlayerSpawn());
 
-        if (!playerUpdated) {
-            System.out.println("Player data not found, using default values.");
-            game.getPlaying().getPlayer().setSpawn(game.getPlaying().getLevelManager().getCurrentLevel().getPlayerSpawn());
-        }
-            
+        playingState.getPlayer().loadLvlData(playingState.getLevelManager().getCurrentLevel().getLevelData());
 
-        System.out.println("Player x: " + game.getPlaying().getPlayer().getHitbox().x);
-        System.out.println("Player y: " + game.getPlaying().getPlayer().getHitbox().y);
-
-        game.getPlaying().getEnemyManager().loadEnemies(game.getPlaying().getLevelManager().getCurrentLevel());
+        playingState.getEnemyManager().loadEnemies(playingState.getLevelManager().getCurrentLevel());
 
         if (enemiesUpdated) {
             // Set the saved enemy data
-            game.getPlaying().getEnemyManager().setCrabbies(crabbies);
-            game.getPlaying().getEnemyManager().setPinkstars(pinkstars);
-            game.getPlaying().getEnemyManager().setSharks(sharks);
+            playingState.getEnemyManager().setCrabbies(crabbies);
+            playingState.getEnemyManager().setPinkstars(pinkstars);
+            playingState.getEnemyManager().setSharks(sharks);
         }
 
         // Always load objects from the current level
-        game.getPlaying().getObjectManager().loadObjects(game.getPlaying().getLevelManager().getCurrentLevel());
+        playingState.getObjectManager().loadObjects(playingState.getLevelManager().getCurrentLevel());
     }
 }
