@@ -51,7 +51,7 @@ public abstract class Enemy extends Entity {
         super(x, y, width, height);
         this.enemyType = enemyType;
         maxHealth = GetMaxHealth(enemyType);
-        currentHealth = health;
+        currentHealth = (health > maxHealth || health < 0) ? maxHealth : health;
         walkSpeed = SCALE * 0.35f;
         walkDir = direction == LEFT ? LEFT : RIGHT;
         this.active = active;
