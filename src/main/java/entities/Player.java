@@ -106,8 +106,8 @@ public class Player extends Entity {
         this.y = y;
         this.left = left == 1;
         this.right = right == 1;
-        this.currentHealth = health;
-        this.powerValue = power;
+        this.currentHealth = (health > 100 || health < 0) ? 100 : health;
+        this.powerValue = (power > powerMaxValue || power < 0) ? powerMaxValue : power;
         // Update hitbox position
         hitbox.x = x;
         hitbox.y = y;
