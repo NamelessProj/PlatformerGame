@@ -83,15 +83,19 @@ public class Game implements Runnable {
             case PLAYING -> playing.update();
             case OPTIONS -> gameOptions.update();
             case CREDITS -> credits.update();
-            case QUIT -> {
-                audioPlayer.shutdown();
-                System.exit(0);
-            }
-            default -> {
-                audioPlayer.shutdown();
-                System.exit(1);
-            }
+            case QUIT -> quitGame(0);
+            default -> quitGame(1);
         }
+    }
+
+    /**
+     * Quits the game and exits the application.
+     * @param exitCode the exit code to return to the operating system
+     */
+    private void quitGame(int exitCode) {
+        audioPlayer.shutdown();
+        playing.getGameSaves().saveGame();
+        System.exit(exitCode);
     }
 
     /**
