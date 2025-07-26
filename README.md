@@ -33,6 +33,14 @@ The game features multiple levels, enemies, hazards, pickups, and a functional U
 | `Left Click`     | Attack            |
 | `Right Click`    | Power Attack      |
 
+## Settings
+When you start the game, the settings will be loaded. In there we store the volume, if the music is muted, if the sfx are muted and the scale to display the game.
+
+The scale is calculated based on your screen size. So if the game is too big or too small, you can change in the file `settings.txt` the value of the scale. You can basically change other variables too, but the scale is the only one that you can't change in game.
+
+## Saves
+You can save the game whenever you want and the next time you play the game, you'll be able to continue where you were.
+
 ## Libraries
 I used libraries to enhanced sound management.
 
