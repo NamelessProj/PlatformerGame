@@ -1,6 +1,5 @@
 package levels;
 
-import gamestates.Gamestate;
 import mainWindow.Game;
 import utils.LoadSave;
 
