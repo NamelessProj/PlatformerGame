@@ -12,16 +12,18 @@ import static utils.HelpMethods.IsFloat;
 public class Settings {
     public static class Const {
         public static final String EQUALS = "=";
-        public static final int NUM_SETTINGS = 4;
+        public static final int NUM_SETTINGS = 5;
         public static final String SOUND_MUTED = "sound_muted";
         public static final String MUSIC_MUTED = "music_muted";
         public static final String VOLUME = "volume";
         public static final String SCALE = "scale";
+        public static final String SAVE_ON_EXIT = "save_on_exit";
     }
 
     private boolean musicMuted, soundMuted;
     private float volume = 0.5f;
     private float scale = -1f;
+    private boolean saveOnExit = true;
 
     /**
      * Constructor for the Settings class.
@@ -70,6 +72,7 @@ public class Settings {
                                 this.scale = scale;
                             }
                         }
+                        case Const.SAVE_ON_EXIT -> saveOnExit = value.equals("true");
                     }
 
                     line = reader.readLine();
@@ -119,7 +122,8 @@ public class Settings {
         sb.append(Const.SOUND_MUTED).append(Const.EQUALS).append(soundMuted).append("\n");
         sb.append(Const.MUSIC_MUTED).append(Const.EQUALS).append(musicMuted).append("\n");
         sb.append(Const.VOLUME).append(Const.EQUALS).append(volume).append("\n");
-        sb.append(Const.SCALE).append(Const.EQUALS).append(scale);
+        sb.append(Const.SCALE).append(Const.EQUALS).append(scale).append("\n");
+        sb.append(Const.SAVE_ON_EXIT).append(Const.EQUALS).append(saveOnExit).append("\n");
         LoadSave.SaveText(LoadSave.Texts.SETTINGS, sb.toString());
     }
 
@@ -153,5 +157,13 @@ public class Settings {
      */
     public float getScale() {
         return scale;
+    }
+
+    /**
+     * Returns whether to save the game on exit.
+     * @return {@code true} if the game should be saved on exit, {@code false} otherwise.
+     */
+    public boolean getSaveOnExit() {
+        return saveOnExit;
     }
 }
