@@ -24,6 +24,7 @@ public class Game implements Runnable {
     private GameOptions gameOptions;
     private AudioOptions audioOptions;
     private AudioPlayer audioPlayer;
+    private Settings settings;
 
     private final boolean SHOW_FPS_UPS = true;
 
@@ -46,7 +47,7 @@ public class Game implements Runnable {
      * Initializes the game classes used in the game.
      */
     private void initClasses() {
-        Settings settings = new Settings();
+        settings = new Settings();
 
         Constants.UpdateConstantsDependingOnScale(settings.getScale());
 
@@ -94,7 +95,8 @@ public class Game implements Runnable {
      */
     private void quitGame(int exitCode) {
         audioPlayer.shutdown();
-        playing.getGameSaves().saveGame();
+        if (settings.getSaveOnExit())
+            playing.getGameSaves().saveGame();
         System.exit(exitCode);
     }
 

@@ -166,4 +166,8 @@ public class Settings {
     public boolean getSaveOnExit() {
         return saveOnExit;
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> cb8a7aabd3e704164ba32af62b4320f2c7952ae9
