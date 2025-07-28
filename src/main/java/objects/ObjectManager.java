@@ -5,6 +5,7 @@ import entities.Player;
 import gamestates.Playing;
 import levels.Level;
 import utils.LoadSave;
+import utils.Constants.Tree;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
@@ -15,6 +16,7 @@ import static utils.Constants.Directions.*;
 import static utils.Constants.GameConstants.*;
 import static utils.Constants.ObjectConstants.*;
 import static utils.Constants.Projectiles.*;
+import static utils.Constants.Tree.*;
 import static utils.HelpMethods.CanCannonSeePlayer;
 import static utils.HelpMethods.IsProjectileHittingLevel;
 
@@ -22,7 +24,7 @@ public class ObjectManager {
     private Playing playing;
     private BufferedImage spikeImage, cannonBallImage;
     private BufferedImage[] cannonImages, grassImages;
-    private BufferedImage[][] potionImages, containerImages;
+    private BufferedImage[][] potionImages, containerImages, treeImgs;
     private ArrayList<Potion> potions;
     private ArrayList<GameContainer> containers;
     private ArrayList<Projectile> projectiles = new ArrayList<>();
@@ -142,6 +144,17 @@ public class ObjectManager {
 
         cannonBallImage = LoadSave.GetSpriteAtlas(LoadSave.Sprites.CANNON_BALL);
 
+        int treeRows = 2;
+        int treeColumns = Tree.NUM_ANIMATIONS;
+        treeImgs = new BufferedImage[treeRows][treeColumns];
+        BufferedImage treeOneImg = LoadSave.GetSpriteAtlas(LoadSave.Sprites.TREE_ONE_ATLAS);
+        for (int i = 0; i < treeColumns; i++)
+            treeImgs[0][i] = treeOneImg.getSubimage(i * TREE_ONE_WIDTH_DEFAULT, 0, TREE_ONE_WIDTH_DEFAULT, TREE_ONE_HEIGHT_DEFAULT);
+
+        BufferedImage treeTwoImg = LoadSave.GetSpriteAtlas(LoadSave.Sprites.TREE_TWO_ATLAS);
+        for (int i = 0; i < treeColumns; i++)
+            treeImgs[1][i] = treeTwoImg.getSubimage(i * TREE_TWO_WIDTH_DEFAULT, 0, TREE_TWO_WIDTH_DEFAULT, TREE_TWO_HEIGHT_DEFAULT);
+
         BufferedImage grassTemp = LoadSave.GetSpriteAtlas(LoadSave.Sprites.GRASS_ATLAS);
         grassImages = new BufferedImage[2];
         for (int i = 0; i < grassImages.length; i++)
@@ -154,6 +167,7 @@ public class ObjectManager {
      * @param player the {@link Player} instance to check for interactions with objects
      */
     public void update(int[][] lvlData, Player player) {
+        updateBackgroundTrees();
         for (Potion p : potions)
             if (p.isActive())
                 p.update();
@@ -164,6 +178,14 @@ public class ObjectManager {
 
         updateCannons(lvlData, player);
         updateProjectiles(lvlData, player);
+    }
+
+    /**
+     * Updates the state of all background trees in the current level, cycling through their animations.
+     */
+    private void updateBackgroundTrees() {
+        for (BackgroundTree bt : currentLevel.getTrees())
+            bt.update();
     }
 
     /**
@@ -263,6 +285,25 @@ public class ObjectManager {
                     (int) (32 * SCALE),
                     (int) (32 * SCALE),
                     null);
+    }
+
+    /**
+     * Draws the background trees in the current level, adjusting their position based on the x-level offset.
+     * @param g the {@link Graphics} object used for drawing
+     * @param xLvlOffset the x-level offset for drawing trees
+     */
+    public void drawBackgroundTrees(Graphics g, int xLvlOffset) {
+        for (BackgroundTree bt : currentLevel.getTrees()) {
+            int type = bt.getType();
+            if (type == 9)
+                type = 8;
+            g.drawImage(treeImgs[type - 7][bt.getAnimationIndex()],
+                    bt.getX() - xLvlOffset + GetTreeOffsetX(bt.getType()),
+                    bt.getY() + GetTreeOffsetY(bt.getType()),
+                    GetTreeWidth(bt.getType()),
+                    GetTreeHeight(bt.getType()),
+                    null);
+        }
     }
 
     /**
