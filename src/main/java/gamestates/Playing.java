@@ -322,6 +322,7 @@ public class Playing extends State implements Statemethods {
         objectManager.draw(g, xLevelOffset);
         enemyManager.draw(g, xLevelOffset);
         player.render(g, xLevelOffset);
+        objectManager.drawBackgroundTrees(g, xLevelOffset);
         drawDialogue(g, xLevelOffset);
 
         if (paused) {
