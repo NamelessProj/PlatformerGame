@@ -4,6 +4,7 @@ import entities.Crabby;
 import entities.Enemy;
 import entities.Pinkstar;
 import entities.Shark;
+import objects.BackgroundTree;
 import objects.Cannon;
 import objects.GameContainer;
 import objects.Grass;
@@ -17,6 +18,9 @@ import java.util.ArrayList;
 import static utils.Constants.EnemyConstants.*;
 import static utils.Constants.ObjectConstants.*;
 import static utils.Constants.PlayerConstants.PLAYER_SPAWN_ID;
+import static utils.Constants.Tree.TREE_ONE;
+import static utils.Constants.Tree.TREE_THREE;
+import static utils.Constants.Tree.TREE_TWO;
 import static utils.Constants.GameConstants.*;
 
 public class Level {
@@ -30,6 +34,7 @@ public class Level {
     private ArrayList<GameContainer> containers = new ArrayList<>();
     private ArrayList<Spike> spikes = new ArrayList<>();
     private ArrayList<Cannon> cannons = new ArrayList<>();
+    private ArrayList<BackgroundTree> trees = new ArrayList<>();
     private ArrayList<Grass> grass = new ArrayList<>();
 
     private int levelTilesWide;
@@ -118,6 +123,7 @@ public class Level {
             case BARREL, BOX -> containers.add(new GameContainer(x * TILES_SIZE, y * TILES_SIZE, blue));
             case SPIKE -> spikes.add(new Spike(x * TILES_SIZE, y * TILES_SIZE, SPIKE));
             case CANNON_LEFT, CANNON_RIGHT -> cannons.add(new Cannon(x * TILES_SIZE, y * TILES_SIZE, blue));
+            case TREE_ONE, TREE_TWO, TREE_THREE -> trees.add(new BackgroundTree(x * TILES_SIZE, y * TILES_SIZE, blue));
         }
     }
 
@@ -209,6 +215,14 @@ public class Level {
      */
     public ArrayList<Cannon> getCannons() {
         return cannons;
+    }
+
+    /**
+     * Returns all background trees in the level.
+     * @return an ArrayList of {@link BackgroundTree} objects
+     */
+    public ArrayList<BackgroundTree> getTrees() {
+        return trees;
     }
 
     /**
