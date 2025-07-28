@@ -95,6 +95,81 @@ public class Constants {
         }
     }
 
+    public static class Tree {
+        public static final int NUM_ANIMATIONS = 4;
+
+        public static final int TREE_ONE = 7;
+        public static final int TREE_TWO = 8;
+        public static final int TREE_THREE = 9;
+
+        public static final int TREE_ONE_WIDTH_DEFAULT = 39;
+        public static final int TREE_ONE_HEIGHT_DEFAULT = 92;
+        public static int TREE_ONE_WIDTH = TREE_ONE_WIDTH_DEFAULT;
+        public static int TREE_ONE_HEIGHT = TREE_ONE_HEIGHT_DEFAULT;
+
+        public static final int TREE_TWO_WIDTH_DEFAULT = 62;
+        public static final int TREE_TWO_HEIGHT_DEFAULT = 54;
+        public static int TREE_TWO_WIDTH = TREE_TWO_WIDTH_DEFAULT;
+        public static int TREE_TWO_HEIGHT = TREE_TWO_HEIGHT_DEFAULT;
+
+        public static final int TREE_THREE_WIDTH_DEFAULT = 62;
+        public static int TREE_THREE_WIDTH = TREE_THREE_WIDTH_DEFAULT;
+
+        /**
+         * Returns the horizontal offset for a tree based on its type.
+         * @param treeType the type of the tree (e.g., {@link #TREE_ONE}, {@link #TREE_TWO}, etc.)
+         * @return the horizontal offset for the tree
+         */
+        public static int GetTreeOffsetX(int treeType) {
+            return switch (treeType) {
+                case TREE_ONE -> (GameConstants.TILES_SIZE / 2) - (GetTreeWidth(treeType) / 2);
+                case TREE_TWO -> (int) (GameConstants.TILES_SIZE / 2.5f);
+                case TREE_THREE -> (int) (GameConstants.TILES_SIZE / 1.65f);
+                default -> 0;
+            };
+        }
+
+        /**
+         * Returns the vertical offset for a tree based on its type.
+         * @param treeType the type of the tree (e.g., {@link #TREE_ONE}, {@link #TREE_TWO}, etc.)
+         * @return the vertical offset for the tree
+         */
+        public static int GetTreeOffsetY(int treeType) {
+            return switch (treeType) {
+                case TREE_ONE -> -GetTreeHeight(treeType) + GameConstants.TILES_SIZE * 2;
+                case TREE_TWO, TREE_THREE -> -GetTreeHeight(treeType) + (int) (GameConstants.TILES_SIZE / 1.25f);
+                default -> 0;
+            };
+        }
+
+        /**
+         * Returns the width of a tree based on its type.
+         * @param treeType the type of the tree (e.g., {@link #TREE_ONE}, {@link #TREE_TWO}, etc.)
+         * @return the width of the tree
+         */
+        public static int GetTreeWidth(int treeType) {
+            return switch (treeType) {
+                case TREE_ONE -> TREE_ONE_WIDTH;
+                case TREE_TWO -> TREE_TWO_WIDTH;
+                case TREE_THREE -> TREE_THREE_WIDTH;
+                default -> 0;
+            };
+        }
+
+        /**
+         * Returns the height of a tree based on its type.
+         * @param treeType the type of the tree (e.g., {@link #TREE_ONE}, {@link #TREE_TWO}, etc.)
+         * @return the height of the tree
+         */
+        public static int GetTreeHeight(int treeType) {
+            return switch (treeType) {
+                case TREE_ONE -> TREE_ONE_HEIGHT;
+                case TREE_TWO, TREE_THREE -> TREE_TWO_HEIGHT;
+                default -> 0;
+            };
+        }
+    }
+
     public static class EnemyConstants {
         public static final int CRABBY = 0;
         public static final int PINKSTAR = 1;
@@ -337,5 +412,11 @@ public class Constants {
 
         Dialogue.DIALOGUE_HEIGHT *= scale;
         Dialogue.DIALOGUE_WIDTH *= scale;
+
+        Tree.TREE_ONE_WIDTH *= scale;
+        Tree.TREE_ONE_HEIGHT *= scale;
+        Tree.TREE_TWO_WIDTH *= scale;
+        Tree.TREE_TWO_HEIGHT *= scale;
+        Tree.TREE_THREE_WIDTH *= scale;
     }
 }
