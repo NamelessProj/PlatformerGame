@@ -1,19 +1,23 @@
 package gamestates;
 
 import mainWindow.Game;
+import ui.GitHubButton;
 import ui.MenuButton;
 import utils.LoadSave;
 
 import static utils.Constants.GameConstants.*;
+import static utils.Constants.UI.PauseButtons.SOUND_SIZE_DEFAULT;
 import static utils.HelpMethods.IsIn;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.net.URI;
 
 public class Menu extends State implements Statemethods {
     private MenuButton[] buttons = new MenuButton[4];
+    private GitHubButton githubBtn;
     private BufferedImage backgroundImg, backgroundImgPink;
     private int menuX, menuY, menuWidth, menuHeight;
 
@@ -44,10 +48,15 @@ public class Menu extends State implements Statemethods {
      * Loads the buttons for the menu.
      */
     private void loadButtons() {
-        buttons[0] = new MenuButton(GAME_WIDTH / 2, (int) (130 * SCALE), 0, Gamestate.PLAYING);
-        buttons[1] = new MenuButton(GAME_WIDTH / 2, (int) (200 * SCALE), 1, Gamestate.OPTIONS);
-        buttons[2] = new MenuButton(GAME_WIDTH / 2, (int) (270 * SCALE), 3, Gamestate.CREDITS);
-        buttons[3] = new MenuButton(GAME_WIDTH / 2, (int) (340 * SCALE), 2, Gamestate.QUIT);
+        int menuX = GAME_WIDTH / 2;
+        buttons[0] = new MenuButton(menuX, (int) (130 * SCALE), 0, Gamestate.PLAYING);
+        buttons[1] = new MenuButton(menuX, (int) (200 * SCALE), 1, Gamestate.OPTIONS);
+        buttons[2] = new MenuButton(menuX, (int) (270 * SCALE), 3, Gamestate.CREDITS);
+        buttons[3] = new MenuButton(menuX, (int) (340 * SCALE), 2, Gamestate.QUIT);
+
+        int githubX = (int) (GAME_WIDTH - 50 * SCALE);
+        int githubY = (int) (GAME_HEIGHT - 50 * SCALE);
+        githubBtn = new GitHubButton(githubX, githubY, SOUND_SIZE_DEFAULT, SOUND_SIZE_DEFAULT);
     }
 
     /**
@@ -56,12 +65,16 @@ public class Menu extends State implements Statemethods {
     private void resetButtons() {
         for (MenuButton btn : buttons)
             btn.resetBools();
+
+        githubBtn.resetBools();
     }
 
     @Override
     public void update() {
         for (MenuButton btn : buttons)
             btn.update();
+
+        githubBtn.update();
     }
 
     @Override
@@ -71,6 +84,8 @@ public class Menu extends State implements Statemethods {
 
         for (MenuButton btn : buttons)
             btn.draw(g);
+
+        githubBtn.draw(g);
     }
 
     @Override
@@ -81,6 +96,9 @@ public class Menu extends State implements Statemethods {
                 break;
             }
         }
+
+        if (IsIn(e, githubBtn))
+            githubBtn.setMousePressed(true);
     }
 
     @Override
@@ -93,6 +111,17 @@ public class Menu extends State implements Statemethods {
                 if (btn.getState() == Gamestate.PLAYING)
                     game.getAudioPlayer().setLevelSong(game.getPlaying().getLevelManager().getLevelIndex());
                 break;
+            }
+        }
+        if (IsIn(e, githubBtn)) {
+            if (githubBtn.isMousePressed()) {
+                githubBtn.setMousePressed(false);
+                // Open GitHub link or perform action
+                try {
+                    Desktop.getDesktop().browse(new URI("https://github.com/NamelessProj/PlatformerGame"));
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
             }
         }
         resetButtons();
@@ -108,6 +137,10 @@ public class Menu extends State implements Statemethods {
                 btn.setMouseOver(true);
                 break;
             }
+
+        githubBtn.setMouseOver(false);
+        if (IsIn(e, githubBtn))
+            githubBtn.setMouseOver(true);
     }
 
     @Override
