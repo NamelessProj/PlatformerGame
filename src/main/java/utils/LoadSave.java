@@ -40,6 +40,7 @@ public class LoadSave {
         public static final String SOUND_BUTTONS = "sound_button.png";
         public static final String URM_BUTTONS = "urm_buttons.png";
         public static final String VOLUME_BUTTONS = "volume_buttons.png";
+        public static final String GITHUB_BUTTONS = "github_btn.png";
 
         public static final String QUESTION_ATLAS = "question_atlas.png";
         public static final String EXCLAMATION_ATLAS = "exclamation_atlas.png";
