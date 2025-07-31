@@ -12,11 +12,21 @@ public class GitHubButton extends MyButton {
     private boolean mouseOver, mousePressed;
     private int colIndex;
 
+    /**
+     * Constructor for the GitHubButton class.
+     * @param x the x-coordinate of the button
+     * @param y the y-coordinate of the button
+     * @param width the width of the button
+     * @param height the height of the button
+     */
     public GitHubButton(int x, int y, int width, int height) {
         super(x, y, width, height);
         loadGitHubButtonImages();
     }
 
+    /**
+     * Loads the images for the GitHub button.
+     */
     private void loadGitHubButtonImages() {
         BufferedImage temp = LoadSave.GetSpriteAtlas(LoadSave.Sprites.GITHUB_BUTTONS);
         gitHubBtnImages = new BufferedImage[3];
@@ -25,11 +35,17 @@ public class GitHubButton extends MyButton {
             gitHubBtnImages[i] = temp.getSubimage(i * SOUND_SIZE_DEFAULT, 0, SOUND_SIZE_DEFAULT, SOUND_SIZE_DEFAULT);
     }
 
+    /**
+     * Resets the mouse over and pressed states of the button.
+     */
     public void resetBools() {
         mouseOver = false;
         mousePressed = false;
     }
 
+    /**
+     * Updates the button's state based on mouse interaction.
+     */
     public void update() {
         colIndex = 0;
         if (mouseOver)
@@ -38,6 +54,10 @@ public class GitHubButton extends MyButton {
             colIndex = 2;
     }
 
+    /**
+     * Draws the button on the screen.
+     * @param g the {@link Graphics} object used for drawing
+     */
     public void draw(Graphics g) {
         g.drawImage(gitHubBtnImages[colIndex], x, y, width, height, null);
     }
