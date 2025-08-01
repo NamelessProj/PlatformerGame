@@ -1,5 +1,7 @@
 package ui;
 
+import static utils.Constants.UI.Buttons.B_HEIGHT;
+import static utils.Constants.UI.Buttons.B_WIDTH;
 import static utils.Constants.UI.PauseButtons.SOUND_SIZE_DEFAULT;
 
 import java.awt.Graphics;
@@ -59,7 +61,7 @@ public class GitHubButton extends MyButton {
      * @param g the {@link Graphics} object used for drawing
      */
     public void draw(Graphics g) {
-        g.drawImage(gitHubBtnImages[colIndex], x, y, width, height, null);
+        g.drawImage(gitHubBtnImages[colIndex], x, y, B_WIDTH, B_HEIGHT, null);
     }
 
     /**
